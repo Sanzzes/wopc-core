@@ -31,11 +31,11 @@ SET_TARGET_PROPERTIES(logon PROPERTIES LINK_FLAGS "${logon_LINK_FLAGS}")
 target_link_libraries(
 logon
 shared
-ixiliumframework
-ixiliumsockets
-ixiliumdatabase
-ixiliumauth
-ixiliumconfig
+WoPCCoreframework
+WoPCCoresockets
+WoPCCoredatabase
+WoPCCoreauth
+WoPCCoreconfig
 zlib
 gomp
 ${SSLLIB}

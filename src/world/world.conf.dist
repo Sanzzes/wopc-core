@@ -49,9 +49,9 @@ ConfVersion=2009120742
 RealmID = 1
 DataDir = "Data"
 LogsDir = "Logs"
-LoginDatabaseInfo     = "127.0.0.1;3306;root;ixilium;logon"
-WorldDatabaseInfo     = "127.0.0.1;3306;root;ixilium;world"
-CharacterDatabaseInfo = "127.0.0.1;3306;root;ixilium;characters"
+LoginDatabaseInfo     = "127.0.0.1;3306;root;WoPCCore;logon"
+WorldDatabaseInfo     = "127.0.0.1;3306;root;WoPCCore;world"
+CharacterDatabaseInfo = "127.0.0.1;3306;root;WoPCCore;characters"
 MaxPingTime = 30
 WorldServerPort = 8085
 BindIP = "0.0.0.0"
@@ -844,7 +844,7 @@ OffhandCheckAtSpellUnlearn = 0
 ClientCacheVersion = 1
 Event.Announce = 1
 BeepAtStart = 1
-Motd = "Welcome to IxiliumEmu."
+Motd = "Welcome to WoPCCoreEmu."
 Server.LoginInfo = 1
 
 ###################################################################################################################
@@ -2012,7 +2012,7 @@ Ra.Secure = 1
 #
 #   CheckDB
 #       Check if your DB is outdated. Disabling this option means that you decide to use a DB which is
-#       not compatible with IxiliumEmu and are ready for all kinds of bugs. 
+#       not compatible with WoPCCore and are ready for all kinds of bugs. 
 #       Default: 1 = enable
 #
 ###################################################################################################################

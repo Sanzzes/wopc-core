@@ -38,11 +38,11 @@ world
 game
 shared
 zlib
-ixiliumframework
-ixiliumsockets
-ixiliumdatabase
-ixiliumauth
-ixiliumconfig
+WoPCCoreframework
+WoPCCoresockets
+WoPCCoredatabase
+WoPCCoreauth
+WoPCCoreconfig
 vmaps
 g3dlite
 ${READLINE_LIBRARY}

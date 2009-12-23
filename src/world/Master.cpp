@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WoPC-Core <http://www.worldofprivatecraft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
  */
 
 /// \file
-/// \ingroup Ixiliumd
+/// \ingroup WoPCCored
 
 #include <ace/OS_NS_signal.h>
 
@@ -158,9 +158,9 @@ public:
             std::string stringip = sConfig.GetStringDefault ("Ra.IP", "0.0.0.0");
             ipaddr_t raip;
             if (!Utility::u2ip (stringip, raip))
-                sLog.outError ("Ixilium RA can not bind to ip %s", stringip.c_str ());
+                sLog.outError ("WoPCCore RA can not bind to ip %s", stringip.c_str ());
             else if (RAListenSocket.Bind (raip, raport))
-                sLog.outError ("Ixilium RA can not bind to port %d on %s", raport, stringip.c_str ());
+                sLog.outError ("WoPCCore RA can not bind to port %d on %s", raport, stringip.c_str ());
             else
             {
                 h.Add (&RAListenSocket);
@@ -278,7 +278,7 @@ int Master::Run()
 
                 if (!curAff )
                 {
-                    sLog.outError("Processors marked in UseProcessors bitmask (hex) %x not accessible for Ixiliumd. Accessible processors bitmask (hex): %x",Aff,appAff);
+                    sLog.outError("Processors marked in UseProcessors bitmask (hex) %x not accessible for WoPCCored. Accessible processors bitmask (hex): %x",Aff,appAff);
                 }
                 else
                 {
@@ -299,7 +299,7 @@ int Master::Run()
             if (SetPriorityClass(hProcess,HIGH_PRIORITY_CLASS))
                 sLog.outString("World process priority class set to HIGH");
             else
-                sLog.outError("ERROR: Can't set Ixilium process priority class.");
+                sLog.outError("ERROR: Can't set WoPCCore process priority class.");
             sLog.outString("");
         }
     }

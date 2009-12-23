@@ -1,4 +1,4 @@
-# Install script for directory: /opt/riboncore/src/logon
+# Install script for directory: /opt/WoPCCore/src/logon
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)

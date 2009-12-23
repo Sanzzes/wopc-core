@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WoPC-Core <http://www.worldofprivatecraft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-/// \addtogroup Ixiliumd Ixilium Daemon
+/// \addtogroup WoPCCored WoPC-Core Daemon
 /// @{
 /// \file
 
@@ -36,9 +36,9 @@
 
 #ifdef WIN32
 #include "ServiceWin32.h"
-char serviceName[] = "IxiliumEmu";
-char serviceLongName[] = "IxiliumEmu Services";
-char serviceDescription[] = "Massive Network Game Object Server";
+char serviceName[] = "WoPCCore";
+char serviceLongName[] = "WoPCCore Services";
+char serviceDescription[] = "Ein World of Warcraft Server Emulations Software";
 /*
  * -1 - not in service mode
  *  0 - stopped
@@ -139,9 +139,9 @@ extern int main(int argc, char **argv)
     if (confVersion < _WORLDCONFVERSION)
     {
         sLog.outError("*****************************************************************************");
-        sLog.outError(" WARNING: Your world.conf version indicates your conf file is out of date!");
-        sLog.outError("          Please check for updates, as your current default values may cause");
-        sLog.outError("          strange behavior.");
+        sLog.outError(" WARNING: Deine world.conf Version weißt auf das sie nicht mehr Aktuell ist!");
+        sLog.outError("          Bitte ueberprüfe sie auf Updates, einige Werte koennten sich geandert haben");
+        sLog.outError("          dies koennte sich auf das verhalten des Server auswirken.");
         sLog.outError("*****************************************************************************");
         clock_t pause = 3000 + clock();
         while (pause > clock()) {}
@@ -150,8 +150,8 @@ extern int main(int argc, char **argv)
     sLog.outDetail("%s (Library: %s)", OPENSSL_VERSION_TEXT, SSLeay_version(SSLEAY_VERSION));
     if (SSLeay() < 0x009080bfL )
     {
-        sLog.outError("Outdated version of OpenSSL lib. Logins to server may not work!");
-        sLog.outError("Minimal required version [OpenSSL 0.9.8k]");
+        sLog.outError("Deine OpenSSL lib Version ist nicht aktuell. Login zum Server wird nicht gehen!");
+        sLog.outError("Mindestens vorhanden Version [OpenSSL 0.9.8k]");
         clock_t pause = 5000 + clock();
         while (pause > clock()) {}
         return 1;

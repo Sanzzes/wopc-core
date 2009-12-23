@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WoPCCore <http://www.worldofprivatecraft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -233,7 +233,7 @@ extern int main(int argc, char **argv)
     ListenSocket<AuthSocket> authListenSocket(h);
     if (authListenSocket.Bind(bind_ip.c_str(),rmport))
     {
-        sLog.outError("Ixilium realm can not bind to %s:%d",bind_ip.c_str(), rmport);
+        sLog.outError("WoPCCore realm can not bind to %s:%d",bind_ip.c_str(), rmport);
         return 1;
     }
 

@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WoPC-Core <http://www.worldofprivatecraft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
  */
 
 /** \file
-    \ingroup Ixiliumd
+    \ingroup WoPC-Cored
 */
 
 #include "Common.h"
@@ -80,14 +80,14 @@ void RASocket::OnAccept()
     ///- If there is already an active admin, drop the connection
     if (iUsers)
     {
-        Sendf(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_RA_BUSY));
+        Sendf(sObjectMgr.GetWoPCCoreStringForDBCLocale(LANG_RA_BUSY));
         SetCloseAndDelete();
         return;
     }
 
     ///- Else print Motd
     Sendf("%s\r\n",sWorld.GetMotd());
-    Sendf("\r\n%s",sObjectMgr.GetIxiliumStringForDBCLocale(LANG_RA_USER));
+    Sendf("\r\n%s",sObjectMgr.GetWoPCCoreStringForDBCLocale(LANG_RA_USER));
 }
 
 /// Read data from the network
@@ -107,7 +107,7 @@ void RASocket::OnRead()
     ///- If there is already an active admin (other than you), drop the connection
     if (stage!=OK && iUsers)
     {
-        Sendf(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_RA_BUSY));
+        Sendf(sObjectMgr.GetWoPCCoreStringForDBCLocale(LANG_RA_BUSY));
         SetCloseAndDelete();
         return;
     }
@@ -161,7 +161,7 @@ void RASocket::OnRead()
                     Sendf("-No such user.\r\n");
                     sLog.outRemote("User %s does not exist.\n",szLogin.c_str());
                     if(bSecure)SetCloseAndDelete();
-                    Sendf("\r\n%s",sObjectMgr.GetIxiliumStringForDBCLocale(LANG_RA_USER));
+                    Sendf("\r\n%s",sObjectMgr.GetWoPCCoreStringForDBCLocale(LANG_RA_USER));
                 }
                 else
                 {
@@ -173,12 +173,12 @@ void RASocket::OnRead()
                         Sendf("-Not enough privileges.\r\n");
                         sLog.outRemote("User %s has no privilege.\n",szLogin.c_str());
                         if (bSecure)SetCloseAndDelete();
-                        Sendf("\r\n%s",sObjectMgr.GetIxiliumStringForDBCLocale(LANG_RA_USER));
+                        Sendf("\r\n%s",sObjectMgr.GetWoPCCoreStringForDBCLocale(LANG_RA_USER));
                     }
                     else
                     {
                         stage=LG;
-                        Sendf(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_RA_PASS));
+                        Sendf(sObjectMgr.GetWoPCCoreStringForDBCLocale(LANG_RA_PASS));
                     }
                     delete result;
                 }
@@ -219,7 +219,7 @@ void RASocket::OnRead()
                     Sendf("-Wrong pass.\r\n");
                     sLog.outRemote("User %s has failed to log in.\n",szLogin.c_str());
                     if(bSecure)SetCloseAndDelete();
-                    Sendf("\r\n%s",sObjectMgr.GetIxiliumStringForDBCLocale(LANG_RA_PASS));
+                    Sendf("\r\n%s",sObjectMgr.GetWoPCCoreStringForDBCLocale(LANG_RA_PASS));
                 }
                 break;
             }

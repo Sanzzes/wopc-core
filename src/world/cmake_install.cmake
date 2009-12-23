@@ -1,8 +1,8 @@
-# Install script for directory: /opt/riboncore/src/world
+# Install script for directory: /opt/WoPCCore/src/world
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  SET(CMAKE_INSTALL_PREFIX "/opt/riboncore/builds")
+  SET(CMAKE_INSTALL_PREFIX "/opt/WoPCCore/builds")
 ENDIF(NOT DEFINED CMAKE_INSTALL_PREFIX)
 STRING(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -36,14 +36,14 @@ IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" MATCHES "^(Unspec
   IF(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/world")
     FILE(RPATH_CHECK
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/world"
-         RPATH "/opt/riboncore/builds/lib:/home/riboncore/.sys/lib")
+         RPATH "/opt/WoPCCore/builds/lib:/opt/WoPCCore/.sys/lib")
   ENDIF(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/world")
-  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "/opt/riboncore/src/world/world")
+  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "/opt/WoPCCore/src/world/world")
   IF(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/world")
     FILE(RPATH_CHANGE
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/world"
-         OLD_RPATH "/opt/riboncore/src/bindings/scripts:/home/riboncore/.sys/lib"
-         NEW_RPATH "/opt/riboncore/builds/lib:/home/riboncore/.sys/lib")
+         OLD_RPATH "/opt/WoPCCore/src/bindings/scripts:/opt/WoPCCore/.sys/lib"
+         NEW_RPATH "/opt/WoPCCore/builds/lib:/opt/WoPCCore/.sys/lib")
     IF(CMAKE_INSTALL_DO_STRIP)
       EXECUTE_PROCESS(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/world")
     ENDIF(CMAKE_INSTALL_DO_STRIP)
@@ -51,6 +51,6 @@ IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" MATCHES "^(Unspec
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" MATCHES "^(Unspecified)$")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" MATCHES "^(Unspecified)$")
-  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/etc" TYPE FILE FILES "/opt/riboncore/src/world/world.conf.dist")
+  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/etc" TYPE FILE FILES "/opt/WoPCCore/src/world/world.conf.dist")
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" MATCHES "^(Unspecified)$")
 

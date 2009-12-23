@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WoPCCore <http://www.worldofprivatecraft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -75,6 +75,6 @@ enum LoginResult
 // 3.3.0 build 11159
 // will support WoW, (1.12.1/2) WoW:TBC (2.4.3) and WoW:WotLK (3.1.3, 3.2.2a) client build 11159/10505/9947/8606/5875/6005...
 
-#define EXPECTED_IXILIUM_CLIENT_BUILD        {11159, 10505, 9947, 8606, 5875, 6005, 0}
+#define EXPECTED_WOPCCORE_CLIENT_BUILD        {11159, 10505, 9947, 8606, 5875, 6005, 0}
 
 #endif
