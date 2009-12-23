@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -260,7 +260,7 @@ void WorldSession::HandleMovementOpcodes( WorldPacket & recv_data )
     ReadMovementInfo(recv_data, &movementInfo);
     /*----------------*/
 
-    if (!Ixilium::IsValidMapCoord(movementInfo.x, movementInfo.y, movementInfo.z, movementInfo.o))
+    if (!WOPCCORE::IsValidMapCoord(movementInfo.x, movementInfo.y, movementInfo.z, movementInfo.o))
     {
         recv_data.rpos(recv_data.wpos());                   // prevent warnings spam
         return;
@@ -284,7 +284,7 @@ void WorldSession::HandleMovementOpcodes( WorldPacket & recv_data )
             return;
         }
 
-        if (!Ixilium::IsValidMapCoord(movementInfo.x+movementInfo.t_x, movementInfo.y + movementInfo.t_y,
+        if (!WOPCCORE::IsValidMapCoord(movementInfo.x+movementInfo.t_x, movementInfo.y + movementInfo.t_y,
             movementInfo.z + movementInfo.t_z, movementInfo.o + movementInfo.t_o))
         {
             recv_data.rpos(recv_data.wpos());                   // prevent warnings spam

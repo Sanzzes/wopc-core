@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,7 +38,7 @@
 #include "ObjectMgr.h"
 #include "Language.h"
 
-#define CLASS_LOCK Ixilium::ClassLevelLockable<MapManager, ACE_Thread_Mutex>
+#define CLASS_LOCK WOPCCORE::ClassLevelLockable<MapManager, ACE_Thread_Mutex>
 INSTANTIATE_SINGLETON_2(MapManager, CLASS_LOCK);
 INSTANTIATE_CLASS_MUTEX(MapManager, ACE_Thread_Mutex);
 
@@ -94,7 +94,7 @@ void MapManager::checkAndCorrectGridStatesArray()
             ok = false;
             si_GridStates[i] = i_GridStates[i];
         }
-        #ifdef IXILIUM_DEBUG
+        #ifdef WOPCCORE_DEBUG
         // inner class checking only when compiled with debug
         if (!si_GridStates[i]->checkMagic())
         {
@@ -184,7 +184,7 @@ bool MapManager::CanPlayerEnter(uint32 mapid, Player* player)
                 {
                     // probably there must be special opcode, because client has this string constant in GlobalStrings.lua
                     // TODO: this is not a good place to send the message
-                    player->GetSession()->SendAreaTriggerMessage(player->GetSession()->GetIxiliumString(LANG_INSTANCE_RAID_GROUP_ONLY), mapName);
+                    player->GetSession()->SendAreaTriggerMessage(player->GetSession()->GetWOPCCOREString(LANG_INSTANCE_RAID_GROUP_ONLY), mapName);
                     sLog.outDebug("MAP: Player '%s' must be in a raid group to enter instance of '%s'", player->GetName(), mapName);
                     return false;
                 }
@@ -221,7 +221,7 @@ bool MapManager::CanPlayerEnter(uint32 mapid, Player* player)
 
                 if (!instance_map)
                 {
-                    player->GetSession()->SendAreaTriggerMessage(player->GetSession()->GetIxiliumString(811), mapName);
+                    player->GetSession()->SendAreaTriggerMessage(player->GetSession()->GetWOPCCOREString(811), mapName);
                     sLog.outDebug("MAP: Player '%s' doesn't has a corpse in instance '%s' and can't enter", player->GetName(), mapName);
                     return false;
                 }
@@ -361,7 +361,7 @@ void MapManager::DoDelayedMovesAndRemoves()
 
 bool MapManager::ExistMapAndVMap(uint32 mapid, float x,float y)
 {
-    GridPair p = Ixilium::ComputeGridPair(x,y);
+    GridPair p = WOPCCORE::ComputeGridPair(x,y);
 
     int gx=63-p.x_coord;
     int gy=63-p.y_coord;

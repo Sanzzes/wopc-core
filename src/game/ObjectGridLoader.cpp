@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -65,7 +65,7 @@ ObjectGridRespawnMover::Visit(CreatureMapType &m)
 
         float resp_x, resp_y, resp_z;
         c->GetRespawnCoord(resp_x, resp_y, resp_z);
-        CellPair resp_val = Ixilium::ComputeCellPair(resp_x, resp_y);
+        CellPair resp_val = WOPCCORE::ComputeCellPair(resp_x, resp_y);
         Cell resp_cell(resp_val);
 
         if (cur_cell.DiffGrid(resp_cell))

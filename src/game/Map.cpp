@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -271,7 +271,7 @@ void Map::RemoveFromGrid(T* obj, NGridType *grid, Cell const& cell)
 template<class T>
 void Map::SwitchGridContainers(T* obj, bool on)
 {
-    CellPair p = Ixilium::ComputeCellPair(obj->GetPositionX(), obj->GetPositionY());
+    CellPair p = WOPCCORE::ComputeCellPair(obj->GetPositionX(), obj->GetPositionY());
     if (p.x_coord >= TOTAL_NUMBER_OF_CELLS_PER_MAP || p.y_coord >= TOTAL_NUMBER_OF_CELLS_PER_MAP )
     {
         sLog.outError("Map::SwitchGridContainers: Object " I64FMT " have invalid coordinates X:%f Y:%f grid cell [%u:%u]", obj->GetGUID(), obj->GetPositionX(), obj->GetPositionY(), p.x_coord, p.y_coord);
@@ -431,7 +431,7 @@ bool Map::EnsureGridLoaded(const Cell &cell)
 
 void Map::LoadGrid(float x, float y)
 {
-    CellPair pair = Ixilium::ComputeCellPair(x, y);
+    CellPair pair = WOPCCORE::ComputeCellPair(x, y);
     Cell cell(pair);
     EnsureGridLoaded(cell);
 }
@@ -441,7 +441,7 @@ bool Map::Add(Player *player)
     // Check if we are adding to correct map
     assert (player->GetMap() == this);
     // update player state for other player and visa-versa
-    CellPair p = Ixilium::ComputeCellPair(player->GetPositionX(), player->GetPositionY());
+    CellPair p = WOPCCORE::ComputeCellPair(player->GetPositionX(), player->GetPositionY());
     Cell cell(p);
     EnsureGridLoadedAtEnter(cell, player);
     player->AddToWorld();
@@ -459,7 +459,7 @@ template<class T>
 void
 Map::Add(T *obj)
 {
-    CellPair p = Ixilium::ComputeCellPair(obj->GetPositionX(), obj->GetPositionY());
+    CellPair p = WOPCCORE::ComputeCellPair(obj->GetPositionX(), obj->GetPositionY());
     if (p.x_coord >= TOTAL_NUMBER_OF_CELLS_PER_MAP || p.y_coord >= TOTAL_NUMBER_OF_CELLS_PER_MAP )
     {
         sLog.outError("Map::Add: Object " UI64FMTD " have invalid coordinates X:%f Y:%f grid cell [%u:%u]", obj->GetGUID(), obj->GetPositionX(), obj->GetPositionY(), p.x_coord, p.y_coord);
@@ -501,7 +501,7 @@ Map::Add(T *obj)
 /*
 void Map::MessageBroadcast(Player *player, WorldPacket *msg, bool to_self)
 {
-    CellPair p = Ixilium::ComputeCellPair(player->GetPositionX(), player->GetPositionY());
+    CellPair p = WOPCCORE::ComputeCellPair(player->GetPositionX(), player->GetPositionY());
  
     if (p.x_coord >= TOTAL_NUMBER_OF_CELLS_PER_MAP || p.y_coord >= TOTAL_NUMBER_OF_CELLS_PER_MAP )
     {
@@ -516,15 +516,15 @@ void Map::MessageBroadcast(Player *player, WorldPacket *msg, bool to_self)
     if ( !loaded(GridPair(cell.data.Part.grid_x, cell.data.Part.grid_y)) )
         return;
  
-    Ixilium::MessageDeliverer post_man(*player, msg, to_self);
-    TypeContainerVisitor<Ixilium::MessageDeliverer, WorldTypeMapContainer > message(post_man);
+    WOPCCORE::MessageDeliverer post_man(*player, msg, to_self);
+    TypeContainerVisitor<WOPCCORE::MessageDeliverer, WorldTypeMapContainer > message(post_man);
     CellLock<ReadGuard> cell_lock(cell, p);
     cell_lock->Visit(cell_lock, message, *this, *player, GetVisibilityDistance());
 }
  
 void Map::MessageBroadcast(WorldObject *obj, WorldPacket *msg)
 {
-    CellPair p = Ixilium::ComputeCellPair(obj->GetPositionX(), obj->GetPositionY());
+    CellPair p = WOPCCORE::ComputeCellPair(obj->GetPositionX(), obj->GetPositionY());
  
     if (p.x_coord >= TOTAL_NUMBER_OF_CELLS_PER_MAP || p.y_coord >= TOTAL_NUMBER_OF_CELLS_PER_MAP )
     {
@@ -541,15 +541,15 @@ void Map::MessageBroadcast(WorldObject *obj, WorldPacket *msg)
  
     //TODO: currently on continents when Visibility.Distance.InFlight > Visibility.Distance.Continents
     //we have alot of blinking mobs because monster move packet send is broken...
-    Ixilium::ObjectMessageDeliverer post_man(*obj,msg);
-    TypeContainerVisitor<Ixilium::ObjectMessageDeliverer, WorldTypeMapContainer > message(post_man);
+    WOPCCORE::ObjectMessageDeliverer post_man(*obj,msg);
+    TypeContainerVisitor<WOPCCORE::ObjectMessageDeliverer, WorldTypeMapContainer > message(post_man);
     CellLock<ReadGuard> cell_lock(cell, p);
     cell_lock->Visit(cell_lock, message, *this, *obj, GetVisibilityDistance());
 }
 
 void Map::MessageDistBroadcast(Player *player, WorldPacket *msg, float dist, bool to_self, bool own_team_only)
 {
-    CellPair p = Ixilium::ComputeCellPair(player->GetPositionX(), player->GetPositionY());
+    CellPair p = WOPCCORE::ComputeCellPair(player->GetPositionX(), player->GetPositionY());
  
     if (p.x_coord >= TOTAL_NUMBER_OF_CELLS_PER_MAP || p.y_coord >= TOTAL_NUMBER_OF_CELLS_PER_MAP )
     {
@@ -564,15 +564,15 @@ void Map::MessageDistBroadcast(Player *player, WorldPacket *msg, float dist, boo
     if ( !loaded(GridPair(cell.data.Part.grid_x, cell.data.Part.grid_y)) )
         return;
  
-    Ixilium::MessageDistDeliverer post_man(*player, msg, dist, to_self, own_team_only);
-    TypeContainerVisitor<Ixilium::MessageDistDeliverer , WorldTypeMapContainer > message(post_man);
+    WOPCCORE::MessageDistDeliverer post_man(*player, msg, dist, to_self, own_team_only);
+    TypeContainerVisitor<WOPCCORE::MessageDistDeliverer , WorldTypeMapContainer > message(post_man);
     CellLock<ReadGuard> cell_lock(cell, p);
     cell_lock->Visit(cell_lock, message, *this, *player, dist);
 }
  
 void Map::MessageDistBroadcast(WorldObject *obj, WorldPacket *msg, float dist)
 {
-    CellPair p = Ixilium::ComputeCellPair(obj->GetPositionX(), obj->GetPositionY());
+    CellPair p = WOPCCORE::ComputeCellPair(obj->GetPositionX(), obj->GetPositionY());
  
     if (p.x_coord >= TOTAL_NUMBER_OF_CELLS_PER_MAP || p.y_coord >= TOTAL_NUMBER_OF_CELLS_PER_MAP )
     {
@@ -587,8 +587,8 @@ void Map::MessageDistBroadcast(WorldObject *obj, WorldPacket *msg, float dist)
     if ( !loaded(GridPair(cell.data.Part.grid_x, cell.data.Part.grid_y)) )
         return;
  
-    Ixilium::ObjectMessageDistDeliverer post_man(*obj, msg, dist);
-    TypeContainerVisitor<Ixilium::ObjectMessageDistDeliverer, WorldTypeMapContainer > message(post_man);
+    WOPCCORE::ObjectMessageDistDeliverer post_man(*obj, msg, dist);
+    TypeContainerVisitor<WOPCCORE::ObjectMessageDistDeliverer, WorldTypeMapContainer > message(post_man);
     CellLock<ReadGuard> cell_lock(cell, p);
     cell_lock->Visit(cell_lock, message, *this, *obj, dist);
 }
@@ -620,14 +620,14 @@ void Map::RelocationNotify()
         float dist = abs(unit->GetPositionX() - unit->oldX) + abs(unit->GetPositionY() - unit->oldY);
         if (dist > 10.0f)
         {
-            Ixilium::VisibleChangesNotifier notifier(*unit);
+            WOPCCORE::VisibleChangesNotifier notifier(*unit);
             VisitWorld(unit->oldX, unit->oldY, GetVisibilityDistance(), notifier);
             dist = 0;
         }
 
         if (unit->GetTypeId() == TYPEID_PLAYER)
         {
-            Ixilium::PlayerRelocationNotifier notifier(*((Player*)unit));
+            WOPCCORE::PlayerRelocationNotifier notifier(*((Player*)unit));
             //if (((Player*)unit)->m_seer != unit)
             VisitAll(((Player*)unit)->m_seer->GetPositionX(), ((Player*)unit)->m_seer->GetPositionY(), unit->GetMap()->GetVisibilityDistance() + dist, notifier);
             //else
@@ -636,7 +636,7 @@ void Map::RelocationNotify()
         }
         else
         {
-            Ixilium::CreatureRelocationNotifier notifier(*((Creature*)unit));
+            WOPCCORE::CreatureRelocationNotifier notifier(*((Creature*)unit));
             VisitAll(unit->GetPositionX(), unit->GetPositionY(), GetVisibilityDistance() + dist, notifier);
         }
     }
@@ -713,11 +713,11 @@ void Map::Update(const uint32 &t_diff)
     /// update active cells around players and active objects
     resetMarkedCells();
 
-    Ixilium::ObjectUpdater updater(t_diff);
+    WOPCCORE::ObjectUpdater updater(t_diff);
     // for creature
-    TypeContainerVisitor<Ixilium::ObjectUpdater, GridTypeMapContainer  > grid_object_update(updater);
+    TypeContainerVisitor<WOPCCORE::ObjectUpdater, GridTypeMapContainer  > grid_object_update(updater);
     // for pets
-    TypeContainerVisitor<Ixilium::ObjectUpdater, WorldTypeMapContainer > world_object_update(updater);
+    TypeContainerVisitor<WOPCCORE::ObjectUpdater, WorldTypeMapContainer > world_object_update(updater);
 
     // the player iterator is stored in the map object
     // to make sure calls to Map::Remove don't invalidate it
@@ -728,7 +728,7 @@ void Map::Update(const uint32 &t_diff)
         if (!plr->IsInWorld())
             continue;
 
-        CellPair standing_cell(Ixilium::ComputeCellPair(plr->GetPositionX(), plr->GetPositionY()));
+        CellPair standing_cell(WOPCCORE::ComputeCellPair(plr->GetPositionX(), plr->GetPositionY()));
 
         // Check for correctness of standing_cell, it also avoids problems with update_cell
         if (standing_cell.x_coord >= TOTAL_NUMBER_OF_CELLS_PER_MAP || standing_cell.y_coord >= TOTAL_NUMBER_OF_CELLS_PER_MAP)
@@ -781,7 +781,7 @@ void Map::Update(const uint32 &t_diff)
             if (!obj->IsInWorld())
                 continue;
 
-            CellPair standing_cell(Ixilium::ComputeCellPair(obj->GetPositionX(), obj->GetPositionY()));
+            CellPair standing_cell(WOPCCORE::ComputeCellPair(obj->GetPositionX(), obj->GetPositionY()));
 
             // Check for correctness of standing_cell, it also avoids problems with update_cell
             if (standing_cell.x_coord >= TOTAL_NUMBER_OF_CELLS_PER_MAP || standing_cell.y_coord >= TOTAL_NUMBER_OF_CELLS_PER_MAP)
@@ -832,7 +832,7 @@ void Map::Remove(Player *player, bool remove)
     player->RemoveFromWorld();
     SendRemoveTransports(player);
 
-    CellPair p = Ixilium::ComputeCellPair(player->GetPositionX(), player->GetPositionY());
+    CellPair p = WOPCCORE::ComputeCellPair(player->GetPositionX(), player->GetPositionY());
     if(p.x_coord >= TOTAL_NUMBER_OF_CELLS_PER_MAP || p.y_coord >= TOTAL_NUMBER_OF_CELLS_PER_MAP)
         sLog.outCrash("Map::Remove: Player is in invalid cell!");
     else
@@ -876,7 +876,7 @@ Map::Remove(T *obj, bool remove)
     if (obj->isActiveObject())
         RemoveFromActive(obj);
 
-    CellPair p = Ixilium::ComputeCellPair(obj->GetPositionX(), obj->GetPositionY());
+    CellPair p = WOPCCORE::ComputeCellPair(obj->GetPositionX(), obj->GetPositionY());
     if (p.x_coord >= TOTAL_NUMBER_OF_CELLS_PER_MAP || p.y_coord >= TOTAL_NUMBER_OF_CELLS_PER_MAP)
         sLog.outError("Map::Remove: Object " I64FMT " have invalid coordinates X:%f Y:%f grid cell [%u:%u]", obj->GetGUID(), obj->GetPositionX(), obj->GetPositionY(), p.x_coord, p.y_coord);
     else
@@ -909,8 +909,8 @@ Map::PlayerRelocation(Player *player, float x, float y, float z, float orientati
 {
     assert(player);
 
-    CellPair old_val = Ixilium::ComputeCellPair(player->GetPositionX(), player->GetPositionY());
-    CellPair new_val = Ixilium::ComputeCellPair(x, y);
+    CellPair old_val = WOPCCORE::ComputeCellPair(player->GetPositionX(), player->GetPositionY());
+    CellPair new_val = WOPCCORE::ComputeCellPair(x, y);
 
     Cell old_cell(old_val);
     Cell new_cell(new_val);
@@ -952,13 +952,13 @@ Map::CreatureRelocation(Creature *creature, float x, float y, float z, float ang
 
     Cell old_cell = creature->GetCurrentCell();
 
-    CellPair new_val = Ixilium::ComputeCellPair(x, y);
+    CellPair new_val = WOPCCORE::ComputeCellPair(x, y);
     Cell new_cell(new_val);
 
     // delay creature move for grid/cell to grid/cell moves
     if ( old_cell.DiffCell(new_cell) || old_cell.DiffGrid(new_cell) )
     {
-        #ifdef IXILIUM_DEBUG
+        #ifdef WOPCCORE_DEBUG
         if ((sLog.getLogFilter() & LOG_FILTER_CREATURE_MOVES)==0)
             sLog.outDebug("Creature (GUID: %u Entry: %u) added to moving list from grid[%u,%u]cell[%u,%u] to grid[%u,%u]cell[%u,%u].", creature->GetGUIDLow(), creature->GetEntry(), old_cell.GridX(), old_cell.GridY(), old_cell.CellX(), old_cell.CellY(), new_cell.GridX(), new_cell.GridY(), new_cell.CellX(), new_cell.CellY());
         #endif
@@ -1013,7 +1013,7 @@ void Map::MoveAllCreaturesInMoveList()
         i_creaturesToMove.erase(iter);
 
         // calculate cells
-        CellPair new_val = Ixilium::ComputeCellPair(cm.x, cm.y);
+        CellPair new_val = WOPCCORE::ComputeCellPair(cm.x, cm.y);
         Cell new_cell(new_val);
 
         // do move or do move to respawn or remove creature if previous all fail
@@ -1031,7 +1031,7 @@ void Map::MoveAllCreaturesInMoveList()
             if (!CreatureRespawnRelocation(c))
             {
                 // ... or unload (if respawn grid also not loaded)
-                #ifdef IXILIUM_DEBUG
+                #ifdef WOPCCORE_DEBUG
                 if ((sLog.getLogFilter() & LOG_FILTER_CREATURE_MOVES)==0)
                     sLog.outDebug("Creature (GUID: %u Entry: %u ) can't be move to unloaded respawn grid.",c->GetGUIDLow(),c->GetEntry());
                 #endif
@@ -1049,7 +1049,7 @@ bool Map::CreatureCellRelocation(Creature *c, Cell new_cell)
         // if in same cell then none do
         if (old_cell.DiffCell(new_cell))
         {
-            #ifdef IXILIUM_DEBUG
+            #ifdef WOPCCORE_DEBUG
             if ((sLog.getLogFilter() & LOG_FILTER_CREATURE_MOVES)==0)
                 sLog.outDebug("Creature (GUID: %u Entry: %u) moved in grid[%u,%u] from cell[%u,%u] to cell[%u,%u].", c->GetGUIDLow(), c->GetEntry(), old_cell.GridX(), old_cell.GridY(), old_cell.CellX(), old_cell.CellY(), new_cell.CellX(), new_cell.CellY());
             #endif
@@ -1059,7 +1059,7 @@ bool Map::CreatureCellRelocation(Creature *c, Cell new_cell)
         }
         else
         {
-            #ifdef IXILIUM_DEBUG
+            #ifdef WOPCCORE_DEBUG
             if ((sLog.getLogFilter() & LOG_FILTER_CREATURE_MOVES)==0)
                 sLog.outDebug("Creature (GUID: %u Entry: %u) move in same grid[%u,%u]cell[%u,%u].", c->GetGUIDLow(), c->GetEntry(), old_cell.GridX(), old_cell.GridY(), old_cell.CellX(), old_cell.CellY());
             #endif
@@ -1073,7 +1073,7 @@ bool Map::CreatureCellRelocation(Creature *c, Cell new_cell)
     {
         EnsureGridLoadedAtEnter(new_cell);
 
-        #ifdef IXILIUM_DEBUG
+        #ifdef WOPCCORE_DEBUG
         if ((sLog.getLogFilter() & LOG_FILTER_CREATURE_MOVES)==0)
             sLog.outDebug("Active creature (GUID: %u Entry: %u) moved from grid[%u,%u]cell[%u,%u] to grid[%u,%u]cell[%u,%u].", c->GetGUIDLow(), c->GetEntry(), old_cell.GridX(), old_cell.GridY(), old_cell.CellX(), old_cell.CellY(), new_cell.GridX(), new_cell.GridY(), new_cell.CellX(), new_cell.CellY());
         #endif
@@ -1087,7 +1087,7 @@ bool Map::CreatureCellRelocation(Creature *c, Cell new_cell)
     // in diff. loaded grid normal creature
     if (loaded(GridPair(new_cell.GridX(), new_cell.GridY())))
     {
-        #ifdef IXILIUM_DEBUG
+        #ifdef WOPCCORE_DEBUG
         if ((sLog.getLogFilter() & LOG_FILTER_CREATURE_MOVES)==0)
             sLog.outDebug("Creature (GUID: %u Entry: %u) moved from grid[%u,%u]cell[%u,%u] to grid[%u,%u]cell[%u,%u].", c->GetGUIDLow(), c->GetEntry(), old_cell.GridX(), old_cell.GridY(), old_cell.CellX(), old_cell.CellY(), new_cell.GridX(), new_cell.GridY(), new_cell.CellX(), new_cell.CellY());
         #endif
@@ -1100,7 +1100,7 @@ bool Map::CreatureCellRelocation(Creature *c, Cell new_cell)
     }
 
     // fail to move: normal creature attempt move to unloaded grid
-    #ifdef IXILIUM_DEBUG
+    #ifdef WOPCCORE_DEBUG
     if ((sLog.getLogFilter() & LOG_FILTER_CREATURE_MOVES)==0)
         sLog.outDebug("Creature (GUID: %u Entry: %u) attempt move from grid[%u,%u]cell[%u,%u] to unloaded grid[%u,%u]cell[%u,%u].", c->GetGUIDLow(), c->GetEntry(), old_cell.GridX(), old_cell.GridY(), old_cell.CellX(), old_cell.CellY(), new_cell.GridX(), new_cell.GridY(), new_cell.CellX(), new_cell.CellY());
     #endif
@@ -1112,13 +1112,13 @@ bool Map::CreatureRespawnRelocation(Creature *c)
     float resp_x, resp_y, resp_z, resp_o;
     c->GetRespawnCoord(resp_x, resp_y, resp_z, &resp_o);
 
-    CellPair resp_val = Ixilium::ComputeCellPair(resp_x, resp_y);
+    CellPair resp_val = WOPCCORE::ComputeCellPair(resp_x, resp_y);
     Cell resp_cell(resp_val);
 
     c->CombatStop();
     c->GetMotionMaster()->Clear();
 
-    #ifdef IXILIUM_DEBUG
+    #ifdef WOPCCORE_DEBUG
     if ((sLog.getLogFilter() & LOG_FILTER_CREATURE_MOVES)==0)
         sLog.outDebug("Creature (GUID: %u Entry: %u) will moved from grid[%u,%u]cell[%u,%u] to respawn grid[%u,%u]cell[%u,%u].", c->GetGUIDLow(), c->GetEntry(), c->GetCurrentCell().GridX(), c->GetCurrentCell().GridY(), c->GetCurrentCell().CellX(), c->GetCurrentCell().CellY(), resp_cell.GridX(), resp_cell.GridY(), resp_cell.CellX(), resp_cell.CellY());
     #endif
@@ -2127,7 +2127,7 @@ bool Map::CheckGridIntegrity(Creature* c, bool moved) const
 {
     Cell const& cur_cell = c->GetCurrentCell();
 
-    CellPair xy_val = Ixilium::ComputeCellPair(c->GetPositionX(), c->GetPositionY());
+    CellPair xy_val = WOPCCORE::ComputeCellPair(c->GetPositionX(), c->GetPositionY());
     Cell xy_cell(xy_val);
     if (xy_cell != cur_cell)
     {
@@ -2151,8 +2151,8 @@ void Map::UpdateObjectVisibility( WorldObject* obj, Cell cell, CellPair cellpair
 {
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();
-    Ixilium::VisibleChangesNotifier notifier(*obj);
-    TypeContainerVisitor<Ixilium::VisibleChangesNotifier, WorldTypeMapContainer > player_notifier(notifier);
+    WOPCCORE::VisibleChangesNotifier notifier(*obj);
+    TypeContainerVisitor<WOPCCORE::VisibleChangesNotifier, WorldTypeMapContainer > player_notifier(notifier);
     CellLock<GridReadGuard> cell_lock(cell, cellpair);
     cell_lock->Visit(cell_lock, player_notifier, *this, *obj, GetVisibilityDistance());
 }
@@ -2162,8 +2162,8 @@ void Map::UpdatePlayerVisibility( Player* player, Cell cell, CellPair cellpair )
 {
     cell.data.Part.reserved = ALL_DISTRICT;
  
-    Ixilium::PlayerNotifier pl_notifier(*player);
-    TypeContainerVisitor<Ixilium::PlayerNotifier, WorldTypeMapContainer > player_notifier(pl_notifier);
+    WOPCCORE::PlayerNotifier pl_notifier(*player);
+    TypeContainerVisitor<WOPCCORE::PlayerNotifier, WorldTypeMapContainer > player_notifier(pl_notifier);
  
     CellLock<ReadGuard> cell_lock(cell, cellpair);
     cell_lock->Visit(cell_lock, player_notifier, *this, *player, GetVisibilityDistance());
@@ -2171,12 +2171,12 @@ void Map::UpdatePlayerVisibility( Player* player, Cell cell, CellPair cellpair )
 
 void Map::UpdateObjectsVisibilityFor( Player* player, Cell cell, CellPair cellpair )
 {
-    Ixilium::VisibleNotifier notifier(*player);
+    WOPCCORE::VisibleNotifier notifier(*player);
  
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();
-    TypeContainerVisitor<Ixilium::VisibleNotifier, WorldTypeMapContainer > world_notifier(notifier);
-    TypeContainerVisitor<Ixilium::VisibleNotifier, GridTypeMapContainer  > grid_notifier(notifier);
+    TypeContainerVisitor<WOPCCORE::VisibleNotifier, WorldTypeMapContainer > world_notifier(notifier);
+    TypeContainerVisitor<WOPCCORE::VisibleNotifier, GridTypeMapContainer  > grid_notifier(notifier);
     CellLock<GridReadGuard> cell_lock(cell, cellpair);
     cell_lock->Visit(cell_lock, world_notifier, *this, *player, GetVisibilityDistance());
     cell_lock->Visit(cell_lock, grid_notifier,  *this, *player, GetVisibilityDistance());
@@ -2188,11 +2188,11 @@ void Map::UpdateObjectsVisibilityFor( Player* player, Cell cell, CellPair cellpa
 void Map::PlayerRelocationNotify( Player* player, Cell cell, CellPair cellpair )
 {
     CellLock<ReadGuard> cell_lock(cell, cellpair);
-    Ixilium::PlayerRelocationNotifier relocationNotifier(*player);
+    WOPCCORE::PlayerRelocationNotifier relocationNotifier(*player);
     cell.data.Part.reserved = ALL_DISTRICT;
  
-    TypeContainerVisitor<Ixilium::PlayerRelocationNotifier, GridTypeMapContainer >  p2grid_relocation(relocationNotifier);
-    TypeContainerVisitor<Ixilium::PlayerRelocationNotifier, WorldTypeMapContainer > p2world_relocation(relocationNotifier);
+    TypeContainerVisitor<WOPCCORE::PlayerRelocationNotifier, GridTypeMapContainer >  p2grid_relocation(relocationNotifier);
+    TypeContainerVisitor<WOPCCORE::PlayerRelocationNotifier, WorldTypeMapContainer > p2world_relocation(relocationNotifier);
  
     cell_lock->Visit(cell_lock, p2grid_relocation, *this, *player, MAX_CREATURE_ATTACK_RADIUS);
     cell_lock->Visit(cell_lock, p2world_relocation, *this, *player, MAX_CREATURE_ATTACK_RADIUS);
@@ -2201,12 +2201,12 @@ void Map::PlayerRelocationNotify( Player* player, Cell cell, CellPair cellpair )
 void Map::CreatureRelocationNotify(Creature *creature, Cell cell, CellPair cellpair)
 {
     CellLock<ReadGuard> cell_lock(cell, cellpair);
-    Ixilium::CreatureRelocationNotifier relocationNotifier(*creature);
+    WOPCCORE::CreatureRelocationNotifier relocationNotifier(*creature);
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();                                     // not trigger load unloaded grids at notifier call
  
-    TypeContainerVisitor<Ixilium::CreatureRelocationNotifier, WorldTypeMapContainer > c2world_relocation(relocationNotifier);
-    TypeContainerVisitor<Ixilium::CreatureRelocationNotifier, GridTypeMapContainer >  c2grid_relocation(relocationNotifier);
+    TypeContainerVisitor<WOPCCORE::CreatureRelocationNotifier, WorldTypeMapContainer > c2world_relocation(relocationNotifier);
+    TypeContainerVisitor<WOPCCORE::CreatureRelocationNotifier, GridTypeMapContainer >  c2grid_relocation(relocationNotifier);
  
     cell_lock->Visit(cell_lock, c2world_relocation, *this, *creature, MAX_CREATURE_ATTACK_RADIUS);
     cell_lock->Visit(cell_lock, c2grid_relocation, *this, *creature, MAX_CREATURE_ATTACK_RADIUS);
@@ -2440,7 +2440,7 @@ bool Map::ActiveObjectsNearGrid(uint32 x, uint32 y) const
     {
         Player* plr = iter->getSource();
 
-        CellPair p = Ixilium::ComputeCellPair(plr->GetPositionX(), plr->GetPositionY());
+        CellPair p = WOPCCORE::ComputeCellPair(plr->GetPositionX(), plr->GetPositionY());
         if ((cell_min.x_coord <= p.x_coord && p.x_coord <= cell_max.x_coord) &&
             (cell_min.y_coord <= p.y_coord && p.y_coord <= cell_max.y_coord))
             return true;
@@ -2450,7 +2450,7 @@ bool Map::ActiveObjectsNearGrid(uint32 x, uint32 y) const
     {
         WorldObject* obj = *iter;
 
-        CellPair p = Ixilium::ComputeCellPair(obj->GetPositionX(), obj->GetPositionY());
+        CellPair p = WOPCCORE::ComputeCellPair(obj->GetPositionX(), obj->GetPositionY());
         if ((cell_min.x_coord <= p.x_coord && p.x_coord <= cell_max.x_coord) &&
             (cell_min.y_coord <= p.y_coord && p.y_coord <= cell_max.y_coord))
             return true;
@@ -2468,12 +2468,12 @@ void Map::AddToActive( Creature* c )
     {
         float x,y,z;
         c->GetRespawnCoord(x,y,z);
-        GridPair p = Ixilium::ComputeGridPair(x, y);
+        GridPair p = WOPCCORE::ComputeGridPair(x, y);
         if (getNGrid(p.x_coord, p.y_coord))
             getNGrid(p.x_coord, p.y_coord)->incUnloadActiveLock();
         else
         {
-            GridPair p2 = Ixilium::ComputeGridPair(c->GetPositionX(), c->GetPositionY());
+            GridPair p2 = WOPCCORE::ComputeGridPair(c->GetPositionX(), c->GetPositionY());
             sLog.outError("Active creature (GUID: %u Entry: %u) added to grid[%u,%u] but spawn grid[%u,%u] not loaded.",
                 c->GetGUIDLow(), c->GetEntry(), p.x_coord, p.y_coord, p2.x_coord, p2.y_coord);
         }
@@ -2489,12 +2489,12 @@ void Map::RemoveFromActive( Creature* c )
     {
         float x,y,z;
         c->GetRespawnCoord(x,y,z);
-        GridPair p = Ixilium::ComputeGridPair(x, y);
+        GridPair p = WOPCCORE::ComputeGridPair(x, y);
         if (getNGrid(p.x_coord, p.y_coord))
             getNGrid(p.x_coord, p.y_coord)->decUnloadActiveLock();
         else
         {
-            GridPair p2 = Ixilium::ComputeGridPair(c->GetPositionX(), c->GetPositionY());
+            GridPair p2 = WOPCCORE::ComputeGridPair(c->GetPositionX(), c->GetPositionY());
             sLog.outError("Active creature (GUID: %u Entry: %u) removed from grid[%u,%u] but spawn grid[%u,%u] not loaded.",
                 c->GetGUIDLow(), c->GetEntry(), p.x_coord, p.y_coord, p2.x_coord, p2.y_coord);
         }
@@ -3325,14 +3325,14 @@ void Map::ScriptsProcess()
                 GameObject *go = NULL;
                 int32 time_to_despawn = step.script->datalong2<5 ? 5 : (int32)step.script->datalong2;
 
-                CellPair p(Ixilium::ComputeCellPair(summoner->GetPositionX(), summoner->GetPositionY()));
+                CellPair p(WOPCCORE::ComputeCellPair(summoner->GetPositionX(), summoner->GetPositionY()));
                 Cell cell(p);
                 cell.data.Part.reserved = ALL_DISTRICT;
 
-                Ixilium::GameObjectWithDbGUIDCheck go_check(*summoner,step.script->datalong);
-                Ixilium::GameObjectSearcher<Ixilium::GameObjectWithDbGUIDCheck> checker(summoner, go,go_check);
+                WOPCCORE::GameObjectWithDbGUIDCheck go_check(*summoner,step.script->datalong);
+                WOPCCORE::GameObjectSearcher<WOPCCORE::GameObjectWithDbGUIDCheck> checker(summoner, go,go_check);
 
-                TypeContainerVisitor<Ixilium::GameObjectSearcher<Ixilium::GameObjectWithDbGUIDCheck>, GridTypeMapContainer > object_checker(checker);
+                TypeContainerVisitor<WOPCCORE::GameObjectSearcher<WOPCCORE::GameObjectWithDbGUIDCheck>, GridTypeMapContainer > object_checker(checker);
                 CellLock<GridReadGuard> cell_lock(cell, p);
                 cell_lock->Visit(cell_lock, object_checker, *summoner->GetMap());
 
@@ -3385,14 +3385,14 @@ void Map::ScriptsProcess()
                 GameObject *door = NULL;
                 int32 time_to_close = step.script->datalong2 < 15 ? 15 : (int32)step.script->datalong2;
 
-                CellPair p(Ixilium::ComputeCellPair(caster->GetPositionX(), caster->GetPositionY()));
+                CellPair p(WOPCCORE::ComputeCellPair(caster->GetPositionX(), caster->GetPositionY()));
                 Cell cell(p);
                 cell.data.Part.reserved = ALL_DISTRICT;
 
-                Ixilium::GameObjectWithDbGUIDCheck go_check(*caster,step.script->datalong);
-                Ixilium::GameObjectSearcher<Ixilium::GameObjectWithDbGUIDCheck> checker(caster,door,go_check);
+                WOPCCORE::GameObjectWithDbGUIDCheck go_check(*caster,step.script->datalong);
+                WOPCCORE::GameObjectSearcher<WOPCCORE::GameObjectWithDbGUIDCheck> checker(caster,door,go_check);
 
-                TypeContainerVisitor<Ixilium::GameObjectSearcher<Ixilium::GameObjectWithDbGUIDCheck>, GridTypeMapContainer > object_checker(checker);
+                TypeContainerVisitor<WOPCCORE::GameObjectSearcher<WOPCCORE::GameObjectWithDbGUIDCheck>, GridTypeMapContainer > object_checker(checker);
                 CellLock<GridReadGuard> cell_lock(cell, p);
                 cell_lock->Visit(cell_lock, object_checker, *caster->GetMap());
 
@@ -3441,14 +3441,14 @@ void Map::ScriptsProcess()
                 GameObject *door = NULL;
                 int32 time_to_open = step.script->datalong2 < 15 ? 15 : (int32)step.script->datalong2;
 
-                CellPair p(Ixilium::ComputeCellPair(caster->GetPositionX(), caster->GetPositionY()));
+                CellPair p(WOPCCORE::ComputeCellPair(caster->GetPositionX(), caster->GetPositionY()));
                 Cell cell(p);
                 cell.data.Part.reserved = ALL_DISTRICT;
 
-                Ixilium::GameObjectWithDbGUIDCheck go_check(*caster,step.script->datalong);
-                Ixilium::GameObjectSearcher<Ixilium::GameObjectWithDbGUIDCheck> checker(caster,door,go_check);
+                WOPCCORE::GameObjectWithDbGUIDCheck go_check(*caster,step.script->datalong);
+                WOPCCORE::GameObjectSearcher<WOPCCORE::GameObjectWithDbGUIDCheck> checker(caster,door,go_check);
 
-                TypeContainerVisitor<Ixilium::GameObjectSearcher<Ixilium::GameObjectWithDbGUIDCheck>, GridTypeMapContainer > object_checker(checker);
+                TypeContainerVisitor<WOPCCORE::GameObjectSearcher<WOPCCORE::GameObjectWithDbGUIDCheck>, GridTypeMapContainer > object_checker(checker);
                 CellLock<GridReadGuard> cell_lock(cell, p);
                 cell_lock->Visit(cell_lock, object_checker, *caster->GetMap());
 
@@ -3660,15 +3660,15 @@ void Map::ScriptsProcess()
 
                 if (source) //using grid searcher
                 {
-                    CellPair p(Ixilium::ComputeCellPair(((Unit*)source)->GetPositionX(), ((Unit*)source)->GetPositionY()));
+                    CellPair p(WOPCCORE::ComputeCellPair(((Unit*)source)->GetPositionX(), ((Unit*)source)->GetPositionY()));
                     Cell cell(p);
                     cell.data.Part.reserved = ALL_DISTRICT;
 
                     //sLog.outDebug("Attempting to find Creature: Db GUID: %i", step.script->datalong);
-                    Ixilium::CreatureWithDbGUIDCheck target_check(((Unit*)source), step.script->datalong);
-                    Ixilium::CreatureSearcher<Ixilium::CreatureWithDbGUIDCheck> checker(((Unit*)source), target, target_check);
+                    WOPCCORE::CreatureWithDbGUIDCheck target_check(((Unit*)source), step.script->datalong);
+                    WOPCCORE::CreatureSearcher<WOPCCORE::CreatureWithDbGUIDCheck> checker(((Unit*)source), target, target_check);
 
-                    TypeContainerVisitor<Ixilium::CreatureSearcher <Ixilium::CreatureWithDbGUIDCheck>, GridTypeMapContainer > unit_checker(checker);
+                    TypeContainerVisitor<WOPCCORE::CreatureSearcher <WOPCCORE::CreatureWithDbGUIDCheck>, GridTypeMapContainer > unit_checker(checker);
                     CellLock<GridReadGuard> cell_lock(cell, p);
                     cell_lock->Visit(cell_lock, unit_checker, *(((Unit*)source)->GetMap()));
                 }

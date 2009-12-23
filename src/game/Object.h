@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -110,7 +110,7 @@ class Unit;
 
 typedef UNORDERED_MAP<Player*, UpdateData> UpdateDataMapType;
 
-class IXILIUM_DLL_SPEC Object
+class WOPCCORE_DLL_SPEC Object
 {
     public:
         virtual ~Object ( );
@@ -359,7 +359,7 @@ class IXILIUM_DLL_SPEC Object
         Object& operator=(Object const&);                   // prevent generation assigment operator
 };
 
-struct IXILIUM_DLL_SPEC Position
+struct WOPCCORE_DLL_SPEC Position
 {
     float m_positionX;
     float m_positionY;
@@ -446,7 +446,7 @@ class WorldLocation : public Position
         uint32 m_mapId;
 };
 
-class IXILIUM_DLL_SPEC WorldObject : public Object, public WorldLocation
+class WOPCCORE_DLL_SPEC WorldObject : public Object, public WorldLocation
 {
     public:
         virtual ~WorldObject();

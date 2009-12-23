@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -811,7 +811,7 @@ bool ChatHandler::HandleGameObjectAddCommand(const char* args)
         return false;
     }
 
-    sLog.outDebug(GetIxiliumString(LANG_GAMEOBJECT_CURRENT), gInfo->name, db_lowGUID, x, y, z, o);
+    sLog.outDebug(GetWOPCCOREString(LANG_GAMEOBJECT_CURRENT), gInfo->name, db_lowGUID, x, y, z, o);
 
     map->Add(pGameObj);
 
@@ -959,7 +959,7 @@ bool ChatHandler::HandleModifyRepCommand(const char * args)
         amount = -42000;
         for (; r < MAX_REPUTATION_RANK; ++r)
         {
-            std::string rank = GetIxiliumString(ReputationRankStrIndex[r]);
+            std::string rank = GetWOPCCOREString(ReputationRankStrIndex[r]);
             if (rank.empty())
                 continue;
 
@@ -2171,11 +2171,11 @@ bool ChatHandler::HandlePInfoAccountCommand(const char* args)
     uint32 banned = 0;
 	
     std::string username = (char*)args;
-    std::string last_ip = GetIxiliumString(LANG_ERROR);
-    std::string last_login = GetIxiliumString(LANG_ERROR);
-    std::string email = GetIxiliumString(LANG_ERROR);
-    std::string joindate = GetIxiliumString(LANG_ERROR);
-    std::string isbanned = GetIxiliumString(LANG_ERROR);
+    std::string last_ip = GetWOPCCOREString(LANG_ERROR);
+    std::string last_login = GetWOPCCOREString(LANG_ERROR);
+    std::string email = GetWOPCCOREString(LANG_ERROR);
+    std::string joindate = GetWOPCCOREString(LANG_ERROR);
+    std::string isbanned = GetWOPCCOREString(LANG_ERROR);
 
     QueryResult* result = loginDatabase.PQuery("SELECT username,last_ip,last_login,account_settings.id,email,joindate,account_banned.id as bannedid,account_banned.active as banactive FROM account_settings LEFT JOIN account_banned ON account_settings.id = account_banned.id WHERE username = '%s'", username.c_str());
 	
@@ -2323,10 +2323,10 @@ bool ChatHandler::HandlePInfoCharacterCommand(const char* args)
     }
 
     uint32 security = 0;
-    std::string username = GetIxiliumString(LANG_ERROR);
-    std::string last_ip = GetIxiliumString(LANG_ERROR);
-    std::string last_login = GetIxiliumString(LANG_ERROR);
-    std::string joindate = GetIxiliumString(LANG_ERROR);
+    std::string username = GetWOPCCOREString(LANG_ERROR);
+    std::string last_ip = GetWOPCCOREString(LANG_ERROR);
+    std::string last_login = GetWOPCCOREString(LANG_ERROR);
+    std::string joindate = GetWOPCCOREString(LANG_ERROR);
 
     result = loginDatabase.PQuery("SELECT username,last_ip,last_login,id,joindate FROM account_settings WHERE id = '%u'",accId);
     if (result)
@@ -2385,7 +2385,7 @@ bool ChatHandler::HandlePInfoIpCommand(const char* args)
     uint32 count = 0;
     std::string last_ip = (char*)args;
     std::string ipAccounts;
-    std::string last_login = GetIxiliumString(LANG_ERROR);
+    std::string last_login = GetWOPCCOREString(LANG_ERROR);
 	
     QueryResult* result = loginDatabase.PQuery("SELECT username, last_ip, last_login, account_settings.id, active_logon_id, account_banned.id as bannedid, account_banned.active as banactive FROM account_settings LEFT JOIN account_banned ON account_settings.id = account_banned.id WHERE last_ip = '%s' ORDER BY last_login ASC", last_ip.c_str());
     if(result)
@@ -2515,10 +2515,10 @@ bool ChatHandler::HandlePInfoCommand(const char* args)
 
 
     uint32 security = 0;
-    std::string username = GetIxiliumString(LANG_ERROR);
-    std::string email = GetIxiliumString(LANG_ERROR);
-    std::string last_ip = GetIxiliumString(LANG_ERROR);
-    std::string last_login = GetIxiliumString(LANG_ERROR);
+    std::string username = GetWOPCCOREString(LANG_ERROR);
+    std::string email = GetWOPCCOREString(LANG_ERROR);
+    std::string last_ip = GetWOPCCOREString(LANG_ERROR);
+    std::string last_login = GetWOPCCOREString(LANG_ERROR);
 
 
     QueryResult* result = loginDatabase.PQuery("SELECT username,email,last_ip,last_login FROM account_settings WHERE id = '%u'",accId);
@@ -2600,7 +2600,7 @@ bool ChatHandler::HandlePInfoCommand(const char* args)
 
     std::string nameLink = playerLink(target_name);
 
-    PSendSysMessage(LANG_PINFO_ACCOUNT, (target ? "" : GetIxiliumString(LANG_OFFLINE)), nameLink.c_str(), GUID_LOPART(target_guid), username.c_str(), accId, email.c_str(), security, last_ip.c_str(), last_login.c_str(), latency);
+    PSendSysMessage(LANG_PINFO_ACCOUNT, (target ? "" : GetWOPCCOREString(LANG_OFFLINE)), nameLink.c_str(), GUID_LOPART(target_guid), username.c_str(), accId, email.c_str(), security, last_ip.c_str(), last_login.c_str(), latency);
 
     std::string race_s, Class_s;
     switch(race)
@@ -3674,7 +3674,7 @@ bool ChatHandler::HandleCharacterReputationCommand(const char* args)
         FactionEntry const *factionEntry = sFactionStore.LookupEntry(itr->second.ID);
         char const* factionName = factionEntry ? factionEntry->name[loc] : "#Not found#";
         ReputationRank rank = target->GetReputationMgr().GetRank(factionEntry);
-        std::string rankName = GetIxiliumString(ReputationRankStrIndex[rank]);
+        std::string rankName = GetWOPCCOREString(ReputationRankStrIndex[rank]);
         std::ostringstream ss;
         if (m_session)
             ss << itr->second.ID << " - |cffffffff|Hfaction:" << itr->second.ID << "|h[" << factionName << " " << localeNames[loc] << "]|h|r";
@@ -3684,17 +3684,17 @@ bool ChatHandler::HandleCharacterReputationCommand(const char* args)
         ss << " " << rankName << " (" << target->GetReputationMgr().GetReputation(factionEntry) << ")";
 
         if (itr->second.Flags & FACTION_FLAG_VISIBLE)
-            ss << GetIxiliumString(LANG_FACTION_VISIBLE);
+            ss << GetWOPCCOREString(LANG_FACTION_VISIBLE);
         if (itr->second.Flags & FACTION_FLAG_AT_WAR)
-            ss << GetIxiliumString(LANG_FACTION_ATWAR);
+            ss << GetWOPCCOREString(LANG_FACTION_ATWAR);
         if (itr->second.Flags & FACTION_FLAG_PEACE_FORCED)
-            ss << GetIxiliumString(LANG_FACTION_PEACE_FORCED);
+            ss << GetWOPCCOREString(LANG_FACTION_PEACE_FORCED);
         if (itr->second.Flags & FACTION_FLAG_HIDDEN)
-            ss << GetIxiliumString(LANG_FACTION_HIDDEN);
+            ss << GetWOPCCOREString(LANG_FACTION_HIDDEN);
         if (itr->second.Flags & FACTION_FLAG_INVISIBLE_FORCED)
-            ss << GetIxiliumString(LANG_FACTION_INVISIBLE_FORCED);
+            ss << GetWOPCCOREString(LANG_FACTION_INVISIBLE_FORCED);
         if (itr->second.Flags & FACTION_FLAG_INACTIVE)
-            ss << GetIxiliumString(LANG_FACTION_INACTIVE);
+            ss << GetWOPCCOREString(LANG_FACTION_INACTIVE);
 
         SendSysMessage(ss.str().c_str());
     }
@@ -3805,7 +3805,7 @@ bool ChatHandler::HandleLookupEventCommand(const char* args)
 
         if (Utf8FitTo(descr, wnamepart))
         {
-            char const* active = activeEvents.find(id) != activeEvents.end() ? GetIxiliumString(LANG_ACTIVE) : "";
+            char const* active = activeEvents.find(id) != activeEvents.end() ? GetWOPCCOREString(LANG_ACTIVE) : "";
 
             if (m_session)
                 PSendSysMessage(LANG_EVENT_ENTRY_LIST_CHAT,id,id,eventData.description.c_str(),active );
@@ -3834,8 +3834,8 @@ bool ChatHandler::HandleEventListCommand(const char* args)
     GameEventMgr::GameEventDataMap const& events = sGameEventMgr.GetEventMap();
     GameEventMgr::ActiveEvents const& activeEvents = sGameEventMgr.GetActiveEventList();
 
-    char const* active = GetIxiliumString(LANG_ACTIVE);
-    char const* inactive = GetIxiliumString(LANG_FACTION_INACTIVE);
+    char const* active = GetWOPCCOREString(LANG_ACTIVE);
+    char const* inactive = GetWOPCCOREString(LANG_FACTION_INACTIVE);
     char const* state = "";
 
     for (uint32 event_id = 0; event_id < events.size(); ++event_id)
@@ -3896,7 +3896,7 @@ bool ChatHandler::HandleEventInfoCommand(const char* args)
 
     GameEventMgr::ActiveEvents const& activeEvents = sGameEventMgr.GetActiveEventList();
     bool active = activeEvents.find(event_id) != activeEvents.end();
-    char const* activeStr = active ? GetIxiliumString(LANG_ACTIVE) : "";
+    char const* activeStr = active ? GetWOPCCOREString(LANG_ACTIVE) : "";
 
     std::string startTimeStr = TimeToTimestampStr(eventData.start);
     std::string endTimeStr = TimeToTimestampStr(eventData.end);
@@ -4655,7 +4655,7 @@ bool ChatHandler::HandleWintergraspStatusCommand(const char* args)
         return false;
     }
 
-    PSendSysMessage(LANG_BG_WG_STATUS, sObjectMgr.GetIxiliumStringForDBCLocale(
+    PSendSysMessage(LANG_BG_WG_STATUS, sObjectMgr.GetWOPCCOREStringForDBCLocale(
         pvpWG->getDefenderTeam() == TEAM_ALLIANCE ? LANG_BG_ALLY : LANG_BG_HORDE),
         secsToTimeString(pvpWG->GetTimer(), true).c_str(),
         pvpWG->isWarTime() ? "Yes" : "No",
@@ -4784,7 +4784,7 @@ bool ChatHandler::HandleWintergraspSwitchTeamCommand(const char* args)
     uint32 timer = pvpWG->GetTimer();
     pvpWG->forceChangeTeam();
     pvpWG->setTimer(timer);
-    PSendSysMessage(LANG_BG_WG_SWITCH_FACTION, GetIxiliumString(pvpWG->getDefenderTeam() == TEAM_ALLIANCE ? LANG_BG_ALLY : LANG_BG_HORDE));
+    PSendSysMessage(LANG_BG_WG_SWITCH_FACTION, GetWOPCCOREString(pvpWG->getDefenderTeam() == TEAM_ALLIANCE ? LANG_BG_ALLY : LANG_BG_HORDE));
     return true;
 }
 
@@ -4840,10 +4840,10 @@ bool ChatHandler::HandleLookupTitleCommand(const char* args)
 
             if(loc < MAX_LOCALE)
             {
-                char const* knownStr = target && target->HasTitle(titleInfo) ? GetIxiliumString(LANG_KNOWN) : "";
+                char const* knownStr = target && target->HasTitle(titleInfo) ? GetWOPCCOREString(LANG_KNOWN) : "";
 
                 char const* activeStr = target && target->GetUInt32Value(PLAYER_CHOSEN_TITLE)==titleInfo->bit_index
-                    ? GetIxiliumString(LANG_ACTIVE)
+                    ? GetWOPCCOREString(LANG_ACTIVE)
                     : "";
 
                 char titleNameStr[80];
@@ -5015,7 +5015,7 @@ bool ChatHandler::HandleCharacterTitlesCommand(const char* args)
 
     LocaleConstant loc = GetSessionDbcLocale();
     char const* targetName = target->GetName();
-    char const* knownStr = GetIxiliumString(LANG_KNOWN);
+    char const* knownStr = GetWOPCCOREString(LANG_KNOWN);
 
     // Search in CharTitles.dbc
     for (uint32 id = 0; id < sCharTitlesStore.GetNumRows(); id++)
@@ -5028,7 +5028,7 @@ bool ChatHandler::HandleCharacterTitlesCommand(const char* args)
                 continue;
 
             char const* activeStr = target && target->GetUInt32Value(PLAYER_CHOSEN_TITLE)==titleInfo->bit_index
-                ? GetIxiliumString(LANG_ACTIVE)
+                ? GetWOPCCOREString(LANG_ACTIVE)
                 : "";
 
             char titleNameStr[80];

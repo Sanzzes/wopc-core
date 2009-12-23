@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  *
  * This program is free software; you can redistribute it and/or modify
@@ -115,7 +115,7 @@ class InstanceSave
         bool m_canReset;
 };
 
-class SCRIPTS_DLL_DECL InstanceSaveManager : public Ixilium::Singleton<InstanceSaveManager, Ixilium::ClassLevelLockable<InstanceSaveManager, ACE_Thread_Mutex> >
+class SCRIPTS_DLL_DECL InstanceSaveManager : public WOPCCORE::Singleton<InstanceSaveManager, WOPCCORE::ClassLevelLockable<InstanceSaveManager, ACE_Thread_Mutex> >
 {
     friend class InstanceSave;
     public:
@@ -184,5 +184,5 @@ class SCRIPTS_DLL_DECL InstanceSaveManager : public Ixilium::Singleton<InstanceS
         ResetTimeQueue m_resetTimeQueue;
 };
 
-#define sInstanceSaveMgr Ixilium::Singleton<InstanceSaveManager>::Instance()
+#define sInstanceSaveMgr WOPCCORE::Singleton<InstanceSaveManager>::Instance()
 #endif

@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#ifndef IXILIUMEMU_ITEM_H
-#define IXILIUMEMU_ITEM_H
+#ifndef WOPCCORE_ITEM_H
+#define WOPCCORE_ITEM_H
 
 #include "Common.h"
 #include "Object.h"
@@ -218,7 +218,7 @@ struct ItemRequiredTarget
 
 bool ItemCanGoIntoBag(ItemPrototype const *proto, ItemPrototype const *pBagProto);
 
-class IXILIUM_DLL_SPEC Item : public Object
+class WOPCCORE_DLL_SPEC Item : public Object
 {
     public:
         static Item* CreateItem( uint32 item, uint32 count, Player const* player = NULL );

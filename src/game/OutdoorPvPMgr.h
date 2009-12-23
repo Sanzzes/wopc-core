@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -79,7 +79,7 @@ private:
     uint32 m_UpdateTimer;
 };
 
-#define sOutdoorPvPMgr Ixilium::Singleton<OutdoorPvPMgr>::Instance()
+#define sOutdoorPvPMgr WOPCCORE::Singleton<OutdoorPvPMgr>::Instance()
 
 #endif /*OUTDOOR_PVP_MGR_H_*/
 

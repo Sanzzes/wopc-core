@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -203,7 +203,7 @@ bool ChatHandler::HandleNotifyCommand(const char* args)
     if (!*args)
         return false;
 
-    std::string str = GetIxiliumString(LANG_GLOBAL_NOTIFY);
+    std::string str = GetWOPCCOREString(LANG_GLOBAL_NOTIFY);
     str += args;
 
     WorldPacket data(SMSG_NOTIFICATION, (str.size()+1));
@@ -219,7 +219,7 @@ bool ChatHandler::HandleGMNotifyCommand(const char* args)
     if (!*args)
         return false;
 
-    std::string str = GetIxiliumString(LANG_GM_NOTIFY);
+    std::string str = GetWOPCCOREString(LANG_GM_NOTIFY);
     str += args;
 
     WorldPacket data(SMSG_NOTIFICATION, (str.size()+1));
@@ -305,7 +305,7 @@ bool ChatHandler::HandleGMChatCommand(const char* args)
 
 std::string ChatHandler::PGetParseString(int32 entry, ...)
 {
-        const char *format = GetIxiliumString(entry);
+        const char *format = GetWOPCCOREString(entry);
         va_list ap;
         char str [1024];
         va_start(ap, entry);
@@ -680,7 +680,7 @@ bool ChatHandler::HandleGMVisibleCommand(const char* args)
 {
     if (!*args)
     {
-        PSendSysMessage(LANG_YOU_ARE, m_session->GetPlayer()->isGMVisible() ?  GetIxiliumString(LANG_VISIBLE) : GetIxiliumString(LANG_INVISIBLE));
+        PSendSysMessage(LANG_YOU_ARE, m_session->GetPlayer()->isGMVisible() ?  GetWOPCCOREString(LANG_VISIBLE) : GetWOPCCOREString(LANG_INVISIBLE));
         return true;
     }
 
@@ -732,7 +732,7 @@ bool ChatHandler::HandleGPSCommand(const char* args)
             return false;
         }
     }
-    CellPair cell_val = Ixilium::ComputeCellPair(obj->GetPositionX(), obj->GetPositionY());
+    CellPair cell_val = WOPCCORE::ComputeCellPair(obj->GetPositionX(), obj->GetPositionY());
     Cell cell(cell_val);
 
     uint32 zone_id, area_id;
@@ -751,7 +751,7 @@ bool ChatHandler::HandleGPSCommand(const char* args)
     float ground_z = map->GetHeight(obj->GetPositionX(), obj->GetPositionY(), MAX_HEIGHT);
     float floor_z = map->GetHeight(obj->GetPositionX(), obj->GetPositionY(), obj->GetPositionZ());
 
-    GridPair p = Ixilium::ComputeGridPair(obj->GetPositionX(), obj->GetPositionY());
+    GridPair p = WOPCCORE::ComputeGridPair(obj->GetPositionX(), obj->GetPositionY());
 
     int gx=63-p.x_coord;
     int gy=63-p.y_coord;
@@ -769,10 +769,10 @@ bool ChatHandler::HandleGPSCommand(const char* args)
         zone_x, zone_y, ground_z, floor_z, have_map, have_vmap );
 
     sLog.outDebug("Player %s GPS call for %s '%s' (%s: %u):",
-        m_session ? GetNameLink().c_str() : GetIxiliumString(LANG_CONSOLE_COMMAND),
+        m_session ? GetNameLink().c_str() : GetWOPCCOREString(LANG_CONSOLE_COMMAND),
         (obj->GetTypeId() == TYPEID_PLAYER ? "player" : "creature"), obj->GetName(),
         (obj->GetTypeId() == TYPEID_PLAYER ? "GUID" : "Entry"), (obj->GetTypeId() == TYPEID_PLAYER ? obj->GetGUIDLow(): obj->GetEntry()) );
-    sLog.outDebug(GetIxiliumString(LANG_MAP_POSITION),
+    sLog.outDebug(GetWOPCCOREString(LANG_MAP_POSITION),
         obj->GetMapId(), (mapEntry ? mapEntry->name[sWorld.GetDefaultDbcLocale()] : "<unknown>" ),
         zone_id, (zoneEntry ? zoneEntry->area_name[sWorld.GetDefaultDbcLocale()] : "<unknown>" ),
         area_id, (areaEntry ? areaEntry->area_name[sWorld.GetDefaultDbcLocale()] : "<unknown>" ),
@@ -898,7 +898,7 @@ bool ChatHandler::HandleNamegoCommand(const char* args)
 
         std::string nameLink = playerLink(target_name);
 
-        PSendSysMessage(LANG_SUMMONING, nameLink.c_str(), GetIxiliumString(LANG_OFFLINE));
+        PSendSysMessage(LANG_SUMMONING, nameLink.c_str(), GetWOPCCOREString(LANG_OFFLINE));
 
         // in point where GM stay
         Player::SavePositionInDB(m_session->GetPlayer()->GetMapId(),
@@ -1235,7 +1235,7 @@ bool ChatHandler::HandleModifyEnergyCommand(const char* args)
     chr->SetMaxPower(POWER_ENERGY,energym );
     chr->SetPower(POWER_ENERGY, energy );
 
-    sLog.outDetail(GetIxiliumString(LANG_CURRENT_ENERGY),chr->GetMaxPower(POWER_ENERGY));
+    sLog.outDetail(GetWOPCCOREString(LANG_CURRENT_ENERGY),chr->GetMaxPower(POWER_ENERGY));
 
     return true;
 }
@@ -2088,7 +2088,7 @@ bool ChatHandler::HandleModifyMoneyCommand(const char* args)
     {
         int32 newmoney = int32(moneyuser) + addmoney;
 
-        sLog.outDetail(GetIxiliumString(LANG_CURRENT_MONEY), moneyuser, addmoney, newmoney);
+        sLog.outDetail(GetWOPCCOREString(LANG_CURRENT_MONEY), moneyuser, addmoney, newmoney);
         if (newmoney <= 0 )
         {
             PSendSysMessage(LANG_YOU_TAKE_ALL_MONEY, GetNameLink(chr).c_str());
@@ -2120,7 +2120,7 @@ bool ChatHandler::HandleModifyMoneyCommand(const char* args)
             chr->ModifyMoney( addmoney );
     }
 
-    sLog.outDetail(GetIxiliumString(LANG_NEW_MONEY), moneyuser, addmoney, chr->GetMoney() );
+    sLog.outDetail(GetWOPCCOREString(LANG_NEW_MONEY), moneyuser, addmoney, chr->GetMoney() );
 
     return true;
 }
@@ -2364,7 +2364,7 @@ bool ChatHandler::HandleWhispersCommand(const char* args)
 {
     if (!*args)
     {
-        PSendSysMessage(LANG_COMMAND_WHISPERACCEPTING, m_session->GetPlayer()->isAcceptWhispers() ?  GetIxiliumString(LANG_ON) : GetIxiliumString(LANG_OFF));
+        PSendSysMessage(LANG_COMMAND_WHISPERACCEPTING, m_session->GetPlayer()->isAcceptWhispers() ?  GetWOPCCOREString(LANG_ON) : GetWOPCCOREString(LANG_OFF));
         return true;
     }
 
@@ -2526,7 +2526,7 @@ bool ChatHandler::HandleTeleNameCommand(const char * args)
 
         std::string nameLink = playerLink(target_name);
 
-        PSendSysMessage(LANG_TELEPORTING_TO, nameLink.c_str(), GetIxiliumString(LANG_OFFLINE), tele->name.c_str());
+        PSendSysMessage(LANG_TELEPORTING_TO, nameLink.c_str(), GetWOPCCOREString(LANG_OFFLINE), tele->name.c_str());
         Player::SavePositionInDB(tele->mapId,tele->position_x,tele->position_y,tele->position_z,tele->orientation,
             sMapMgr.GetZoneId(tele->mapId,tele->position_x,tele->position_y,tele->position_z),target_guid);
     }

@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,12 +18,12 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef IXILIUM_IDLEMOVEMENTGENERATOR_H
-#define IXILIUM_IDLEMOVEMENTGENERATOR_H
+#ifndef WOPCCORE_IDLEMOVEMENTGENERATOR_H
+#define WOPCCORE_IDLEMOVEMENTGENERATOR_H
 
 #include "MovementGenerator.h"
 
-class IXILIUM_DLL_SPEC IdleMovementGenerator : public MovementGenerator
+class WOPCCORE_DLL_SPEC IdleMovementGenerator : public MovementGenerator
 {
     public:
 
@@ -36,7 +36,7 @@ class IXILIUM_DLL_SPEC IdleMovementGenerator : public MovementGenerator
 
 extern IdleMovementGenerator si_idleMovement;
 
-class IXILIUM_DLL_SPEC RotateMovementGenerator : public MovementGenerator
+class WOPCCORE_DLL_SPEC RotateMovementGenerator : public MovementGenerator
 {
     public:
         explicit RotateMovementGenerator(uint32 time, RotateDirection direction) : m_duration(time), m_maxDuration(time), m_direction(direction) {}
@@ -52,7 +52,7 @@ class IXILIUM_DLL_SPEC RotateMovementGenerator : public MovementGenerator
         RotateDirection m_direction;
 };
 
-class IXILIUM_DLL_SPEC DistractMovementGenerator : public MovementGenerator
+class WOPCCORE_DLL_SPEC DistractMovementGenerator : public MovementGenerator
 {
     public:
         explicit DistractMovementGenerator(uint32 timer) : m_timer(timer) {}
@@ -67,7 +67,7 @@ class IXILIUM_DLL_SPEC DistractMovementGenerator : public MovementGenerator
         uint32 m_timer;
 };
 
-class IXILIUM_DLL_SPEC AssistanceDistractMovementGenerator : public DistractMovementGenerator
+class WOPCCORE_DLL_SPEC AssistanceDistractMovementGenerator : public DistractMovementGenerator
 {
     public:
         AssistanceDistractMovementGenerator(uint32 timer) :

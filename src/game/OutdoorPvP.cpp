@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -285,8 +285,8 @@ bool OPvPCapturePoint::Update(uint32 diff)
     }
 
     std::list<Player*> players;
-    Ixilium::AnyPlayerInObjectRangeCheck checker(m_capturePoint, radius);
-    Ixilium::PlayerListSearcher<Ixilium::AnyPlayerInObjectRangeCheck> searcher(m_capturePoint, players, checker);
+    WOPCCORE::AnyPlayerInObjectRangeCheck checker(m_capturePoint, radius);
+    WOPCCORE::PlayerListSearcher<WOPCCORE::AnyPlayerInObjectRangeCheck> searcher(m_capturePoint, players, checker);
     m_capturePoint->VisitNearbyWorldObject(radius, searcher);
 
     for (std::list<Player*>::iterator itr = players.begin(); itr != players.end(); ++itr)

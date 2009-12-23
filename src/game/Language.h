@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,10 +18,10 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#ifndef __IXILIUM_LANGUAGE_H
-#define __IXILIUM_LANGUAGE_H
+#ifndef __WOPCCORE_LANGUAGE_H
+#define __WOPCCORE_LANGUAGE_H
 
-enum IxiliumStrings
+enum WOPCCOREStrings
 {
     //--Generic Chat Commands--//
     LANG_SELECT_CHAR_OR_CREATURE                       = 1,
@@ -800,7 +800,7 @@ enum IxiliumStrings
     LANG_GUILD_MEMBER                                  = 814,
     LANG_GUILD_INITIATE                                = 815,
     LANG_ZONE_NOFLYZONE                                = 816,
-    LANG_USED_IXILIUM_VERSION                          = 817,  // "IxiliumEmu Rev:"
+    LANG_USED_WOPCCORE_VERSION                          = 817,  // "WOPCCOREEmu Rev:"
     LANG_JAIL_YOURE_JAILED                             = 818,  // "You are jailed by %s for %u hour(s)!"
     LANG_JAIL_REASON                                   = 819,  // "%s wrote this as reason: %s"
     LANG_JAIL_WAS_JAILED                               = 820,  // "%s was jailed by you for %u hour(s)!"
@@ -946,7 +946,7 @@ enum IxiliumStrings
     // More Room for other strings                     = 2026-4999
     //
 
-    //--Ixilium strings--//
+    //--WOPCCORE strings--//
     LANG_COMMAND_FREEZE                                = 5000,
     LANG_COMMAND_FREEZE_ERROR                          = 5001,
     LANG_COMMAND_FREEZE_WRONG                          = 5002,
@@ -972,7 +972,7 @@ enum IxiliumStrings
     LANG_MOUNTABLE                                     = 5019,
 
     //
-    // More Room for Ixilium strings                     = 5020-6612
+    // More Room for WOPCCORE strings                     = 5020-6612
     // 
 
     //--GM Announcements--//

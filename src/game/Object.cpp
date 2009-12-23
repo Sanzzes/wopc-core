@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1482,8 +1482,8 @@ void WorldObject::GetRandomPoint(const Position &pos, float distance, float &ran
     rand_y = pos.m_positionY + new_dist * sin(angle);
     rand_z = pos.m_positionZ;
 
-    Ixilium::NormalizeMapCoord(rand_x);
-    Ixilium::NormalizeMapCoord(rand_y);
+    WOPCCORE::NormalizeMapCoord(rand_x);
+    WOPCCORE::NormalizeMapCoord(rand_y);
     UpdateGroundPositionZ(rand_x,rand_y,rand_z);            // update to LOS height if available
 }
 
@@ -1496,7 +1496,7 @@ void WorldObject::UpdateGroundPositionZ(float x, float y, float &z) const
 
 bool Position::IsPositionValid() const
 {
-    return Ixilium::IsValidMapCoord(m_positionX,m_positionY,m_positionZ,m_orientation);
+    return WOPCCORE::IsValidMapCoord(m_positionX,m_positionY,m_positionZ,m_orientation);
 }
 
 void WorldObject::MonsterSay(const char* text, uint32 language, uint64 TargetGuid)
@@ -1555,7 +1555,7 @@ void Object::ForceValuesUpdateAtIndex(uint32 i)
     }
 }
 
-namespace Ixilium
+namespace WOPCCORE
 {
     class MonsterChatBuilder
     {
@@ -1564,7 +1564,7 @@ namespace Ixilium
                 : i_object(obj), i_msgtype(msgtype), i_textId(textId), i_language(language), i_targetGUID(targetGUID) {}
             void operator()(WorldPacket& data, int32 loc_idx)
             {
-                char const* text = sObjectMgr.GetIxiliumString(i_textId,loc_idx);
+                char const* text = sObjectMgr.GetWOPCCOREString(i_textId,loc_idx);
 
                 // TODO: i_object.GetName() also must be localized?
                 i_object.BuildMonsterChat(&data,i_msgtype,text,i_language,i_object.GetNameForLocaleIdx(loc_idx),i_targetGUID);
@@ -1577,44 +1577,44 @@ namespace Ixilium
             uint32 i_language;
             uint64 i_targetGUID;
     };
-}                                                           // namespace Ixilium
+}                                                           // namespace WOPCCORE
 
 void WorldObject::MonsterSay(int32 textId, uint32 language, uint64 TargetGuid)
 {
-    CellPair p = Ixilium::ComputeCellPair(GetPositionX(), GetPositionY());
+    CellPair p = WOPCCORE::ComputeCellPair(GetPositionX(), GetPositionY());
 
     Cell cell(p);
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();
 
-    Ixilium::MonsterChatBuilder say_build(*this, CHAT_MSG_MONSTER_SAY, textId,language,TargetGuid);
-    Ixilium::LocalizedPacketDo<Ixilium::MonsterChatBuilder> say_do(say_build);
-    Ixilium::PlayerDistWorker<Ixilium::LocalizedPacketDo<Ixilium::MonsterChatBuilder> > say_worker(this,sWorld.getConfig(CONFIG_LISTEN_RANGE_SAY),say_do);
-    TypeContainerVisitor<Ixilium::PlayerDistWorker<Ixilium::LocalizedPacketDo<Ixilium::MonsterChatBuilder> >, WorldTypeMapContainer > message(say_worker);
+    WOPCCORE::MonsterChatBuilder say_build(*this, CHAT_MSG_MONSTER_SAY, textId,language,TargetGuid);
+    WOPCCORE::LocalizedPacketDo<WOPCCORE::MonsterChatBuilder> say_do(say_build);
+    WOPCCORE::PlayerDistWorker<WOPCCORE::LocalizedPacketDo<WOPCCORE::MonsterChatBuilder> > say_worker(this,sWorld.getConfig(CONFIG_LISTEN_RANGE_SAY),say_do);
+    TypeContainerVisitor<WOPCCORE::PlayerDistWorker<WOPCCORE::LocalizedPacketDo<WOPCCORE::MonsterChatBuilder> >, WorldTypeMapContainer > message(say_worker);
     CellLock<GridReadGuard> cell_lock(cell, p);
     cell_lock->Visit(cell_lock, message, *GetMap(), *this, sWorld.getConfig(CONFIG_LISTEN_RANGE_SAY));
 }
 
 void WorldObject::MonsterYell(int32 textId, uint32 language, uint64 TargetGuid)
 {
-    CellPair p = Ixilium::ComputeCellPair(GetPositionX(), GetPositionY());
+    CellPair p = WOPCCORE::ComputeCellPair(GetPositionX(), GetPositionY());
 
     Cell cell(p);
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();
 
-    Ixilium::MonsterChatBuilder say_build(*this, CHAT_MSG_MONSTER_YELL, textId,language,TargetGuid);
-    Ixilium::LocalizedPacketDo<Ixilium::MonsterChatBuilder> say_do(say_build);
-    Ixilium::PlayerDistWorker<Ixilium::LocalizedPacketDo<Ixilium::MonsterChatBuilder> > say_worker(this,sWorld.getConfig(CONFIG_LISTEN_RANGE_YELL),say_do);
-    TypeContainerVisitor<Ixilium::PlayerDistWorker<Ixilium::LocalizedPacketDo<Ixilium::MonsterChatBuilder> >, WorldTypeMapContainer > message(say_worker);
+    WOPCCORE::MonsterChatBuilder say_build(*this, CHAT_MSG_MONSTER_YELL, textId,language,TargetGuid);
+    WOPCCORE::LocalizedPacketDo<WOPCCORE::MonsterChatBuilder> say_do(say_build);
+    WOPCCORE::PlayerDistWorker<WOPCCORE::LocalizedPacketDo<WOPCCORE::MonsterChatBuilder> > say_worker(this,sWorld.getConfig(CONFIG_LISTEN_RANGE_YELL),say_do);
+    TypeContainerVisitor<WOPCCORE::PlayerDistWorker<WOPCCORE::LocalizedPacketDo<WOPCCORE::MonsterChatBuilder> >, WorldTypeMapContainer > message(say_worker);
     CellLock<GridReadGuard> cell_lock(cell, p);
     cell_lock->Visit(cell_lock, message, *GetMap(), *this, sWorld.getConfig(CONFIG_LISTEN_RANGE_YELL));
 }
 
 void WorldObject::MonsterYellToZone(int32 textId, uint32 language, uint64 TargetGuid)
 {
-    Ixilium::MonsterChatBuilder say_build(*this, CHAT_MSG_MONSTER_YELL, textId,language,TargetGuid);
-    Ixilium::LocalizedPacketDo<Ixilium::MonsterChatBuilder> say_do(say_build);
+    WOPCCORE::MonsterChatBuilder say_build(*this, CHAT_MSG_MONSTER_YELL, textId,language,TargetGuid);
+    WOPCCORE::LocalizedPacketDo<WOPCCORE::MonsterChatBuilder> say_do(say_build);
 
     uint32 zoneid = GetZoneId();
 
@@ -1626,16 +1626,16 @@ void WorldObject::MonsterYellToZone(int32 textId, uint32 language, uint64 Target
 
 void WorldObject::MonsterTextEmote(int32 textId, uint64 TargetGuid, bool IsBossEmote)
 {
-    CellPair p = Ixilium::ComputeCellPair(GetPositionX(), GetPositionY());
+    CellPair p = WOPCCORE::ComputeCellPair(GetPositionX(), GetPositionY());
 
     Cell cell(p);
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();
 
-    Ixilium::MonsterChatBuilder say_build(*this, IsBossEmote ? CHAT_MSG_RAID_BOSS_EMOTE : CHAT_MSG_MONSTER_EMOTE, textId,LANG_UNIVERSAL,TargetGuid);
-    Ixilium::LocalizedPacketDo<Ixilium::MonsterChatBuilder> say_do(say_build);
-    Ixilium::PlayerDistWorker<Ixilium::LocalizedPacketDo<Ixilium::MonsterChatBuilder> > say_worker(this,sWorld.getConfig(CONFIG_LISTEN_RANGE_TEXTEMOTE),say_do);
-    TypeContainerVisitor<Ixilium::PlayerDistWorker<Ixilium::LocalizedPacketDo<Ixilium::MonsterChatBuilder> >, WorldTypeMapContainer > message(say_worker);
+    WOPCCORE::MonsterChatBuilder say_build(*this, IsBossEmote ? CHAT_MSG_RAID_BOSS_EMOTE : CHAT_MSG_MONSTER_EMOTE, textId,LANG_UNIVERSAL,TargetGuid);
+    WOPCCORE::LocalizedPacketDo<WOPCCORE::MonsterChatBuilder> say_do(say_build);
+    WOPCCORE::PlayerDistWorker<WOPCCORE::LocalizedPacketDo<WOPCCORE::MonsterChatBuilder> > say_worker(this,sWorld.getConfig(CONFIG_LISTEN_RANGE_TEXTEMOTE),say_do);
+    TypeContainerVisitor<WOPCCORE::PlayerDistWorker<WOPCCORE::LocalizedPacketDo<WOPCCORE::MonsterChatBuilder> >, WorldTypeMapContainer > message(say_worker);
     CellLock<GridReadGuard> cell_lock(cell, p);
     cell_lock->Visit(cell_lock, message, *GetMap(), *this, sWorld.getConfig(IsBossEmote ? CONFIG_LISTEN_RANGE_YELL : CONFIG_LISTEN_RANGE_TEXTEMOTE));
 }
@@ -1647,7 +1647,7 @@ void WorldObject::MonsterWhisper(int32 textId, uint64 receiver, bool IsBossWhisp
         return;
 
     uint32 loc_idx = player->GetSession()->GetSessionDbLocaleIndex();
-    char const* text = sObjectMgr.GetIxiliumString(textId,loc_idx);
+    char const* text = sObjectMgr.GetWOPCCOREString(textId,loc_idx);
 
     WorldPacket data(SMSG_MESSAGECHAT, 200);
     BuildMonsterChat(&data,IsBossWhisper ? CHAT_MSG_RAID_BOSS_WHISPER : CHAT_MSG_MONSTER_WHISPER,text,LANG_UNIVERSAL,GetNameForLocaleIdx(loc_idx),receiver);
@@ -1683,13 +1683,13 @@ void Unit::BuildHeartBeatMsg(WorldPacket *data) const
 
 void WorldObject::SendMessageToSet(WorldPacket *data, bool /*fake*/)
 {
-    Ixilium::MessageDistDeliverer notifier(this, data, GetMap()->GetVisibilityDistance());
+    WOPCCORE::MessageDistDeliverer notifier(this, data, GetMap()->GetVisibilityDistance());
     VisitNearbyWorldObject(GetMap()->GetVisibilityDistance(), notifier);
 }
 
 void WorldObject::SendMessageToSetInRange(WorldPacket *data, float dist, bool /*bToSelf*/)
 {
-    Ixilium::MessageDistDeliverer notifier(this, data, dist);
+    WOPCCORE::MessageDistDeliverer notifier(this, data, dist);
     VisitNearbyWorldObject(dist, notifier);
 }
 
@@ -2003,8 +2003,8 @@ Creature* WorldObject::SummonTrigger(float x, float y, float z, float ang, uint3
 Creature* WorldObject::FindNearestCreature(uint32 uiEntry, float fMaxSearchRange, bool bAlive)
 {
     Creature *pCreature = NULL;
-    Ixilium::NearestCreatureEntryWithLiveStateInObjectRangeCheck checker(*this, uiEntry, bAlive, fMaxSearchRange);
-    Ixilium::CreatureLastSearcher<Ixilium::NearestCreatureEntryWithLiveStateInObjectRangeCheck> searcher(this, pCreature, checker);
+    WOPCCORE::NearestCreatureEntryWithLiveStateInObjectRangeCheck checker(*this, uiEntry, bAlive, fMaxSearchRange);
+    WOPCCORE::CreatureLastSearcher<WOPCCORE::NearestCreatureEntryWithLiveStateInObjectRangeCheck> searcher(this, pCreature, checker);
     VisitNearbyObject(fMaxSearchRange, searcher);
     return pCreature;
 }
@@ -2012,31 +2012,31 @@ Creature* WorldObject::FindNearestCreature(uint32 uiEntry, float fMaxSearchRange
 GameObject* WorldObject::FindNearestGameObject(uint32 uiEntry, float fMaxSearchRange)
 {
     GameObject *pGO = NULL;
-    Ixilium::NearestGameObjectEntryInObjectRangeCheck checker(*this, uiEntry, fMaxSearchRange);
-    Ixilium::GameObjectLastSearcher<Ixilium::NearestGameObjectEntryInObjectRangeCheck> searcher(this, pGO, checker);
+    WOPCCORE::NearestGameObjectEntryInObjectRangeCheck checker(*this, uiEntry, fMaxSearchRange);
+    WOPCCORE::GameObjectLastSearcher<WOPCCORE::NearestGameObjectEntryInObjectRangeCheck> searcher(this, pGO, checker);
     VisitNearbyGridObject(fMaxSearchRange, searcher);
     return pGO;
 }
 
 void WorldObject::GetCreatureListWithEntryInGrid(std::list<Creature*>& lList, uint32 uiEntry, float fMaxSearchRange)
 {
-    Ixilium::AllCreaturesOfEntryInRange check(this, uiEntry, fMaxSearchRange);
-    Ixilium::CreatureListSearcher<Ixilium::AllCreaturesOfEntryInRange> searcher(this, lList, check);
-    TypeContainerVisitor<Ixilium::CreatureListSearcher<Ixilium::AllCreaturesOfEntryInRange>, GridTypeMapContainer> visitor(searcher);
+    WOPCCORE::AllCreaturesOfEntryInRange check(this, uiEntry, fMaxSearchRange);
+    WOPCCORE::CreatureListSearcher<WOPCCORE::AllCreaturesOfEntryInRange> searcher(this, lList, check);
+    TypeContainerVisitor<WOPCCORE::CreatureListSearcher<WOPCCORE::AllCreaturesOfEntryInRange>, GridTypeMapContainer> visitor(searcher);
     VisitNearbyObject(fMaxSearchRange, searcher);
 }
 
 void WorldObject::GetGameObjectListWithEntryInGrid(std::list<GameObject*>& lList, uint32 uiEntry, float fMaxSearchRange)
 {
-    Ixilium::AllGameObjectsWithEntryInRange check(this, uiEntry, fMaxSearchRange);
-    Ixilium::GameObjectListSearcher<Ixilium::AllGameObjectsWithEntryInRange> searcher(this, lList, check);
-    TypeContainerVisitor<Ixilium::GameObjectListSearcher<Ixilium::AllGameObjectsWithEntryInRange>, GridTypeMapContainer> visitor(searcher);
+    WOPCCORE::AllGameObjectsWithEntryInRange check(this, uiEntry, fMaxSearchRange);
+    WOPCCORE::GameObjectListSearcher<WOPCCORE::AllGameObjectsWithEntryInRange> searcher(this, lList, check);
+    TypeContainerVisitor<WOPCCORE::GameObjectListSearcher<WOPCCORE::AllGameObjectsWithEntryInRange>, GridTypeMapContainer> visitor(searcher);
 
 	VisitNearbyGridObject(fMaxSearchRange, searcher);
 }
 
 /*
-namespace Ixilium
+namespace WOPCCORE
 {
     class NearUsedPosDo
     {
@@ -2105,7 +2105,7 @@ namespace Ixilium
             float              i_angle;
             ObjectPosSelector& i_selector;
     };
-}                                                           // namespace Ixilium
+}                                                           // namespace WOPCCORE
 */
 
 //===================================================================================================
@@ -2115,8 +2115,8 @@ void WorldObject::GetNearPoint2D(float &x, float &y, float distance2d, float abs
     x = GetPositionX() + (GetObjectSize() + distance2d) * cos(absAngle);
     y = GetPositionY() + (GetObjectSize() + distance2d) * sin(absAngle);
 
-    Ixilium::NormalizeMapCoord(x);
-    Ixilium::NormalizeMapCoord(y);
+    WOPCCORE::NormalizeMapCoord(x);
+    WOPCCORE::NormalizeMapCoord(y);
 }
 
 void WorldObject::GetNearPoint(WorldObject const* searcher, float &x, float &y, float &z, float searcher_size, float distance2d, float absAngle ) const
@@ -2143,16 +2143,16 @@ void WorldObject::GetNearPoint(WorldObject const* searcher, float &x, float &y, 
 
     // adding used positions around object
     {
-        CellPair p(Ixilium::ComputeCellPair(GetPositionX(), GetPositionY()));
+        CellPair p(WOPCCORE::ComputeCellPair(GetPositionX(), GetPositionY()));
         Cell cell(p);
         cell.data.Part.reserved = ALL_DISTRICT;
         cell.SetNoCreate();
 
-        Ixilium::NearUsedPosDo u_do(*this,searcher,absAngle,selector);
-        Ixilium::WorldObjectWorker<Ixilium::NearUsedPosDo> worker(this,u_do);
+        WOPCCORE::NearUsedPosDo u_do(*this,searcher,absAngle,selector);
+        WOPCCORE::WorldObjectWorker<WOPCCORE::NearUsedPosDo> worker(this,u_do);
 
-        TypeContainerVisitor<Ixilium::WorldObjectWorker<Ixilium::NearUsedPosDo>, GridTypeMapContainer  > grid_obj_worker(worker);
-        TypeContainerVisitor<Ixilium::WorldObjectWorker<Ixilium::NearUsedPosDo>, WorldTypeMapContainer > world_obj_worker(worker);
+        TypeContainerVisitor<WOPCCORE::WorldObjectWorker<WOPCCORE::NearUsedPosDo>, GridTypeMapContainer  > grid_obj_worker(worker);
+        TypeContainerVisitor<WOPCCORE::WorldObjectWorker<WOPCCORE::NearUsedPosDo>, WorldTypeMapContainer > world_obj_worker(worker);
 
         CellLock<GridReadGuard> cell_lock(cell, p);
         cell_lock->Visit(cell_lock, grid_obj_worker,  *GetMap(), *this, distance2d);
@@ -2296,8 +2296,8 @@ void WorldObject::MovePosition(Position &pos, float dist, float angle)
     angle += m_orientation;
     pos.m_positionX += dist * cos(angle);
     pos.m_positionY += dist * sin(angle);
-    Ixilium::NormalizeMapCoord(pos.m_positionX);
-    Ixilium::NormalizeMapCoord(pos.m_positionY);
+    WOPCCORE::NormalizeMapCoord(pos.m_positionX);
+    WOPCCORE::NormalizeMapCoord(pos.m_positionY);
     UpdateGroundPositionZ(pos.m_positionX, pos.m_positionY, pos.m_positionZ);
     pos.m_orientation = m_orientation;
 }
@@ -2337,8 +2337,8 @@ void WorldObject::DestroyForNearbyPlayers()
         return;
 
     std::list<Unit*> targets;
-    Ixilium::AnyUnitInObjectRangeCheck check(this, GetMap()->GetVisibilityDistance());
-    Ixilium::UnitListSearcher<Ixilium::AnyUnitInObjectRangeCheck> searcher(this, targets, check);
+    WOPCCORE::AnyUnitInObjectRangeCheck check(this, GetMap()->GetVisibilityDistance());
+    WOPCCORE::UnitListSearcher<WOPCCORE::AnyUnitInObjectRangeCheck> searcher(this, targets, check);
     VisitNearbyWorldObject(GetMap()->GetVisibilityDistance(), searcher);
     for (std::list<Unit*>::const_iterator iter = targets.begin(); iter != targets.end(); ++iter)
     {

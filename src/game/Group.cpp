@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -947,7 +947,7 @@ void Group::GetDataForXPAtKill(Unit const* victim, uint32& count,uint32& sum_lev
         if (!member_with_max_level || member_with_max_level->getLevel() < member->getLevel())
             member_with_max_level = member;
 
-        uint32 gray_level = Ixilium::XP::GetGrayLevel(member->getLevel());
+        uint32 gray_level = WOPCCORE::XP::GetGrayLevel(member->getLevel());
         if ( victim->getLevel() > gray_level && (!not_gray_member_with_max_level
            || not_gray_member_with_max_level->getLevel() < member->getLevel()))
             not_gray_member_with_max_level = member;

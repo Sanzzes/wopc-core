@@ -1,7 +1,7 @@
 /*
 * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
 *
-* Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+* Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
 *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -563,7 +563,7 @@ bool ChatHandler::HandleReloadAllCommand(const char*)
     HandleReloadAccessRequirementCommand("");
     HandleReloadCommandCommand("");
     HandleReloadReservedNameCommand("");
-    HandleReloadIxiliumStringCommand("");
+    HandleReloadWOPCCOREStringCommand("");
     HandleReloadGameTeleCommand("");
     HandleReloadAutobroadcastCommand("");
     return true;
@@ -931,11 +931,11 @@ bool ChatHandler::HandleReloadLootTemplatesSpellCommand(const char*)
     return true;
 }
 
-bool ChatHandler::HandleReloadIxiliumStringCommand(const char*)
+bool ChatHandler::HandleReloadWOPCCOREStringCommand(const char*)
 {
-    sLog.outString( "Re-Loading ixilium_string Table!" );
-    sObjectMgr.LoadIxiliumStrings();
-    SendGlobalGMSysMessage("DB table `ixilium_string` reloaded.");
+    sLog.outString( "Re-Loading WOPCCORE_string Table!" );
+    sObjectMgr.LoadWOPCCOREStrings();
+    SendGlobalGMSysMessage("DB table `WOPCCORE_string` reloaded.");
     return true;
 }
 
@@ -1721,13 +1721,13 @@ bool ChatHandler::HandleCooldownCommand(const char *args)
 
         if (!sSpellStore.LookupEntry(spell_id))
         {
-            PSendSysMessage(LANG_UNKNOWN_SPELL, target==m_session->GetPlayer() ? GetIxiliumString(LANG_YOU) : tNameLink.c_str());
+            PSendSysMessage(LANG_UNKNOWN_SPELL, target==m_session->GetPlayer() ? GetWOPCCOREString(LANG_YOU) : tNameLink.c_str());
             SetSentErrorMessage(true);
             return false;
         }
 
         target->RemoveSpellCooldown(spell_id,true);
-        PSendSysMessage(LANG_REMOVE_COOLDOWN, spell_id, target==m_session->GetPlayer() ? GetIxiliumString(LANG_YOU) : tNameLink.c_str());
+        PSendSysMessage(LANG_REMOVE_COOLDOWN, spell_id, target==m_session->GetPlayer() ? GetWOPCCOREString(LANG_YOU) : tNameLink.c_str());
    }
     return true;
 }
@@ -2688,7 +2688,7 @@ bool ChatHandler::HandleAddItemCommand(const char *args)
     if (!plTarget)
         plTarget = pl;
 
-    sLog.outDetail(GetIxiliumString(LANG_ADDITEM), itemId, count);
+    sLog.outDetail(GetWOPCCOREString(LANG_ADDITEM), itemId, count);
 
     ItemPrototype const *pProto = ObjectMgr::GetItemPrototype(itemId);
     if (!pProto)
@@ -2767,7 +2767,7 @@ bool ChatHandler::HandleAddItemSetCommand(const char *args)
     if (!plTarget)
         plTarget = pl;
 
-    sLog.outDetail(GetIxiliumString(LANG_ADDITEMSET), itemsetId);
+    sLog.outDetail(GetWOPCCOREString(LANG_ADDITEMSET), itemsetId);
 
     bool found = false;
     for (uint32 id = 0; id < sItemStorage.MaxEntry; id++)
@@ -3433,13 +3433,13 @@ bool ChatHandler::HandleLookupSkillCommand(const char *args)
                 char const* knownStr = "";
                 if (target && target->HasSkill(id))
                 {
-                    knownStr = GetIxiliumString(LANG_KNOWN);
+                    knownStr = GetWOPCCOREString(LANG_KNOWN);
                     uint32 curValue = target->GetPureSkillValue(id);
                     uint32 maxValue  = target->GetPureMaxSkillValue(id);
                     uint32 permValue = target->GetSkillPermBonusValue(id);
                     uint32 tempValue = target->GetSkillTempBonusValue(id);
 
-                    char const* valFormat = GetIxiliumString(LANG_SKILL_VALUES);
+                    char const* valFormat = GetWOPCCOREString(LANG_SKILL_VALUES);
                     snprintf(valStr,50,valFormat,curValue,maxValue,permValue,tempValue);
                 }
 
@@ -3530,7 +3530,7 @@ bool ChatHandler::HandleLookupSpellCommand(const char *args)
 
                 // include rank in link name
                 if (rank)
-                    ss << GetIxiliumString(LANG_SPELL_RANK) << rank;
+                    ss << GetWOPCCOREString(LANG_SPELL_RANK) << rank;
 
                 if (m_session)
                     ss << " " << localeNames[loc] << "]|h|r";
@@ -3538,15 +3538,15 @@ bool ChatHandler::HandleLookupSpellCommand(const char *args)
                     ss << " " << localeNames[loc];
 
                 if (talent)
-                    ss << GetIxiliumString(LANG_TALENT);
+                    ss << GetWOPCCOREString(LANG_TALENT);
                 if (passive)
-                    ss << GetIxiliumString(LANG_PASSIVE);
+                    ss << GetWOPCCOREString(LANG_PASSIVE);
                 if (learn)
-                    ss << GetIxiliumString(LANG_LEARN);
+                    ss << GetWOPCCOREString(LANG_LEARN);
                 if (known)
-                    ss << GetIxiliumString(LANG_KNOWN);
+                    ss << GetWOPCCOREString(LANG_KNOWN);
                 if (active)
-                    ss << GetIxiliumString(LANG_ACTIVE);
+                    ss << GetWOPCCOREString(LANG_ACTIVE);
 
                 SendSysMessage(ss.str().c_str());
 
@@ -3605,12 +3605,12 @@ bool ChatHandler::HandleLookupQuestCommand(const char *args)
                             if (status == QUEST_STATUS_COMPLETE)
                             {
                                 if (target->GetQuestRewardStatus(qinfo->GetQuestId()))
-                                    statusStr = GetIxiliumString(LANG_COMMAND_QUEST_REWARDED);
+                                    statusStr = GetWOPCCOREString(LANG_COMMAND_QUEST_REWARDED);
                                 else
-                                    statusStr = GetIxiliumString(LANG_COMMAND_QUEST_COMPLETE);
+                                    statusStr = GetWOPCCOREString(LANG_COMMAND_QUEST_COMPLETE);
                             }
                             else if (status == QUEST_STATUS_INCOMPLETE)
-                                statusStr = GetIxiliumString(LANG_COMMAND_QUEST_ACTIVE);
+                                statusStr = GetWOPCCOREString(LANG_COMMAND_QUEST_ACTIVE);
                         }
 
                         if (m_session)
@@ -3642,12 +3642,12 @@ bool ChatHandler::HandleLookupQuestCommand(const char *args)
                 if (status == QUEST_STATUS_COMPLETE)
                 {
                     if (target->GetQuestRewardStatus(qinfo->GetQuestId()))
-                        statusStr = GetIxiliumString(LANG_COMMAND_QUEST_REWARDED);
+                        statusStr = GetWOPCCOREString(LANG_COMMAND_QUEST_REWARDED);
                     else
-                        statusStr = GetIxiliumString(LANG_COMMAND_QUEST_COMPLETE);
+                        statusStr = GetWOPCCOREString(LANG_COMMAND_QUEST_COMPLETE);
                 }
                 else if (status == QUEST_STATUS_INCOMPLETE)
-                    statusStr = GetIxiliumString(LANG_COMMAND_QUEST_ACTIVE);
+                    statusStr = GetWOPCCOREString(LANG_COMMAND_QUEST_ACTIVE);
             }
 
             if (m_session)
@@ -3867,25 +3867,25 @@ bool ChatHandler::HandleLookupFactionCommand(const char *args)
                 if (repState)                               // and then target!=NULL also
                 {
                     ReputationRank rank = target->GetReputationMgr().GetRank(factionEntry);
-                    std::string rankName = GetIxiliumString(ReputationRankStrIndex[rank]);
+                    std::string rankName = GetWOPCCOREString(ReputationRankStrIndex[rank]);
 
                     ss << " " << rankName << "|h|r (" << target->GetReputationMgr().GetReputation(factionEntry) << ")";
 
                     if (repState->Flags & FACTION_FLAG_VISIBLE)
-                        ss << GetIxiliumString(LANG_FACTION_VISIBLE);
+                        ss << GetWOPCCOREString(LANG_FACTION_VISIBLE);
                     if (repState->Flags & FACTION_FLAG_AT_WAR)
-                        ss << GetIxiliumString(LANG_FACTION_ATWAR);
+                        ss << GetWOPCCOREString(LANG_FACTION_ATWAR);
                     if (repState->Flags & FACTION_FLAG_PEACE_FORCED)
-                        ss << GetIxiliumString(LANG_FACTION_PEACE_FORCED);
+                        ss << GetWOPCCOREString(LANG_FACTION_PEACE_FORCED);
                     if (repState->Flags & FACTION_FLAG_HIDDEN)
-                        ss << GetIxiliumString(LANG_FACTION_HIDDEN);
+                        ss << GetWOPCCOREString(LANG_FACTION_HIDDEN);
                     if (repState->Flags & FACTION_FLAG_INVISIBLE_FORCED)
-                        ss << GetIxiliumString(LANG_FACTION_INVISIBLE_FORCED);
+                        ss << GetWOPCCOREString(LANG_FACTION_INVISIBLE_FORCED);
                     if (repState->Flags & FACTION_FLAG_INACTIVE)
-                        ss << GetIxiliumString(LANG_FACTION_INACTIVE);
+                        ss << GetWOPCCOREString(LANG_FACTION_INACTIVE);
                 }
                 else
-                    ss << GetIxiliumString(LANG_FACTION_NOREPUTATION);
+                    ss << GetWOPCCOREString(LANG_FACTION_NOREPUTATION);
 
                 SendSysMessage(ss.str().c_str());
 
@@ -4020,20 +4020,20 @@ bool ChatHandler::HandleLookupMapCommand(const char *args)
                     ss << id << " - [" << name << "]";
 
                 if (MapInfo->IsContinent())
-                    ss << GetIxiliumString(LANG_CONTINENT);
+                    ss << GetWOPCCOREString(LANG_CONTINENT);
 
                 switch(MapInfo->map_type)
                 {
-                    case MAP_INSTANCE:      ss << GetIxiliumString(LANG_INSTANCE);      break;
-                    case MAP_BATTLEGROUND:  ss << GetIxiliumString(LANG_BATTLEGROUND);  break;
-                    case MAP_ARENA:         ss << GetIxiliumString(LANG_ARENA);         break;
+                    case MAP_INSTANCE:      ss << GetWOPCCOREString(LANG_INSTANCE);      break;
+                    case MAP_BATTLEGROUND:  ss << GetWOPCCOREString(LANG_BATTLEGROUND);  break;
+                    case MAP_ARENA:         ss << GetWOPCCOREString(LANG_ARENA);         break;
                 }
 
                 if (MapInfo->IsRaid())
-                    ss << GetIxiliumString(LANG_RAID);
+                    ss << GetWOPCCOREString(LANG_RAID);
 
                 if (MapInfo->SupportsRegularMode())
-                    ss << GetIxiliumString(LANG_HEROIC);
+                    ss << GetWOPCCOREString(LANG_HEROIC);
 
                 uint32 ResetTimeRaid = MapInfo->resetTimeRaid;
 
@@ -4047,7 +4047,7 @@ bool ChatHandler::HandleLookupMapCommand(const char *args)
                     ResetTimeHeroicStr = secsToTimeString(ResetTimeHeroic, true, false);
 
                 if (MapInfo->IsMountAllowed())
-                    ss << GetIxiliumString(LANG_MOUNTABLE);
+                    ss << GetWOPCCOREString(LANG_MOUNTABLE);
 
                 if (ResetTimeRaid && !ResetTimeHeroic)
                     PSendSysMessage(ss.str().c_str(), ResetTimeRaidStr.c_str());
@@ -4549,14 +4549,14 @@ bool ChatHandler::HandleNearGraveCommand(const char *args)
 
         g_team = data->team;
 
-        std::string team_name = GetIxiliumString(LANG_COMMAND_GRAVEYARD_NOTEAM);
+        std::string team_name = GetWOPCCOREString(LANG_COMMAND_GRAVEYARD_NOTEAM);
 
         if (g_team == 0)
-            team_name = GetIxiliumString(LANG_COMMAND_GRAVEYARD_ANY);
+            team_name = GetWOPCCOREString(LANG_COMMAND_GRAVEYARD_ANY);
         else if (g_team == HORDE)
-            team_name = GetIxiliumString(LANG_COMMAND_GRAVEYARD_HORDE);
+            team_name = GetWOPCCOREString(LANG_COMMAND_GRAVEYARD_HORDE);
         else if (g_team == ALLIANCE)
-            team_name = GetIxiliumString(LANG_COMMAND_GRAVEYARD_ALLIANCE);
+            team_name = GetWOPCCOREString(LANG_COMMAND_GRAVEYARD_ALLIANCE);
 
         PSendSysMessage(LANG_COMMAND_GRAVEYARDNEAREST, g_id,team_name.c_str(),zone_id);
     }
@@ -4565,11 +4565,11 @@ bool ChatHandler::HandleNearGraveCommand(const char *args)
         std::string team_name;
 
         if (g_team == 0)
-            team_name = GetIxiliumString(LANG_COMMAND_GRAVEYARD_ANY);
+            team_name = GetWOPCCOREString(LANG_COMMAND_GRAVEYARD_ANY);
         else if (g_team == HORDE)
-            team_name = GetIxiliumString(LANG_COMMAND_GRAVEYARD_HORDE);
+            team_name = GetWOPCCOREString(LANG_COMMAND_GRAVEYARD_HORDE);
         else if (g_team == ALLIANCE)
-            team_name = GetIxiliumString(LANG_COMMAND_GRAVEYARD_ALLIANCE);
+            team_name = GetWOPCCOREString(LANG_COMMAND_GRAVEYARD_ALLIANCE);
 
         if (g_team == ~uint32(0))
             PSendSysMessage(LANG_COMMAND_ZONENOGRAVEYARDS, zone_id);
@@ -5117,8 +5117,8 @@ bool ChatHandler::HandleListAurasCommand (const char * /*args*/)
         return false;
     }
 
-    char const* talentStr = GetIxiliumString(LANG_TALENT);
-    char const* passiveStr = GetIxiliumString(LANG_PASSIVE);
+    char const* talentStr = GetWOPCCOREString(LANG_TALENT);
+    char const* passiveStr = GetWOPCCOREString(LANG_PASSIVE);
 
     Unit::AuraMap const& uAuras = unit->GetAuras();
     PSendSysMessage(LANG_COMMAND_TARGET_LISTAURAS, uAuras.size());
@@ -5963,9 +5963,9 @@ bool ChatHandler::HandleBanInfoHelper(uint32 accountid, char const* accountname)
         if (fields[2].GetBool() && (fields[1].GetUInt64() == (uint64)0 ||unbandate >= time(NULL)) )
             active = true;
         bool permanent = (fields[1].GetUInt64() == (uint64)0);
-        std::string bantime = permanent ? GetIxiliumString(LANG_BANINFO_INFINITE) : secsToTimeString(fields[1].GetUInt64(), true);
+        std::string bantime = permanent ? GetWOPCCOREString(LANG_BANINFO_INFINITE) : secsToTimeString(fields[1].GetUInt64(), true);
         PSendSysMessage(LANG_BANINFO_HISTORYENTRY,
-            fields[0].GetString(), bantime.c_str(), active ? GetIxiliumString(LANG_BANINFO_YES) : GetIxiliumString(LANG_BANINFO_NO), fields[4].GetString(), fields[5].GetString());
+            fields[0].GetString(), bantime.c_str(), active ? GetWOPCCOREString(LANG_BANINFO_YES) : GetWOPCCOREString(LANG_BANINFO_NO), fields[4].GetString(), fields[5].GetString());
     }while (result->NextRow());
 
     delete result;
@@ -5997,8 +5997,8 @@ bool ChatHandler::HandleBanInfoIPCommand(const char *args)
     Field *fields = result->Fetch();
     bool permanent = !fields[6].GetUInt64();
     PSendSysMessage(LANG_BANINFO_IPENTRY,
-        fields[0].GetString(), fields[1].GetString(), permanent ? GetIxiliumString(LANG_BANINFO_NEVER) : fields[2].GetString(),
-        permanent ? GetIxiliumString(LANG_BANINFO_INFINITE) : secsToTimeString(fields[3].GetUInt64(), true).c_str(), fields[4].GetString(), fields[5].GetString());
+        fields[0].GetString(), fields[1].GetString(), permanent ? GetWOPCCOREString(LANG_BANINFO_NEVER) : fields[2].GetString(),
+        permanent ? GetWOPCCOREString(LANG_BANINFO_INFINITE) : secsToTimeString(fields[3].GetUInt64(), true).c_str(), fields[4].GetString(), fields[5].GetString());
     delete result;
     return true;
 }
@@ -6226,15 +6226,15 @@ bool ChatHandler::HandleRespawnCommand(const char* /*args*/)
         return true;
     }
 
-    CellPair p(Ixilium::ComputeCellPair(pl->GetPositionX(), pl->GetPositionY()));
+    CellPair p(WOPCCORE::ComputeCellPair(pl->GetPositionX(), pl->GetPositionY()));
     Cell cell(p);
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();
 
-    Ixilium::RespawnDo u_do;
-    Ixilium::WorldObjectWorker<Ixilium::RespawnDo> worker(pl,u_do);
+    WOPCCORE::RespawnDo u_do;
+    WOPCCORE::WorldObjectWorker<WOPCCORE::RespawnDo> worker(pl,u_do);
 
-    TypeContainerVisitor<Ixilium::WorldObjectWorker<Ixilium::RespawnDo>, GridTypeMapContainer > obj_worker(worker);
+    TypeContainerVisitor<WOPCCORE::WorldObjectWorker<WOPCCORE::RespawnDo>, GridTypeMapContainer > obj_worker(worker);
     CellLock<GridReadGuard> cell_lock(cell, p);
     cell_lock->Visit(cell_lock, obj_worker, *pl->GetMap());
 
@@ -7317,7 +7317,7 @@ bool ChatHandler::HandleModifyGenderCommand(const char *args)
 }
 
 /*-------------------------------------
- *-------------IXILIUMEMU--------------
+ *-------------WOPCCOREEMU--------------
  *-------------------------------------*/
 
 bool ChatHandler::HandlePlayAllCommand(const char *args)

@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -104,7 +104,7 @@ bool ChatHandler::HandleServerInfoCommand(const char* /*args*/)
     std::string uptime = secsToTimeString(sWorld.GetUptime());
     uint32 updateTime = sWorld.GetUpdateTime();
 
-    PSendSysMessage("IxiliumEmu Revision: %s", _FULLVERSION);
+    PSendSysMessage("WOPCCOREEmu Revision: %s", _FULLVERSION);
     PSendSysMessage("World DB: %s - GIXI Version: %s", sWorld.GetDBVersion(), sWorld.GetGIXIVersion());
 
     PSendSysMessage(LANG_CONNECTED_PLAYERS, PlayersNum, MaxPlayersNum); //testing

@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -135,7 +135,7 @@ void WorldSession::HandleWhoOpcode( WorldPacket & recv_data )
     wstrToLower(wplayer_name);
     wstrToLower(wguild_name);
 
-    // client send in case not set max level value 100 but ixiliumemu support 255 max level,
+    // client send in case not set max level value 100 but WOPCCOREemu support 255 max level,
     // update it to show GMs with characters after 100 level
     if (level_max >= MAX_LEVEL)
         level_max = STRONG_MAX_LEVEL;
@@ -447,7 +447,7 @@ void WorldSession::HandleAddFriendOpcode( WorldPacket & recv_data )
 {
     sLog.outDebug( "WORLD: Received CMSG_ADD_FRIEND" );
 
-    std::string friendName = GetIxiliumString(LANG_FRIEND_IGNORE_UNKNOWN);
+    std::string friendName = GetWOPCCOREString(LANG_FRIEND_IGNORE_UNKNOWN);
     std::string friendNote;
 
     recv_data >> friendName;
@@ -540,7 +540,7 @@ void WorldSession::HandleAddIgnoreOpcode( WorldPacket & recv_data )
 {
     sLog.outDebug( "WORLD: Received CMSG_ADD_IGNORE" );
 
-    std::string IgnoreName = GetIxiliumString(LANG_FRIEND_IGNORE_UNKNOWN);
+    std::string IgnoreName = GetWOPCCOREString(LANG_FRIEND_IGNORE_UNKNOWN);
 
     recv_data >> IgnoreName;
 
@@ -995,7 +995,7 @@ void WorldSession::HandleMoveTimeSkippedOpcode( WorldPacket & recv_data )
         sLog.outDebug( "WORLD: CMSG_MOVE_TIME_SKIPPED" );
 
         /// TODO
-        must be need use in Ixilium
+        must be need use in WOPCCORE
         We substract server Lags to move time ( AntiLags )
         for exmaple
         GetPlayer()->ModifyLastMoveTime( -int32(time_skipped) );

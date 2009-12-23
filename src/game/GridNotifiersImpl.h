@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef IXILIUM_GRIDNOTIFIERSIMPL_H
-#define IXILIUM_GRIDNOTIFIERSIMPL_H
+#ifndef WOPCCORE_GRIDNOTIFIERSIMPL_H
+#define WOPCCORE_GRIDNOTIFIERSIMPL_H
 
 #include "GridNotifiers.h"
 #include "WorldPacket.h"
@@ -30,7 +30,7 @@
 #include "SpellAuras.h"
 
 inline void
-Ixilium::ObjectUpdater::Visit(CreatureMapType &m)
+WOPCCORE::ObjectUpdater::Visit(CreatureMapType &m)
 {
     for(CreatureMapType::iterator iter=m.begin(); iter != m.end(); ++iter)
         if(iter->getSource()->IsInWorld() && !iter->getSource()->isSpiritService())
@@ -61,7 +61,7 @@ inline void CreatureCreatureRelocationWorker(Creature* c1, Creature* c2)
 
 template<class T>
 inline void
-Ixilium::PlayerVisibilityNotifier::Visit(GridRefManager<T> &m)
+WOPCCORE::PlayerVisibilityNotifier::Visit(GridRefManager<T> &m)
 {
     for (typename GridRefManager<T>::iterator iter = m.begin(); iter != m.end(); ++iter)
     {
@@ -72,7 +72,7 @@ Ixilium::PlayerVisibilityNotifier::Visit(GridRefManager<T> &m)
 
 template<>
 inline void
-Ixilium::PlayerRelocationNotifier::Visit(PlayerMapType &m)
+WOPCCORE::PlayerRelocationNotifier::Visit(PlayerMapType &m)
 {
     for (PlayerMapType::iterator iter = m.begin(); iter != m.end(); ++iter)
     {
@@ -97,7 +97,7 @@ Ixilium::PlayerRelocationNotifier::Visit(PlayerMapType &m)
 
 template<>
 inline void
-Ixilium::PlayerRelocationNotifier::Visit(CreatureMapType &m)
+WOPCCORE::PlayerRelocationNotifier::Visit(CreatureMapType &m)
 {
     for (CreatureMapType::iterator iter = m.begin(); iter != m.end(); ++iter)
     {
@@ -114,7 +114,7 @@ Ixilium::PlayerRelocationNotifier::Visit(CreatureMapType &m)
 
 template<>
 inline void
-Ixilium::CreatureRelocationNotifier::Visit(PlayerMapType &m)
+WOPCCORE::CreatureRelocationNotifier::Visit(PlayerMapType &m)
 {
     for (PlayerMapType::iterator iter = m.begin(); iter != m.end(); ++iter)
     {
@@ -129,7 +129,7 @@ Ixilium::CreatureRelocationNotifier::Visit(PlayerMapType &m)
 
 template<>
 inline void
-Ixilium::CreatureRelocationNotifier::Visit(CreatureMapType &m)
+WOPCCORE::CreatureRelocationNotifier::Visit(CreatureMapType &m)
 {
     if (!i_creature.isAlive())
         return;
@@ -146,7 +146,7 @@ Ixilium::CreatureRelocationNotifier::Visit(CreatureMapType &m)
     }
 }
 
-inline void Ixilium::DynamicObjectUpdater::VisitHelper(Unit* target)
+inline void WOPCCORE::DynamicObjectUpdater::VisitHelper(Unit* target)
 {
     if (!target->isAlive() || target->isInFlight() )
         return;
@@ -218,7 +218,7 @@ inline void Ixilium::DynamicObjectUpdater::VisitHelper(Unit* target)
 
 template<>
 inline void
-Ixilium::DynamicObjectUpdater::Visit(CreatureMapType  &m)
+WOPCCORE::DynamicObjectUpdater::Visit(CreatureMapType  &m)
 {
     for (CreatureMapType::iterator itr=m.begin(); itr != m.end(); ++itr)
         VisitHelper(itr->getSource());
@@ -226,7 +226,7 @@ Ixilium::DynamicObjectUpdater::Visit(CreatureMapType  &m)
 
 template<>
 inline void
-Ixilium::DynamicObjectUpdater::Visit(PlayerMapType  &m)
+WOPCCORE::DynamicObjectUpdater::Visit(PlayerMapType  &m)
 {
     for (PlayerMapType::iterator itr=m.begin(); itr != m.end(); ++itr)
         VisitHelper(itr->getSource());
@@ -237,7 +237,7 @@ Ixilium::DynamicObjectUpdater::Visit(PlayerMapType  &m)
 // WorldObject searchers & workers
 
 template<class Check>
-void Ixilium::WorldObjectSearcher<Check>::Visit(GameObjectMapType &m)
+void WOPCCORE::WorldObjectSearcher<Check>::Visit(GameObjectMapType &m)
 {
     // already found
     if (i_object)
@@ -257,7 +257,7 @@ void Ixilium::WorldObjectSearcher<Check>::Visit(GameObjectMapType &m)
 }
 
 template<class Check>
-void Ixilium::WorldObjectSearcher<Check>::Visit(PlayerMapType &m)
+void WOPCCORE::WorldObjectSearcher<Check>::Visit(PlayerMapType &m)
 {
     // already found
     if (i_object)
@@ -277,7 +277,7 @@ void Ixilium::WorldObjectSearcher<Check>::Visit(PlayerMapType &m)
 }
 
 template<class Check>
-void Ixilium::WorldObjectSearcher<Check>::Visit(CreatureMapType &m)
+void WOPCCORE::WorldObjectSearcher<Check>::Visit(CreatureMapType &m)
 {
     // already found
     if (i_object)
@@ -297,7 +297,7 @@ void Ixilium::WorldObjectSearcher<Check>::Visit(CreatureMapType &m)
 }
 
 template<class Check>
-void Ixilium::WorldObjectSearcher<Check>::Visit(CorpseMapType &m)
+void WOPCCORE::WorldObjectSearcher<Check>::Visit(CorpseMapType &m)
 {
     // already found
     if (i_object)
@@ -317,7 +317,7 @@ void Ixilium::WorldObjectSearcher<Check>::Visit(CorpseMapType &m)
 }
 
 template<class Check>
-void Ixilium::WorldObjectSearcher<Check>::Visit(DynamicObjectMapType &m)
+void WOPCCORE::WorldObjectSearcher<Check>::Visit(DynamicObjectMapType &m)
 {
     // already found
     if (i_object)
@@ -337,7 +337,7 @@ void Ixilium::WorldObjectSearcher<Check>::Visit(DynamicObjectMapType &m)
 }
 
 template<class Check>
-void Ixilium::WorldObjectListSearcher<Check>::Visit(PlayerMapType &m)
+void WOPCCORE::WorldObjectListSearcher<Check>::Visit(PlayerMapType &m)
 {
     for (PlayerMapType::iterator itr=m.begin(); itr != m.end(); ++itr)
         if (itr->getSource()->InSamePhase(i_phaseMask))
@@ -346,7 +346,7 @@ void Ixilium::WorldObjectListSearcher<Check>::Visit(PlayerMapType &m)
 }
 
 template<class Check>
-void Ixilium::WorldObjectListSearcher<Check>::Visit(CreatureMapType &m)
+void WOPCCORE::WorldObjectListSearcher<Check>::Visit(CreatureMapType &m)
 {
     for (CreatureMapType::iterator itr=m.begin(); itr != m.end(); ++itr)
         if (itr->getSource()->InSamePhase(i_phaseMask))
@@ -355,7 +355,7 @@ void Ixilium::WorldObjectListSearcher<Check>::Visit(CreatureMapType &m)
 }
 
 template<class Check>
-void Ixilium::WorldObjectListSearcher<Check>::Visit(CorpseMapType &m)
+void WOPCCORE::WorldObjectListSearcher<Check>::Visit(CorpseMapType &m)
 {
     for (CorpseMapType::iterator itr=m.begin(); itr != m.end(); ++itr)
         if (itr->getSource()->InSamePhase(i_phaseMask))
@@ -364,7 +364,7 @@ void Ixilium::WorldObjectListSearcher<Check>::Visit(CorpseMapType &m)
 }
 
 template<class Check>
-void Ixilium::WorldObjectListSearcher<Check>::Visit(GameObjectMapType &m)
+void WOPCCORE::WorldObjectListSearcher<Check>::Visit(GameObjectMapType &m)
 {
     for (GameObjectMapType::iterator itr=m.begin(); itr != m.end(); ++itr)
         if (itr->getSource()->InSamePhase(i_phaseMask))
@@ -373,7 +373,7 @@ void Ixilium::WorldObjectListSearcher<Check>::Visit(GameObjectMapType &m)
 }
 
 template<class Check>
-void Ixilium::WorldObjectListSearcher<Check>::Visit(DynamicObjectMapType &m)
+void WOPCCORE::WorldObjectListSearcher<Check>::Visit(DynamicObjectMapType &m)
 {
     for (DynamicObjectMapType::iterator itr=m.begin(); itr != m.end(); ++itr)
         if (itr->getSource()->InSamePhase(i_phaseMask))
@@ -384,7 +384,7 @@ void Ixilium::WorldObjectListSearcher<Check>::Visit(DynamicObjectMapType &m)
 // Gameobject searchers
 
 template<class Check>
-void Ixilium::GameObjectSearcher<Check>::Visit(GameObjectMapType &m)
+void WOPCCORE::GameObjectSearcher<Check>::Visit(GameObjectMapType &m)
 {
     // already found
     if (i_object)
@@ -404,7 +404,7 @@ void Ixilium::GameObjectSearcher<Check>::Visit(GameObjectMapType &m)
 }
 
 template<class Check>
-void Ixilium::GameObjectLastSearcher<Check>::Visit(GameObjectMapType &m)
+void WOPCCORE::GameObjectLastSearcher<Check>::Visit(GameObjectMapType &m)
 {
     for (GameObjectMapType::iterator itr=m.begin(); itr != m.end(); ++itr)
     {
@@ -417,7 +417,7 @@ void Ixilium::GameObjectLastSearcher<Check>::Visit(GameObjectMapType &m)
 }
 
 template<class Check>
-void Ixilium::GameObjectListSearcher<Check>::Visit(GameObjectMapType &m)
+void WOPCCORE::GameObjectListSearcher<Check>::Visit(GameObjectMapType &m)
 {
     for (GameObjectMapType::iterator itr=m.begin(); itr != m.end(); ++itr)
         if (itr->getSource()->InSamePhase(i_phaseMask))
@@ -428,7 +428,7 @@ void Ixilium::GameObjectListSearcher<Check>::Visit(GameObjectMapType &m)
 // Unit searchers
 
 template<class Check>
-void Ixilium::UnitSearcher<Check>::Visit(CreatureMapType &m)
+void WOPCCORE::UnitSearcher<Check>::Visit(CreatureMapType &m)
 {
     // already found
     if (i_object)
@@ -448,7 +448,7 @@ void Ixilium::UnitSearcher<Check>::Visit(CreatureMapType &m)
 }
 
 template<class Check>
-void Ixilium::UnitSearcher<Check>::Visit(PlayerMapType &m)
+void WOPCCORE::UnitSearcher<Check>::Visit(PlayerMapType &m)
 {
     // already found
     if (i_object)
@@ -468,7 +468,7 @@ void Ixilium::UnitSearcher<Check>::Visit(PlayerMapType &m)
 }
 
 template<class Check>
-void Ixilium::UnitLastSearcher<Check>::Visit(CreatureMapType &m)
+void WOPCCORE::UnitLastSearcher<Check>::Visit(CreatureMapType &m)
 {
     for (CreatureMapType::iterator itr=m.begin(); itr != m.end(); ++itr)
     {
@@ -481,7 +481,7 @@ void Ixilium::UnitLastSearcher<Check>::Visit(CreatureMapType &m)
 }
 
 template<class Check>
-void Ixilium::UnitLastSearcher<Check>::Visit(PlayerMapType &m)
+void WOPCCORE::UnitLastSearcher<Check>::Visit(PlayerMapType &m)
 {
     for (PlayerMapType::iterator itr=m.begin(); itr != m.end(); ++itr)
     {
@@ -494,7 +494,7 @@ void Ixilium::UnitLastSearcher<Check>::Visit(PlayerMapType &m)
 }
 
 template<class Check>
-void Ixilium::UnitListSearcher<Check>::Visit(PlayerMapType &m)
+void WOPCCORE::UnitListSearcher<Check>::Visit(PlayerMapType &m)
 {
     for (PlayerMapType::iterator itr=m.begin(); itr != m.end(); ++itr)
         if (itr->getSource()->InSamePhase(i_phaseMask))
@@ -503,7 +503,7 @@ void Ixilium::UnitListSearcher<Check>::Visit(PlayerMapType &m)
 }
 
 template<class Check>
-void Ixilium::UnitListSearcher<Check>::Visit(CreatureMapType &m)
+void WOPCCORE::UnitListSearcher<Check>::Visit(CreatureMapType &m)
 {
     for (CreatureMapType::iterator itr=m.begin(); itr != m.end(); ++itr)
         if (itr->getSource()->InSamePhase(i_phaseMask))
@@ -514,7 +514,7 @@ void Ixilium::UnitListSearcher<Check>::Visit(CreatureMapType &m)
 // Creature searchers
 
 template<class Check>
-void Ixilium::CreatureSearcher<Check>::Visit(CreatureMapType &m)
+void WOPCCORE::CreatureSearcher<Check>::Visit(CreatureMapType &m)
 {
     // already found
     if (i_object)
@@ -534,7 +534,7 @@ void Ixilium::CreatureSearcher<Check>::Visit(CreatureMapType &m)
 }
 
 template<class Check>
-void Ixilium::CreatureLastSearcher<Check>::Visit(CreatureMapType &m)
+void WOPCCORE::CreatureLastSearcher<Check>::Visit(CreatureMapType &m)
 {
     for (CreatureMapType::iterator itr=m.begin(); itr != m.end(); ++itr)
     {
@@ -547,7 +547,7 @@ void Ixilium::CreatureLastSearcher<Check>::Visit(CreatureMapType &m)
 }
 
 template<class Check>
-void Ixilium::CreatureListSearcher<Check>::Visit(CreatureMapType &m)
+void WOPCCORE::CreatureListSearcher<Check>::Visit(CreatureMapType &m)
 {
     for (CreatureMapType::iterator itr=m.begin(); itr != m.end(); ++itr)
         if (itr->getSource()->InSamePhase(i_phaseMask))
@@ -556,7 +556,7 @@ void Ixilium::CreatureListSearcher<Check>::Visit(CreatureMapType &m)
 }
 
 template<class Check>
-void Ixilium::PlayerListSearcher<Check>::Visit(PlayerMapType &m)
+void WOPCCORE::PlayerListSearcher<Check>::Visit(PlayerMapType &m)
 {
     for (PlayerMapType::iterator itr=m.begin(); itr != m.end(); ++itr)
         if (itr->getSource()->InSamePhase(i_phaseMask))
@@ -565,7 +565,7 @@ void Ixilium::PlayerListSearcher<Check>::Visit(PlayerMapType &m)
 }
 
 template<class Check>
-void Ixilium::PlayerSearcher<Check>::Visit(PlayerMapType &m)
+void WOPCCORE::PlayerSearcher<Check>::Visit(PlayerMapType &m)
 {
     // already found
     if (i_object)
@@ -585,7 +585,7 @@ void Ixilium::PlayerSearcher<Check>::Visit(PlayerMapType &m)
 }
 
 template<class Builder>
-void Ixilium::LocalizedPacketDo<Builder>::operator()( Player* p )
+void WOPCCORE::LocalizedPacketDo<Builder>::operator()( Player* p )
 {
     int32 loc_idx = p->GetSession()->GetSessionDbLocaleIndex();
     uint32 cache_idx = loc_idx+1;
@@ -610,7 +610,7 @@ void Ixilium::LocalizedPacketDo<Builder>::operator()( Player* p )
 }
 
 template<class Builder>
-void Ixilium::LocalizedPacketListDo<Builder>::operator()( Player* p )
+void WOPCCORE::LocalizedPacketListDo<Builder>::operator()( Player* p )
 {
     int32 loc_idx = p->GetSession()->GetSessionDbLocaleIndex();
     uint32 cache_idx = loc_idx+1;
@@ -657,4 +657,4 @@ struct ObjectDistanceOrderReversed : public std::binary_function<const WorldObje
     }
 };
 
-#endif                                                      // IXILIUM_GRIDNOTIFIERSIMPL_H
+#endif                                                      // WOPCCORE_GRIDNOTIFIERSIMPL_H

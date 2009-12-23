@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -142,15 +142,15 @@ typedef UNORDERED_MAP<uint32/*(mapid,spawnMode) pair*/,CellObjectGuidsMap> MapOb
 typedef UNORDERED_MAP<uint64/*(instance,guid) pair*/,time_t> RespawnTimes;
 
 
-// ixiliumemu string ranges
-#define MIN_IXILIUM_STRING_ID           1                    // 'mangos_string'
-#define MAX_IXILIUM_STRING_ID           2000000000
-#define MIN_DB_SCRIPT_STRING_ID        MAX_IXILIUM_STRING_ID // 'db_script_string'
+// WOPCCOREemu string ranges
+#define MIN_WOPCCORE_STRING_ID           1                    // 'mangos_string'
+#define MAX_WOPCCORE_STRING_ID           2000000000
+#define MIN_DB_SCRIPT_STRING_ID        MAX_WOPCCORE_STRING_ID // 'db_script_string'
 #define MAX_DB_SCRIPT_STRING_ID        2000010000
 #define MIN_CREATURE_AI_TEXT_STRING_ID (-1)                 // 'creature_ai_texts'
 #define MAX_CREATURE_AI_TEXT_STRING_ID (-1000000)
 
-struct IxiliumStringLocale
+struct WOPCCOREStringLocale
 {
     std::vector<std::string> Content;                       // 0 -> default, i -> i-1 locale index
 };
@@ -164,7 +164,7 @@ typedef UNORDERED_MAP<uint32,ItemLocale> ItemLocaleMap;
 typedef UNORDERED_MAP<uint32,QuestLocale> QuestLocaleMap;
 typedef UNORDERED_MAP<uint32,NpcTextLocale> NpcTextLocaleMap;
 typedef UNORDERED_MAP<uint32,PageTextLocale> PageTextLocaleMap;
-typedef UNORDERED_MAP<int32,IxiliumStringLocale> IxiliumStringLocaleMap;
+typedef UNORDERED_MAP<int32,WOPCCOREStringLocale> WOPCCOREStringLocaleMap;
 typedef UNORDERED_MAP<uint32,GossipMenuItemsLocale> GossipMenuItemsLocaleMap;
 typedef UNORDERED_MAP<uint32,PointOfInterestLocale> PointOfInterestLocaleMap;
 
@@ -395,7 +395,7 @@ SkillRangeType GetSkillRangeType(SkillLineEntry const *pSkill, bool racial);
 
 bool normalizePlayerName(std::string& name);
 
-struct IXILIUM_DLL_SPEC LanguageDesc
+struct WOPCCORE_DLL_SPEC LanguageDesc
 {
     Language lang_id;
     uint32   spell_id;
@@ -403,7 +403,7 @@ struct IXILIUM_DLL_SPEC LanguageDesc
 };
 
 extern LanguageDesc lang_description[LANGUAGES_COUNT];
-IXILIUM_DLL_SPEC LanguageDesc const* GetLanguageDescByID(uint32 lang);
+WOPCCORE_DLL_SPEC LanguageDesc const* GetLanguageDescByID(uint32 lang);
 
 class PlayerDumpReader;
 
@@ -628,8 +628,8 @@ class ObjectMgr
 
         void LoadTransportEvents();
 
-        bool LoadIxiliumStrings(DatabaseType& db, char const* table, int32 min_value, int32 max_value);
-        bool LoadIxiliumStrings() { return LoadIxiliumStrings(WorldDatabase,"ixilium_string",MIN_IXILIUM_STRING_ID,MAX_IXILIUM_STRING_ID); }
+        bool LoadWOPCCOREStrings(DatabaseType& db, char const* table, int32 min_value, int32 max_value);
+        bool LoadWOPCCOREStrings() { return LoadWOPCCOREStrings(WorldDatabase,"WOPCCORE_string",MIN_WOPCCORE_STRING_ID,MAX_WOPCCORE_STRING_ID); }
         void LoadDbScriptStrings();
         void LoadCreatureLocales();
         void LoadCreatureTemplates();
@@ -832,14 +832,14 @@ class ObjectMgr
         GameObjectData& NewGOData(uint32 guid) { return mGameObjectDataMap[guid]; }
         void DeleteGOData(uint32 guid);
 
-        IxiliumStringLocale const* GetIxiliumStringLocale(int32 entry) const
+        WOPCCOREStringLocale const* GetWOPCCOREStringLocale(int32 entry) const
         {
-            IxiliumStringLocaleMap::const_iterator itr = mIxiliumStringLocaleMap.find(entry);
-            if (itr==mIxiliumStringLocaleMap.end()) return NULL;
+            WOPCCOREStringLocaleMap::const_iterator itr = mWOPCCOREStringLocaleMap.find(entry);
+            if (itr==mWOPCCOREStringLocaleMap.end()) return NULL;
             return &itr->second;
         }
-        const char *GetIxiliumString(int32 entry, int locale_idx) const;
-        const char *GetIxiliumStringForDBCLocale(int32 entry) const { return GetIxiliumString(entry,DBCLocaleIndex); }
+        const char *GetWOPCCOREString(int32 entry, int locale_idx) const;
+        const char *GetWOPCCOREStringForDBCLocale(int32 entry) const { return GetWOPCCOREString(entry,DBCLocaleIndex); }
         int32 GetDBCLocaleIndex() const { return DBCLocaleIndex; }
         void SetDBCLocaleIndex(uint32 lang) { DBCLocaleIndex = GetIndexForLocale(LocaleConstant(lang)); }
 
@@ -1103,7 +1103,7 @@ class ObjectMgr
         QuestLocaleMap mQuestLocaleMap;
         NpcTextLocaleMap mNpcTextLocaleMap;
         PageTextLocaleMap mPageTextLocaleMap;
-        IxiliumStringLocaleMap mIxiliumStringLocaleMap;
+        WOPCCOREStringLocaleMap mWOPCCOREStringLocaleMap;
         GossipMenuItemsLocaleMap mGossipMenuItemsLocaleMap;
         PointOfInterestLocaleMap mPointOfInterestLocaleMap;
         RespawnTimes mCreatureRespawnTimes;
@@ -1118,16 +1118,16 @@ class ObjectMgr
         CacheTrainerSpellMap m_mCacheTrainerSpellMap;
 };
 
-#define sObjectMgr Ixilium::Singleton<ObjectMgr>::Instance()
+#define sObjectMgr WOPCCORE::Singleton<ObjectMgr>::Instance()
 
 // scripting access functions
-IXILIUM_DLL_SPEC bool LoadIxiliumStrings(DatabaseType& db, char const* table,int32 start_value = MAX_CREATURE_AI_TEXT_STRING_ID, int32 end_value = std::numeric_limits<int32>::min());
-IXILIUM_DLL_SPEC uint32 GetAreaTriggerScriptId(uint32 trigger_id);
-IXILIUM_DLL_SPEC uint32 GetScriptId(const char *name);
-IXILIUM_DLL_SPEC ObjectMgr::ScriptNameMap& GetScriptNames();
-IXILIUM_DLL_SPEC GameObjectInfo const *GetGameObjectInfo(uint32 id);
-IXILIUM_DLL_SPEC CreatureInfo const *GetCreatureInfo(uint32 id);
-IXILIUM_DLL_SPEC CreatureInfo const* GetCreatureTemplateStore(uint32 entry);
-IXILIUM_DLL_SPEC Quest const* GetQuestTemplateStore(uint32 entry);
+WOPCCORE_DLL_SPEC bool LoadWOPCCOREStrings(DatabaseType& db, char const* table,int32 start_value = MAX_CREATURE_AI_TEXT_STRING_ID, int32 end_value = std::numeric_limits<int32>::min());
+WOPCCORE_DLL_SPEC uint32 GetAreaTriggerScriptId(uint32 trigger_id);
+WOPCCORE_DLL_SPEC uint32 GetScriptId(const char *name);
+WOPCCORE_DLL_SPEC ObjectMgr::ScriptNameMap& GetScriptNames();
+WOPCCORE_DLL_SPEC GameObjectInfo const *GetGameObjectInfo(uint32 id);
+WOPCCORE_DLL_SPEC CreatureInfo const *GetCreatureInfo(uint32 id);
+WOPCCORE_DLL_SPEC CreatureInfo const* GetCreatureTemplateStore(uint32 entry);
+WOPCCORE_DLL_SPEC Quest const* GetQuestTemplateStore(uint32 entry);
 
 #endif

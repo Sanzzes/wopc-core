@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -110,11 +110,11 @@ void Guild::CreateDefaultGuildRanks(int locale_idx)
     CharacterDatabase.PExecute("DELETE FROM guild_rank WHERE guildid='%u'", m_Id);
     CharacterDatabase.PExecute("DELETE FROM guild_bank_right WHERE guildid = '%u'", m_Id);
 
-    CreateRank(sObjectMgr.GetIxiliumString(LANG_GUILD_MASTER, locale_idx),   GR_RIGHT_ALL);
-    CreateRank(sObjectMgr.GetIxiliumString(LANG_GUILD_OFFICER, locale_idx),  GR_RIGHT_ALL);
-    CreateRank(sObjectMgr.GetIxiliumString(LANG_GUILD_VETERAN, locale_idx),  GR_RIGHT_GCHATLISTEN | GR_RIGHT_GCHATSPEAK);
-    CreateRank(sObjectMgr.GetIxiliumString(LANG_GUILD_MEMBER, locale_idx),   GR_RIGHT_GCHATLISTEN | GR_RIGHT_GCHATSPEAK);
-    CreateRank(sObjectMgr.GetIxiliumString(LANG_GUILD_INITIATE, locale_idx), GR_RIGHT_GCHATLISTEN | GR_RIGHT_GCHATSPEAK);
+    CreateRank(sObjectMgr.GetWOPCCOREString(LANG_GUILD_MASTER, locale_idx),   GR_RIGHT_ALL);
+    CreateRank(sObjectMgr.GetWOPCCOREString(LANG_GUILD_OFFICER, locale_idx),  GR_RIGHT_ALL);
+    CreateRank(sObjectMgr.GetWOPCCOREString(LANG_GUILD_VETERAN, locale_idx),  GR_RIGHT_GCHATLISTEN | GR_RIGHT_GCHATSPEAK);
+    CreateRank(sObjectMgr.GetWOPCCOREString(LANG_GUILD_MEMBER, locale_idx),   GR_RIGHT_GCHATLISTEN | GR_RIGHT_GCHATSPEAK);
+    CreateRank(sObjectMgr.GetWOPCCOREString(LANG_GUILD_INITIATE, locale_idx), GR_RIGHT_GCHATLISTEN | GR_RIGHT_GCHATSPEAK);
 
     SetBankMoneyPerDay((uint32)GR_GUILDMASTER, WITHDRAW_MONEY_UNLIMITED);
 }
@@ -899,7 +899,7 @@ void Guild::LoadGuildEventLogFromDB()
         NewEvent.TimeStamp = fields[5].GetUInt64();
 
         // There can be a problem if more events have same TimeStamp the ORDER can be broken when fields[0].GetUInt32() == configCount, but
-        // events with same timestamp can appear when there is lag, and we naivly suppose that ixiliumemu isn't laggy
+        // events with same timestamp can appear when there is lag, and we naivly suppose that WOPCCOREemu isn't laggy
         // but if problem appears, player will see set of guild events that have same timestamp in bad order
 
         // Add entry to list

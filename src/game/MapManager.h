@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#ifndef IXILIUM_MAPMANAGER_H
-#define IXILIUM_MAPMANAGER_H
+#ifndef WOPCCORE_MAPMANAGER_H
+#define WOPCCORE_MAPMANAGER_H
 
 #include "Platform/Define.h"
 #include "Policies/Singleton.h"
@@ -30,10 +30,10 @@
 
 class Transport;
 
-class SCRIPTS_DLL_DECL MapManager : public Ixilium::Singleton<MapManager, Ixilium::ClassLevelLockable<MapManager, ACE_Thread_Mutex> >
+class SCRIPTS_DLL_DECL MapManager : public WOPCCORE::Singleton<MapManager, WOPCCORE::ClassLevelLockable<MapManager, ACE_Thread_Mutex> >
 {
 
-    friend class Ixilium::OperatorNew<MapManager>;
+    friend class WOPCCORE::OperatorNew<MapManager>;
     typedef UNORDERED_MAP<uint32, Map*> MapMapType;
     typedef std::pair<UNORDERED_MAP<uint32, Map*>::iterator, bool>  MapMapPair;
 
@@ -89,17 +89,17 @@ class SCRIPTS_DLL_DECL MapManager : public Ixilium::Singleton<MapManager, Ixiliu
 
         static bool IsValidMapCoord(uint32 mapid, float x,float y)
         {
-            return IsValidMAP(mapid) && Ixilium::IsValidMapCoord(x,y);
+            return IsValidMAP(mapid) && WOPCCORE::IsValidMapCoord(x,y);
         }
 
         static bool IsValidMapCoord(uint32 mapid, float x,float y,float z)
         {
-            return IsValidMAP(mapid) && Ixilium::IsValidMapCoord(x,y,z);
+            return IsValidMAP(mapid) && WOPCCORE::IsValidMapCoord(x,y,z);
         }
 
         static bool IsValidMapCoord(uint32 mapid, float x,float y,float z,float o)
         {
-            return IsValidMAP(mapid) && Ixilium::IsValidMapCoord(x,y,z,o);
+            return IsValidMAP(mapid) && WOPCCORE::IsValidMapCoord(x,y,z,o);
         }
 
         static bool IsValidMapCoord(WorldLocation const& loc)
@@ -146,7 +146,7 @@ class SCRIPTS_DLL_DECL MapManager : public Ixilium::Singleton<MapManager, Ixiliu
             return (iter == i_maps.end() ? NULL : iter->second);
         }
 
-        typedef Ixilium::ClassLevelLockable<MapManager, ACE_Thread_Mutex>::Lock Guard;
+        typedef WOPCCORE::ClassLevelLockable<MapManager, ACE_Thread_Mutex>::Lock Guard;
         uint32 i_gridCleanUpDelay;
         MapMapType i_maps;
         IntervalTimer i_timer;

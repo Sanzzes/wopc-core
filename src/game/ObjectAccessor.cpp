@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,7 +41,7 @@
 
 #include <cmath>
 
-#define CLASS_LOCK Ixilium::ClassLevelLockable<ObjectAccessor, ACE_Thread_Mutex>
+#define CLASS_LOCK WOPCCORE::ClassLevelLockable<ObjectAccessor, ACE_Thread_Mutex>
 INSTANTIATE_SINGLETON_2(ObjectAccessor, CLASS_LOCK);
 INSTANTIATE_CLASS_MUTEX(ObjectAccessor, ACE_Thread_Mutex);
 
@@ -231,7 +231,7 @@ ObjectAccessor::buildPacket(Player *pl, Object *obj, UpdateDataMapType &update_p
 void
 ObjectAccessor::buildChangeObjectForPlayer(WorldObject *obj, UpdateDataMapType &update_players)
 {
-    CellPair p = Ixilium::ComputeCellPair(obj->GetPositionX(), obj->GetPositionY());
+    CellPair p = WOPCCORE::ComputeCellPair(obj->GetPositionX(), obj->GetPositionY());
     Cell cell(p);
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();
@@ -278,7 +278,7 @@ ObjectAccessor::RemoveCorpse(Corpse *corpse)
         return;
 
     // build mapid*cellid -> guid_set map
-    CellPair cell_pair = Ixilium::ComputeCellPair(corpse->GetPositionX(), corpse->GetPositionY());
+    CellPair cell_pair = WOPCCORE::ComputeCellPair(corpse->GetPositionX(), corpse->GetPositionY());
     uint32 cell_id = (cell_pair.y_coord*TOTAL_NUMBER_OF_CELLS_PER_MAP) + cell_pair.x_coord;
 
     sObjectMgr.DeleteCorpseCellData(corpse->GetMapId(), cell_id, corpse->GetOwnerGUID());
@@ -296,7 +296,7 @@ ObjectAccessor::AddCorpse(Corpse *corpse)
     i_player2corpse[corpse->GetOwnerGUID()] = corpse;
 
     // build mapid*cellid -> guid_set map
-    CellPair cell_pair = Ixilium::ComputeCellPair(corpse->GetPositionX(), corpse->GetPositionY());
+    CellPair cell_pair = WOPCCORE::ComputeCellPair(corpse->GetPositionX(), corpse->GetPositionY());
     uint32 cell_id = (cell_pair.y_coord*TOTAL_NUMBER_OF_CELLS_PER_MAP) + cell_pair.x_coord;
 
     sObjectMgr.AddCorpseCellData(corpse->GetMapId(), cell_id, corpse->GetOwnerGUID(), corpse->GetInstanceId());
@@ -477,7 +477,7 @@ ObjectAccessor::WorldObjectChangeAccumulator::BuildPacket(Player* plr)
 void
 ObjectAccessor::UpdateObjectVisibility(WorldObject *obj)
 {
-    CellPair p = Ixilium::ComputeCellPair(obj->GetPositionX(), obj->GetPositionY());
+    CellPair p = WOPCCORE::ComputeCellPair(obj->GetPositionX(), obj->GetPositionY());
     Cell cell(p);
 
     obj->GetMap()->UpdateObjectVisibility(obj, cell, p);
@@ -488,13 +488,13 @@ ObjectAccessor::UpdateObjectVisibility(WorldObject *obj)
     WorldObject const* viewPoint = player->GetViewPoint();
     Map* m = player->GetMap();
 
-    CellPair p = Ixilium::ComputeCellPair(player->GetPositionX(), player->GetPositionY());
+    CellPair p = WOPCCORE::ComputeCellPair(player->GetPositionX(), player->GetPositionY());
     Cell cell(p);
 
     m->UpdatePlayerVisibility(player, cell, p);
     if (player!=viewPoint)
     {
-        CellPair pView(Ixilium::ComputeCellPair(viewPoint->GetPositionX(), viewPoint->GetPositionY()));
+        CellPair pView(WOPCCORE::ComputeCellPair(viewPoint->GetPositionX(), viewPoint->GetPositionY()));
         Cell cellView(pView);
 
         m->UpdateObjectsVisibilityFor(player, cellView, pView);

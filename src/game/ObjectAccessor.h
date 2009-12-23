@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#ifndef IXILIUM_OBJECTACCESSOR_H
-#define IXILIUM_OBJECTACCESSOR_H
+#ifndef WOPCCORE_OBJECTACCESSOR_H
+#define WOPCCORE_OBJECTACCESSOR_H
 
 #include "Platform/Define.h"
 #include "Policies/Singleton.h"
@@ -50,7 +50,7 @@ class HashMapHolder
 
         typedef UNORDERED_MAP< uint64, T* >   MapType;
         typedef ACE_Thread_Mutex LockType;
-        typedef Ixilium::GeneralLock<LockType > Guard;
+        typedef WOPCCORE::GeneralLock<LockType > Guard;
 
         static void Insert(T* o) { m_objectMap[o->GetGUID()] = o; }
 
@@ -78,10 +78,10 @@ class HashMapHolder
         static MapType  m_objectMap;
 };
 
-class SCRIPTS_DLL_DECL ObjectAccessor : public Ixilium::Singleton<ObjectAccessor, Ixilium::ClassLevelLockable<ObjectAccessor, ACE_Thread_Mutex> >
+class SCRIPTS_DLL_DECL ObjectAccessor : public WOPCCORE::Singleton<ObjectAccessor, WOPCCORE::ClassLevelLockable<ObjectAccessor, ACE_Thread_Mutex> >
 {
 
-    friend class Ixilium::OperatorNew<ObjectAccessor>;
+    friend class WOPCCORE::OperatorNew<ObjectAccessor>;
     ObjectAccessor();
     ~ObjectAccessor();
     ObjectAccessor(const ObjectAccessor &);
@@ -138,14 +138,14 @@ class SCRIPTS_DLL_DECL ObjectAccessor : public Ixilium::Singleton<ObjectAccessor
             T* obj = HashMapHolder<T>::Find(guid);
             if (!obj || obj->GetMapId() != mapid) return NULL;
 
-            CellPair p = Ixilium::ComputeCellPair(x,y);
+            CellPair p = WOPCCORE::ComputeCellPair(x,y);
             if (p.x_coord >= TOTAL_NUMBER_OF_CELLS_PER_MAP || p.y_coord >= TOTAL_NUMBER_OF_CELLS_PER_MAP )
             {
                 sLog.outError("ObjectAccessor::GetObjectInWorld: invalid coordinates supplied X:%f Y:%f grid cell [%u:%u]", x, y, p.x_coord, p.y_coord);
                 return NULL;
             }
 
-            CellPair q = Ixilium::ComputeCellPair(obj->GetPositionX(),obj->GetPositionY());
+            CellPair q = WOPCCORE::ComputeCellPair(obj->GetPositionX(),obj->GetPositionY());
             if (q.x_coord >= TOTAL_NUMBER_OF_CELLS_PER_MAP || q.y_coord >= TOTAL_NUMBER_OF_CELLS_PER_MAP )
             {
                 sLog.outError("ObjectAccessor::GetObjecInWorld: object (GUID: %u TypeId: %u) has invalid coordinates X:%f Y:%f grid cell [%u:%u]", obj->GetGUIDLow(), obj->GetTypeId(), obj->GetPositionX(), obj->GetPositionY(), q.x_coord, q.y_coord);
@@ -249,7 +249,7 @@ class SCRIPTS_DLL_DECL ObjectAccessor : public Ixilium::Singleton<ObjectAccessor
         Player2CorpsesMapType   i_player2corpse;
 
         typedef ACE_Thread_Mutex LockType;
-        typedef Ixilium::GeneralLock<LockType > Guard;
+        typedef WOPCCORE::GeneralLock<LockType > Guard;
 
         static void buildChangeObjectForPlayer(WorldObject *, UpdateDataMapType &);
         static void buildPacket(Player *, Object *, UpdateDataMapType &);

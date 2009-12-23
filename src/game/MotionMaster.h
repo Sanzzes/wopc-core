@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef IXILIUM_MOTIONMASTER_H
-#define IXILIUM_MOTIONMASTER_H
+#ifndef WOPCCORE_MOTIONMASTER_H
+#define WOPCCORE_MOTIONMASTER_H
 
 #include "Common.h"
 #include <vector>
@@ -78,7 +78,7 @@ enum RotateDirection
 // assume it is 25 yard per 0.6 second
 #define SPEED_CHARGE    42.0f
 
-class IXILIUM_DLL_SPEC MotionMaster //: private std::stack<MovementGenerator *>
+class WOPCCORE_DLL_SPEC MotionMaster //: private std::stack<MovementGenerator *>
 {
     private:
         //typedef std::stack<MovementGenerator *> Impl;

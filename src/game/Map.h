@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#ifndef IXILIUM_MAP_H
-#define IXILIUM_MAP_H
+#ifndef WOPCCORE_MAP_H
+#define WOPCCORE_MAP_H
 
 #include "Platform/Define.h"
 #include "Policies/ThreadingModel.h"
@@ -60,19 +60,19 @@ template<class MUTEX, class LOCK_TYPE>
 struct RGuard
 {
     RGuard(MUTEX &l) : i_lock(l.getReadLock()) {}
-    Ixilium::GeneralLock<LOCK_TYPE> i_lock;
+    WOPCCORE::GeneralLock<LOCK_TYPE> i_lock;
 };
 
 template<class MUTEX, class LOCK_TYPE>
 struct WGuard
 {
     WGuard(MUTEX &l) : i_lock(l.getWriteLock()) {}
-    Ixilium::GeneralLock<LOCK_TYPE> i_lock;
+    WOPCCORE::GeneralLock<LOCK_TYPE> i_lock;
 };
 
 typedef RGuard<GridRWLock, ACE_Thread_Mutex> GridReadGuard;
 typedef WGuard<GridRWLock, ACE_Thread_Mutex> GridWriteGuard;
-typedef Ixilium::SingleThreaded<GridRWLock>::Lock NullGuard;
+typedef WOPCCORE::SingleThreaded<GridRWLock>::Lock NullGuard;
 
 //******************************************
 // Map file format defines
@@ -258,7 +258,7 @@ typedef UNORDERED_MAP<Creature*, CreatureMover> CreatureMoveList;
 
 typedef std::map<uint32/*leaderDBGUID*/, CreatureGroup*>        CreatureGroupHolderType;
 
-class IXILIUM_DLL_SPEC Map : public GridRefManager<NGridType>, public Ixilium::ObjectLevelLockable<Map, ACE_Thread_Mutex>
+class WOPCCORE_DLL_SPEC Map : public GridRefManager<NGridType>, public WOPCCORE::ObjectLevelLockable<Map, ACE_Thread_Mutex>
 {
     friend class MapReference;
     public:
@@ -299,13 +299,13 @@ class IXILIUM_DLL_SPEC Map : public GridRefManager<NGridType>, public Ixilium::O
 
         bool IsRemovalGrid(float x, float y) const
         {
-            GridPair p = Ixilium::ComputeGridPair(x, y);
+            GridPair p = WOPCCORE::ComputeGridPair(x, y);
             return !getNGrid(p.x_coord, p.y_coord) || getNGrid(p.x_coord, p.y_coord)->GetGridState() == GRID_STATE_REMOVAL;
         }
 
         bool IsLoaded(float x, float y) const
         {
-            GridPair p = Ixilium::ComputeGridPair(x, y);
+            GridPair p = WOPCCORE::ComputeGridPair(x, y);
             return loaded(p);
         }
 
@@ -518,7 +518,7 @@ class IXILIUM_DLL_SPEC Map : public GridRefManager<NGridType>, public Ixilium::O
     protected:
         void SetUnloadReferenceLock(const GridPair &p, bool on) { getNGrid(p.x_coord, p.y_coord)->setUnloadReferenceLock(on); }
 
-        typedef Ixilium::ObjectLevelLockable<Map, ACE_Thread_Mutex>::Lock Guard;
+        typedef WOPCCORE::ObjectLevelLockable<Map, ACE_Thread_Mutex>::Lock Guard;
 
         MapEntry const* i_mapEntry;
         uint8 i_spawnMode;
@@ -604,7 +604,7 @@ enum InstanceResetMethod
     INSTANCE_RESET_RESPAWN_DELAY
 };
 
-class IXILIUM_DLL_SPEC InstanceMap : public Map
+class WOPCCORE_DLL_SPEC InstanceMap : public Map
 {
     public:
         InstanceMap(uint32 id, time_t, uint32 InstanceId, uint8 SpawnMode, Map* _parent);
@@ -630,7 +630,7 @@ class IXILIUM_DLL_SPEC InstanceMap : public Map
         uint32 i_script_id;
 };
 
-class IXILIUM_DLL_SPEC BattleGroundMap : public Map
+class WOPCCORE_DLL_SPEC BattleGroundMap : public Map
 {
     public:
         BattleGroundMap(uint32 id, time_t, uint32 InstanceId, Map* _parent, uint8 spawnMode);
@@ -683,7 +683,7 @@ inline void
 Map::VisitAll(const float &x, const float &y, float radius, NOTIFIER &notifier)
 {
     float x_off, y_off;
-    CellPair p(Ixilium::ComputeCellPair(x, y, x_off, y_off));
+    CellPair p(WOPCCORE::ComputeCellPair(x, y, x_off, y_off));
     Cell cell(p);
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();
@@ -700,7 +700,7 @@ inline void
 Map::VisitWorld(const float &x, const float &y, float radius, NOTIFIER &notifier)
 {
     float x_off, y_off;
-    CellPair p(Ixilium::ComputeCellPair(x, y, x_off, y_off));
+    CellPair p(WOPCCORE::ComputeCellPair(x, y, x_off, y_off));
     Cell cell(p);
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();
@@ -715,7 +715,7 @@ inline void
 Map::VisitGrid(const float &x, const float &y, float radius, NOTIFIER &notifier)
 {
     float x_off, y_off;
-    CellPair p(Ixilium::ComputeCellPair(x, y, x_off, y_off));
+    CellPair p(WOPCCORE::ComputeCellPair(x, y, x_off, y_off));
     Cell cell(p);
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();

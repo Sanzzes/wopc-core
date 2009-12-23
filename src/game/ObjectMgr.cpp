@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -226,7 +226,7 @@ void ObjectMgr::LoadPlayerInfoInCache()
     QueryResult *result = CharacterDatabase.PQuery("SELECT guid, name, data, class FROM characters");
     if (!result)
     {
-        sLog.outError(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_PLAYER_INFO_CACHE_FAILED));
+        sLog.outError(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_PLAYER_INFO_CACHE_FAILED));
         return;
     }
 
@@ -263,7 +263,7 @@ void ObjectMgr::LoadPlayerInfoInCache()
     delete result;
 
     sLog.outString();
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_PLAYER_INFO_CACHE_LOADED), m_mPlayerInfoMap.size());
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_PLAYER_INFO_CACHE_LOADED), m_mPlayerInfoMap.size());
 }
 
 PCachePlayerInfo ObjectMgr::GetPlayerInfoFromCache(uint32 unPlayerGuid) const
@@ -386,7 +386,7 @@ void ObjectMgr::LoadCreatureLocales()
         bar.step();
 
         sLog.outString();
-        sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_LOCAL_CREATURE_EMPTY));
+        sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_LOCAL_CREATURE_EMPTY));
         return;
     }
 
@@ -433,7 +433,7 @@ void ObjectMgr::LoadCreatureLocales()
     delete result;
 
     sLog.outString();
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_LOCAL_CREATURE_LOADED), (unsigned long)mCreatureLocaleMap.size());
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_LOCAL_CREATURE_LOADED), (unsigned long)mCreatureLocaleMap.size());
 }
 
 void ObjectMgr::LoadGossipMenuItemsLocales()
@@ -518,7 +518,7 @@ void ObjectMgr::LoadPointOfInterestLocales()
         bar.step();
 
         sLog.outString();
-        sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_LOCAL_POI_EMPTY));
+        sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_LOCAL_POI_EMPTY));
         return;
     }
 
@@ -553,7 +553,7 @@ void ObjectMgr::LoadPointOfInterestLocales()
     delete result;
 
     sLog.outString();
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_LOCAL_POI_LOADED), (unsigned long)mPointOfInterestLocaleMap.size());
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_LOCAL_POI_LOADED), (unsigned long)mPointOfInterestLocaleMap.size());
 }
 
 struct SQLCreatureLoader : public SQLStorageLoaderBase<SQLCreatureLoader>
@@ -570,7 +570,7 @@ void ObjectMgr::LoadCreatureTemplates()
     SQLCreatureLoader loader;
     loader.Load(sCreatureStorage);
 
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_CREATURE_TEMPLATES_LOADED), sCreatureStorage.RecordCount);
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_CREATURE_TEMPLATES_LOADED), sCreatureStorage.RecordCount);
     sLog.outString();
 
     std::set<uint32> difficultyEntries[MAX_DIFFICULTY - 1]; // already loaded difficulty 1 value in creatures
@@ -991,7 +991,7 @@ void ObjectMgr::LoadCreatureAddons()
                 sLog.outErrorDb("Creature (GUID: %u) does not exist but has a record in `creature_addon`", addon->guidOrEntry);
 
     sLog.outString();
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_CREATURE_ADDON_DATA_LOADED));
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_CREATURE_ADDON_DATA_LOADED));
 }
 
 EquipmentInfo const* ObjectMgr::GetEquipmentInfo(uint32 entry)
@@ -1039,7 +1039,7 @@ void ObjectMgr::LoadEquipmentTemplates()
             }
         }
     }
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_EQUIPMENT_TEMPLATES_LOADED), sEquipmentStorage.RecordCount);
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_EQUIPMENT_TEMPLATES_LOADED), sEquipmentStorage.RecordCount);
     sLog.outString();
 }
 
@@ -1130,7 +1130,7 @@ void ObjectMgr::LoadCreatureModelInfo()
         }
     }
 
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_CREATURE_MODEL_DATA_LOADED), sCreatureModelStorage.RecordCount);
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_CREATURE_MODEL_DATA_LOADED), sCreatureModelStorage.RecordCount);
     sLog.outString();
 
     // check if combat_reach is valid
@@ -1212,7 +1212,7 @@ void ObjectMgr::LoadCreatureLinkedRespawn()
     delete result;
 
     sLog.outString();
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_CREATURE_LINKED_RESPAWN_LOADED), mCreatureLinkedRespawnMap.size());
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_CREATURE_LINKED_RESPAWN_LOADED), mCreatureLinkedRespawnMap.size());
 }
 
 bool ObjectMgr::SetCreatureLinkedRespawn(uint32 guid, uint32 linkedGuid)
@@ -1430,7 +1430,7 @@ void ObjectMgr::LoadCreatures()
     delete result;
 
     sLog.outString();
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_CREATURE_DATA_LOADED), (unsigned long)mCreatureDataMap.size());
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_CREATURE_DATA_LOADED), (unsigned long)mCreatureDataMap.size());
 }
 
 void ObjectMgr::AddCreatureToGrid(uint32 guid, CreatureData const* data)
@@ -1440,7 +1440,7 @@ void ObjectMgr::AddCreatureToGrid(uint32 guid, CreatureData const* data)
     {
         if (mask & 1)
         {
-            CellPair cell_pair = Ixilium::ComputeCellPair(data->posX, data->posY);
+            CellPair cell_pair = WOPCCORE::ComputeCellPair(data->posX, data->posY);
             uint32 cell_id = (cell_pair.y_coord*TOTAL_NUMBER_OF_CELLS_PER_MAP) + cell_pair.x_coord;
 
             CellObjectGuids& cell_guids = mMapObjectGuids[MAKE_PAIR32(data->mapid,i)][cell_id];
@@ -1456,7 +1456,7 @@ void ObjectMgr::RemoveCreatureFromGrid(uint32 guid, CreatureData const* data)
     {
         if (mask & 1)
         {
-            CellPair cell_pair = Ixilium::ComputeCellPair(data->posX, data->posY);
+            CellPair cell_pair = WOPCCORE::ComputeCellPair(data->posX, data->posY);
             uint32 cell_id = (cell_pair.y_coord*TOTAL_NUMBER_OF_CELLS_PER_MAP) + cell_pair.x_coord;
 
             CellObjectGuids& cell_guids = mMapObjectGuids[MAKE_PAIR32(data->mapid,i)][cell_id];
@@ -1744,7 +1744,7 @@ void ObjectMgr::LoadGameobjects()
     delete result;
 
     sLog.outString();
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_GAMEOBJECT_DATA_LOADED), (unsigned long)mGameObjectDataMap.size());
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_GAMEOBJECT_DATA_LOADED), (unsigned long)mGameObjectDataMap.size());
 }
 
 void ObjectMgr::AddGameobjectToGrid(uint32 guid, GameObjectData const* data)
@@ -1754,7 +1754,7 @@ void ObjectMgr::AddGameobjectToGrid(uint32 guid, GameObjectData const* data)
     {
         if (mask & 1)
         {
-            CellPair cell_pair = Ixilium::ComputeCellPair(data->posX, data->posY);
+            CellPair cell_pair = WOPCCORE::ComputeCellPair(data->posX, data->posY);
             uint32 cell_id = (cell_pair.y_coord*TOTAL_NUMBER_OF_CELLS_PER_MAP) + cell_pair.x_coord;
 
             CellObjectGuids& cell_guids = mMapObjectGuids[MAKE_PAIR32(data->mapid,i)][cell_id];
@@ -1770,7 +1770,7 @@ void ObjectMgr::RemoveGameobjectFromGrid(uint32 guid, GameObjectData const* data
     {
         if (mask & 1)
         {
-            CellPair cell_pair = Ixilium::ComputeCellPair(data->posX, data->posY);
+            CellPair cell_pair = WOPCCORE::ComputeCellPair(data->posX, data->posY);
             uint32 cell_id = (cell_pair.y_coord*TOTAL_NUMBER_OF_CELLS_PER_MAP) + cell_pair.x_coord;
 
             CellObjectGuids& cell_guids = mMapObjectGuids[MAKE_PAIR32(data->mapid,i)][cell_id];
@@ -1792,7 +1792,7 @@ void ObjectMgr::LoadCreatureRespawnTimes()
         bar.step();
 
         sLog.outString();
-        sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_CREATURE_RESPAWN_DATA_EMPTY));
+        sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_CREATURE_RESPAWN_DATA_EMPTY));
         return;
     }
 
@@ -1814,7 +1814,7 @@ void ObjectMgr::LoadCreatureRespawnTimes()
 
     delete result;
 
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_CREATURE_RESPAWN_DATA_LOADED), (unsigned long)mCreatureRespawnTimes.size());
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_CREATURE_RESPAWN_DATA_LOADED), (unsigned long)mCreatureRespawnTimes.size());
     sLog.outString();
 }
 
@@ -1834,7 +1834,7 @@ void ObjectMgr::LoadGameobjectRespawnTimes()
         bar.step();
 
         sLog.outString();
-        sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_GAMEOBJECT_RESPAWN_TIMES_EMPTY));
+        sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_GAMEOBJECT_RESPAWN_TIMES_EMPTY));
         return;
     }
 
@@ -1856,7 +1856,7 @@ void ObjectMgr::LoadGameobjectRespawnTimes()
 
     delete result;
 
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_GAMEOBJECT_RESPAWN_TIMES_LOADED), (unsigned long)mGORespawnTimes.size());
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_GAMEOBJECT_RESPAWN_TIMES_LOADED), (unsigned long)mGORespawnTimes.size());
     sLog.outString();
 }
 
@@ -1972,7 +1972,7 @@ void ObjectMgr::LoadItemLocales()
         bar.step();
 
         sLog.outString();
-        sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_LOCAL_ITEM_EMPTY));
+        sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_LOCAL_ITEM_EMPTY));
         return;
     }
 
@@ -2020,7 +2020,7 @@ void ObjectMgr::LoadItemLocales()
     delete result;
 
     sLog.outString();
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_LOCAL_ITEM_LOADED), (unsigned long)mItemLocaleMap.size());
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_LOCAL_ITEM_LOADED), (unsigned long)mItemLocaleMap.size());
 }
 
 struct SQLItemLoader : public SQLStorageLoaderBase<SQLItemLoader>
@@ -2037,10 +2037,10 @@ void ObjectMgr::LoadItemPrototypes(bool reload)
     if (reload)
     {
         // Loading tmp storage
-        sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_ITEMS_STORAGE_LOADING));
+        sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_ITEMS_STORAGE_LOADING));
         SQLItemLoader loader;
         loader.Load(sItemStorageTmp);
-        sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_ITEMS_STORAGE_LOADED));
+        sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_ITEMS_STORAGE_LOADED));
 
         for (uint32 i = 1; i < sItemStorageTmp.MaxEntry; ++i)
         {
@@ -2488,15 +2488,15 @@ void ObjectMgr::LoadItemPrototypes(bool reload)
         }
 
         sItemStorageTmp.Free();
-        sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_ITEMS_MODIFIED_1));
-        sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_ITEMS_MODIFIED_2));
-        sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_ITEMS_MODIFIED_3));
+        sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_ITEMS_MODIFIED_1));
+        sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_ITEMS_MODIFIED_2));
+        sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_ITEMS_MODIFIED_3));
     }
     else
     {
         SQLItemLoader loader;
         loader.Load(sItemStorage);
-        sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_ITEMS_LOADED), sItemStorage.RecordCount);
+        sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_ITEMS_LOADED), sItemStorage.RecordCount);
         sLog.outString();
     }
 
@@ -3011,7 +3011,7 @@ void ObjectMgr::LoadItemRequiredTarget()
     delete result;
 
     sLog.outString();
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_ITEM_REQUIRED_TARGET_LOADED), count);
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_ITEM_REQUIRED_TARGET_LOADED), count);
 }
 
 void ObjectMgr::LoadPetLevelInfo()
@@ -4182,19 +4182,19 @@ void ObjectMgr::LoadQuests()
             sLog.outErrorDb("Quest %u has `Method` = %u, expected values are 0, 1 or 2.",qinfo->GetQuestId(),qinfo->GetQuestMethod());
         }
 
-        if (qinfo->QuestFlags & ~QUEST_IXILIUM_FLAGS_DB_ALLOWED)
+        if (qinfo->QuestFlags & ~QUEST_WOPCCORE_FLAGS_DB_ALLOWED)
         {
             sLog.outErrorDb("Quest %u has `SpecialFlags` = %u > max allowed value. Correct `SpecialFlags` to value <= %u",
-                qinfo->GetQuestId(),qinfo->QuestFlags,QUEST_IXILIUM_FLAGS_DB_ALLOWED >> 16);
-            qinfo->QuestFlags &= QUEST_IXILIUM_FLAGS_DB_ALLOWED;
+                qinfo->GetQuestId(),qinfo->QuestFlags,QUEST_WOPCCORE_FLAGS_DB_ALLOWED >> 16);
+            qinfo->QuestFlags &= QUEST_WOPCCORE_FLAGS_DB_ALLOWED;
         }
 
         if (qinfo->QuestFlags & (QUEST_FLAGS_DAILY | QUEST_FLAGS_WEEKLY))
         {
-            if (!(qinfo->QuestFlags & QUEST_IXILIUM_FLAGS_REPEATABLE))
+            if (!(qinfo->QuestFlags & QUEST_WOPCCORE_FLAGS_REPEATABLE))
             {
                 sLog.outErrorDb("Daily Quest %u not marked as repeatable in `SpecialFlags`, added.",qinfo->GetQuestId());
-                qinfo->QuestFlags |= QUEST_IXILIUM_FLAGS_REPEATABLE;
+                qinfo->QuestFlags |= QUEST_WOPCCORE_FLAGS_REPEATABLE;
             }
         }
 
@@ -4407,7 +4407,7 @@ void ObjectMgr::LoadQuests()
                     // no changes, quest can't be done for this requirement
                 }
 
-                qinfo->SetFlag(QUEST_IXILIUM_FLAGS_DELIVER);
+                qinfo->SetFlag(QUEST_WOPCCORE_FLAGS_DELIVER);
 
                 if (!sItemStorage.LookupEntry<ItemPrototype>(id))
                 {
@@ -4475,12 +4475,12 @@ void ObjectMgr::LoadQuests()
 
                     if (found)
                     {
-                        if (!qinfo->HasFlag(QUEST_IXILIUM_FLAGS_EXPLORATION_OR_EVENT))
+                        if (!qinfo->HasFlag(QUEST_WOPCCORE_FLAGS_EXPLORATION_OR_EVENT))
                         {
-                            sLog.outErrorDb("Spell (id: %u) have SPELL_EFFECT_QUEST_COMPLETE or SPELL_EFFECT_SEND_EVENT for quest %u and ReqCreatureOrGOId%d = 0, but quest not have flag QUEST_IXILIUM_FLAGS_EXPLORATION_OR_EVENT. Quest flags or ReqCreatureOrGOId%d must be fixed, quest modified to enable objective.",spellInfo->Id,qinfo->QuestId,j+1,j+1);
+                            sLog.outErrorDb("Spell (id: %u) have SPELL_EFFECT_QUEST_COMPLETE or SPELL_EFFECT_SEND_EVENT for quest %u and ReqCreatureOrGOId%d = 0, but quest not have flag QUEST_WOPCCORE_FLAGS_EXPLORATION_OR_EVENT. Quest flags or ReqCreatureOrGOId%d must be fixed, quest modified to enable objective.",spellInfo->Id,qinfo->QuestId,j+1,j+1);
 
                             // this will prevent quest completing without objective
-                            const_cast<Quest*>(qinfo)->SetFlag(QUEST_IXILIUM_FLAGS_EXPLORATION_OR_EVENT);
+                            const_cast<Quest*>(qinfo)->SetFlag(QUEST_WOPCCORE_FLAGS_EXPLORATION_OR_EVENT);
                         }
                     }
                     else
@@ -4514,7 +4514,7 @@ void ObjectMgr::LoadQuests()
             {
                 // In fact SpeakTo and Kill are quite same: either you can speak to mob:SpeakTo or you can't:Kill/Cast
 
-                qinfo->SetFlag(QUEST_IXILIUM_FLAGS_KILL_OR_CAST | QUEST_IXILIUM_FLAGS_SPEAKTO);
+                qinfo->SetFlag(QUEST_WOPCCORE_FLAGS_KILL_OR_CAST | QUEST_WOPCCORE_FLAGS_SPEAKTO);
 
                 if (!qinfo->ReqCreatureOrGOCount[j])
                 {
@@ -4773,10 +4773,10 @@ void ObjectMgr::LoadQuests()
         if (qinfo->ExclusiveGroup)
             mExclusiveQuestGroups.insert(std::pair<int32, uint32>(qinfo->ExclusiveGroup, qinfo->GetQuestId()));
         if (qinfo->LimitTime)
-            qinfo->SetFlag(QUEST_IXILIUM_FLAGS_TIMED);
+            qinfo->SetFlag(QUEST_WOPCCORE_FLAGS_TIMED);
     }
 
-    // check QUEST_IXILIUM_FLAGS_EXPLORATION_OR_EVENT for spell with SPELL_EFFECT_QUEST_COMPLETE
+    // check QUEST_WOPCCORE_FLAGS_EXPLORATION_OR_EVENT for spell with SPELL_EFFECT_QUEST_COMPLETE
     for (uint32 i = 0; i < sSpellStore.GetNumRows(); ++i)
     {
         SpellEntry const *spellInfo = sSpellStore.LookupEntry(i);
@@ -4796,12 +4796,12 @@ void ObjectMgr::LoadQuests()
             if (!quest)
                 continue;
 
-            if (!quest->HasFlag(QUEST_IXILIUM_FLAGS_EXPLORATION_OR_EVENT))
+            if (!quest->HasFlag(QUEST_WOPCCORE_FLAGS_EXPLORATION_OR_EVENT))
             {
-                sLog.outErrorDb("Spell (id: %u) have SPELL_EFFECT_QUEST_COMPLETE for quest %u , but quest not have flag QUEST_IXILIUM_FLAGS_EXPLORATION_OR_EVENT. Quest flags must be fixed, quest modified to enable objective.",spellInfo->Id,quest_id);
+                sLog.outErrorDb("Spell (id: %u) have SPELL_EFFECT_QUEST_COMPLETE for quest %u , but quest not have flag QUEST_WOPCCORE_FLAGS_EXPLORATION_OR_EVENT. Quest flags must be fixed, quest modified to enable objective.",spellInfo->Id,quest_id);
 
                 // this will prevent quest completing without objective
-                const_cast<Quest*>(quest)->SetFlag(QUEST_IXILIUM_FLAGS_EXPLORATION_OR_EVENT);
+                const_cast<Quest*>(quest)->SetFlag(QUEST_WOPCCORE_FLAGS_EXPLORATION_OR_EVENT);
             }
         }
     }
@@ -4833,7 +4833,7 @@ void ObjectMgr::LoadQuestLocales()
         bar.step();
 
         sLog.outString();
-        sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_LOCAL_QUEST_EMPTY));
+        sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_LOCAL_QUEST_EMPTY));
         return;
     }
 
@@ -4943,7 +4943,7 @@ void ObjectMgr::LoadQuestLocales()
     delete result;
 
     sLog.outString();
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_LOCAL_QUEST_LOADED), (unsigned long)mQuestLocaleMap.size());
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_LOCAL_QUEST_LOADED), (unsigned long)mQuestLocaleMap.size());
 }
 
 void ObjectMgr::LoadScripts(ScriptMapMap& scripts, char const* tablename)
@@ -5031,7 +5031,7 @@ void ObjectMgr::LoadScripts(ScriptMapMap& scripts, char const* tablename)
                     continue;
                 }
 
-                if (!Ixilium::IsValidMapCoord(tmp.x,tmp.y,tmp.z,tmp.o))
+                if (!WOPCCORE::IsValidMapCoord(tmp.x,tmp.y,tmp.z,tmp.o))
                 {
                     sLog.outErrorDb("Table `%s` has invalid coordinates (X: %f Y: %f) in SCRIPT_COMMAND_TELEPORT_TO for script id %u",tablename,tmp.x,tmp.y,tmp.id);
                     continue;
@@ -5051,7 +5051,7 @@ void ObjectMgr::LoadScripts(ScriptMapMap& scripts, char const* tablename)
 			
             case SCRIPT_COMMAND_TEMP_SUMMON_CREATURE:
             {
-                if (!Ixilium::IsValidMapCoord(tmp.x,tmp.y,tmp.z,tmp.o))
+                if (!WOPCCORE::IsValidMapCoord(tmp.x,tmp.y,tmp.z,tmp.o))
                 {
                     sLog.outErrorDb("Table `%s` has invalid coordinates (X: %f Y: %f) in SCRIPT_COMMAND_TEMP_SUMMON_CREATURE for script id %u",tablename,tmp.x,tmp.y,tmp.id);
                     continue;
@@ -5126,12 +5126,12 @@ void ObjectMgr::LoadScripts(ScriptMapMap& scripts, char const* tablename)
                     continue;
                 }
 
-                if (!quest->HasFlag(QUEST_IXILIUM_FLAGS_EXPLORATION_OR_EVENT))
+                if (!quest->HasFlag(QUEST_WOPCCORE_FLAGS_EXPLORATION_OR_EVENT))
                 {
-                    sLog.outErrorDb("Table `%s` has quest (ID: %u) in SCRIPT_COMMAND_QUEST_EXPLORED in `datalong` for script id %u, but quest not have flag QUEST_IXILIUM_FLAGS_EXPLORATION_OR_EVENT in quest flags. Script command or quest flags wrong. Quest modified to require objective.",tablename,tmp.datalong,tmp.id);
+                    sLog.outErrorDb("Table `%s` has quest (ID: %u) in SCRIPT_COMMAND_QUEST_EXPLORED in `datalong` for script id %u, but quest not have flag QUEST_WOPCCORE_FLAGS_EXPLORATION_OR_EVENT in quest flags. Script command or quest flags wrong. Quest modified to require objective.",tablename,tmp.datalong,tmp.id);
 
                     // this will prevent quest completing without objective
-                    const_cast<Quest*>(quest)->SetFlag(QUEST_IXILIUM_FLAGS_EXPLORATION_OR_EVENT);
+                    const_cast<Quest*>(quest)->SetFlag(QUEST_WOPCCORE_FLAGS_EXPLORATION_OR_EVENT);
 
                     // continue; - quest objective requirement set and command can be allowed
                 }
@@ -5368,7 +5368,7 @@ void ObjectMgr::LoadItemTexts()
         bar.step();
 
         sLog.outString();
-        sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_ITEM_TEXTS_EMPTY), count);
+        sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_ITEM_TEXTS_EMPTY), count);
         return;
     }
 
@@ -5390,7 +5390,7 @@ void ObjectMgr::LoadItemTexts()
     delete result;
 
     sLog.outString();
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_ITEM_TEXTS_LOADED), count);
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_ITEM_TEXTS_LOADED), count);
 }
 
 void ObjectMgr::LoadPageTexts()
@@ -5398,7 +5398,7 @@ void ObjectMgr::LoadPageTexts()
     sPageTextStore.Free();                                  // for reload case
 
     sPageTextStore.Load();
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_PAGE_TEXTS_LOADED), sPageTextStore.RecordCount);
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_PAGE_TEXTS_LOADED), sPageTextStore.RecordCount);
     sLog.outString();
 
     for (uint32 i = 1; i < sPageTextStore.MaxEntry; ++i)
@@ -5450,7 +5450,7 @@ void ObjectMgr::LoadPageTextLocales()
         bar.step();
 
         sLog.outString();
-        sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_LOCAL_PAGE_TEXT_STRINGS_EMPTY));
+        sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_LOCAL_PAGE_TEXT_STRINGS_EMPTY));
         return;
     }
 
@@ -5486,7 +5486,7 @@ void ObjectMgr::LoadPageTextLocales()
     delete result;
 
     sLog.outString();
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_LOCAL_PAGE_TEXT_STRINGS_LOADED), (unsigned long)mPageTextLocaleMap.size());
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_LOCAL_PAGE_TEXT_STRINGS_LOADED), (unsigned long)mPageTextLocaleMap.size());
 }
 
 struct SQLInstanceLoader : public SQLStorageLoaderBase<SQLInstanceLoader>
@@ -5611,7 +5611,7 @@ void ObjectMgr::LoadNpcTextLocales()
         bar.step();
 
         sLog.outString();
-        sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_LOCAL_NPC_TEXT_EMPTY));
+        sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_LOCAL_NPC_TEXT_EMPTY));
         return;
     }
 
@@ -5661,7 +5661,7 @@ void ObjectMgr::LoadNpcTextLocales()
     delete result;
 
     sLog.outString();
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_LOCAL_NPC_TEXT_LOADED), (unsigned long)mNpcTextLocaleMap.size() );
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_LOCAL_NPC_TEXT_LOADED), (unsigned long)mNpcTextLocaleMap.size() );
 }
 
 //not very fast function but it is called only once a day, or on starting-up
@@ -5814,12 +5814,12 @@ void ObjectMgr::LoadQuestAreaTriggers()
             continue;
         }
 
-        if (!quest->HasFlag(QUEST_IXILIUM_FLAGS_EXPLORATION_OR_EVENT))
+        if (!quest->HasFlag(QUEST_WOPCCORE_FLAGS_EXPLORATION_OR_EVENT))
         {
-            sLog.outErrorDb("Table `areatrigger_involvedrelation` has record (id: %u) for not quest %u, but quest not have flag QUEST_IXILIUM_FLAGS_EXPLORATION_OR_EVENT. Trigger or quest flags must be fixed, quest modified to require objective.",trigger_ID,quest_ID);
+            sLog.outErrorDb("Table `areatrigger_involvedrelation` has record (id: %u) for not quest %u, but quest not have flag QUEST_WOPCCORE_FLAGS_EXPLORATION_OR_EVENT. Trigger or quest flags must be fixed, quest modified to require objective.",trigger_ID,quest_ID);
 
             // this will prevent quest completing without objective
-            const_cast<Quest*>(quest)->SetFlag(QUEST_IXILIUM_FLAGS_EXPLORATION_OR_EVENT);
+            const_cast<Quest*>(quest)->SetFlag(QUEST_WOPCCORE_FLAGS_EXPLORATION_OR_EVENT);
 
             // continue; - quest modified to required objective and trigger can be allowed.
         }
@@ -6808,7 +6808,7 @@ void ObjectMgr::LoadGameObjectLocales()
         bar.step();
 
         sLog.outString();
-        sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_LOCAL_GO_EMPTY));
+        sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_LOCAL_GO_EMPTY));
         return;
     }
 
@@ -6860,7 +6860,7 @@ void ObjectMgr::LoadGameObjectLocales()
     delete result;
 
     sLog.outString();
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_LOCAL_GO_LOADED), (unsigned long)mGameObjectLocaleMap.size());
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_LOCAL_GO_LOADED), (unsigned long)mGameObjectLocaleMap.size());
 }
 
 struct SQLGameObjectLoader : public SQLStorageLoaderBase<SQLGameObjectLoader>
@@ -7095,7 +7095,7 @@ void ObjectMgr::LoadGameobjectInfo()
         }
     }
 
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_GO_TEMPLATES_LOADED), sGOStorage.RecordCount);
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_GO_TEMPLATES_LOADED), sGOStorage.RecordCount);
     sLog.outString();
 }
 
@@ -7344,7 +7344,7 @@ void ObjectMgr::LoadReputationOnKill()
     delete result;
 
     sLog.outString();
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_CREATURE_REPU_ONKILL_LOADED), count);
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_CREATURE_REPU_ONKILL_LOADED), count);
 }
 
 void ObjectMgr::LoadPointsOfInterest()
@@ -7382,7 +7382,7 @@ void ObjectMgr::LoadPointsOfInterest()
         POI.data                 = fields[5].GetUInt32();
         POI.icon_name            = fields[6].GetCppString();
 
-        if (!Ixilium::IsValidMapCoord(POI.x,POI.y))
+        if (!WOPCCORE::IsValidMapCoord(POI.x,POI.y))
         {
             sLog.outErrorDb("Table `points_of_interest` (Entry: %u) have invalid coordinates (X: %f Y: %f), ignored.",point_id,POI.x,POI.y);
             continue;
@@ -7396,7 +7396,7 @@ void ObjectMgr::LoadPointsOfInterest()
     delete result;
 
     sLog.outString();
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_POINTS_OF_INTEREST_DATA_LOADED), count);
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_POINTS_OF_INTEREST_DATA_LOADED), count);
 }
 
 void ObjectMgr::LoadQuestPOI()
@@ -8099,7 +8099,7 @@ void ObjectMgr::LoadGameObjectForQuests()
     sLog.outString( ">> Loaded %u GameObjects for quests", count );
 }
 
-bool ObjectMgr::LoadIxiliumStrings(DatabaseType& db, char const* table, int32 min_value, int32 max_value)
+bool ObjectMgr::LoadWOPCCOREStrings(DatabaseType& db, char const* table, int32 min_value, int32 max_value)
 {
     int32 start_value = min_value;
     int32 end_value   = max_value;
@@ -8127,10 +8127,10 @@ bool ObjectMgr::LoadIxiliumStrings(DatabaseType& db, char const* table, int32 mi
     }
 
     // cleanup affected map part for reloading case
-    for (IxiliumStringLocaleMap::iterator itr = mIxiliumStringLocaleMap.begin(); itr != mIxiliumStringLocaleMap.end();)
+    for (WOPCCOREStringLocaleMap::iterator itr = mWOPCCOREStringLocaleMap.begin(); itr != mWOPCCOREStringLocaleMap.end();)
     {
         if (itr->first >= start_value && itr->first < end_value)
-            mIxiliumStringLocaleMap.erase(itr++);
+            mWOPCCOREStringLocaleMap.erase(itr++);
         else
             ++itr;
     }
@@ -8144,8 +8144,8 @@ bool ObjectMgr::LoadIxiliumStrings(DatabaseType& db, char const* table, int32 mi
         bar.step();
 
         sLog.outString();
-        if (min_value == MIN_IXILIUM_STRING_ID)              // error only in case internal strings
-            sLog.outErrorDb(">> Loaded 0 ixilium strings. DB table `%s` is empty. Cannot continue.",table);
+        if (min_value == MIN_WOPCCORE_STRING_ID)              // error only in case internal strings
+            sLog.outErrorDb(">> Loaded 0 WOPCCORE strings. DB table `%s` is empty. Cannot continue.",table);
         else
             sLog.outString(">> Loaded 0 string templates. DB table `%s` is empty.",table);
         return false;
@@ -8173,7 +8173,7 @@ bool ObjectMgr::LoadIxiliumStrings(DatabaseType& db, char const* table, int32 mi
             continue;
         }
 
-        IxiliumStringLocale& data = mIxiliumStringLocaleMap[entry];
+        WOPCCOREStringLocale& data = mWOPCCOREStringLocaleMap[entry];
 
         if (data.Content.size() > 0)
         {
@@ -8208,19 +8208,19 @@ bool ObjectMgr::LoadIxiliumStrings(DatabaseType& db, char const* table, int32 mi
     delete result;
 
     sLog.outString();
-    if (min_value == MIN_IXILIUM_STRING_ID)
-        sLog.outString( ">> Loaded %u Ixilium strings from table %s", count,table);
+    if (min_value == MIN_WOPCCORE_STRING_ID)
+        sLog.outString( ">> Loaded %u WOPCCORE strings from table %s", count,table);
     else
         sLog.outString( ">> Loaded %u string templates from %s", count,table);
 
     return true;
 }
 
-const char *ObjectMgr::GetIxiliumString(int32 entry, int locale_idx) const
+const char *ObjectMgr::GetWOPCCOREString(int32 entry, int locale_idx) const
 {
     // locale_idx==-1 -> default, locale_idx >= 0 in to idx+1
-    // Content[0] always exist if exist IxiliumStringLocale
-    if (IxiliumStringLocale const *msl = GetIxiliumStringLocale(entry))
+    // Content[0] always exist if exist WOPCCOREStringLocale
+    if (WOPCCOREStringLocale const *msl = GetWOPCCOREStringLocale(entry))
     {
         if (msl->Content.size() > locale_idx+1 && !msl->Content[locale_idx+1].empty())
             return msl->Content[locale_idx+1].c_str();
@@ -8229,9 +8229,9 @@ const char *ObjectMgr::GetIxiliumString(int32 entry, int locale_idx) const
     }
 
     if (entry > 0)
-        sLog.outErrorDb("Entry %i not found in `ixilium_string` table.",entry);
+        sLog.outErrorDb("Entry %i not found in `WOPCCORE_string` table.",entry);
     else
-        sLog.outErrorDb("Ixilium string entry %i not found in DB.",entry);
+        sLog.outErrorDb("WOPCCORE string entry %i not found in DB.",entry);
     return "<error>";
 }
 
@@ -9447,7 +9447,7 @@ void ObjectMgr::CheckScripts(ScriptMapMap const& scripts,std::set<int32>& ids)
             {
                 case SCRIPT_COMMAND_TALK:
                 {
-                    if (!GetIxiliumStringLocale (itrM->second.dataint))
+                    if (!GetWOPCCOREStringLocale (itrM->second.dataint))
                         sLog.outErrorDb( "Table `db_script_string` not has string id  %u used db script (ID: %u)", itrM->second.dataint, itrMM->first);
 
                     if (ids.count(itrM->second.dataint))
@@ -9460,12 +9460,12 @@ void ObjectMgr::CheckScripts(ScriptMapMap const& scripts,std::set<int32>& ids)
 
 void ObjectMgr::LoadDbScriptStrings()
 {
-    LoadIxiliumStrings(WorldDatabase,"db_script_string",MIN_DB_SCRIPT_STRING_ID,MAX_DB_SCRIPT_STRING_ID);
+    LoadWOPCCOREStrings(WorldDatabase,"db_script_string",MIN_DB_SCRIPT_STRING_ID,MAX_DB_SCRIPT_STRING_ID);
 
     std::set<int32> ids;
 
     for (int32 i = MIN_DB_SCRIPT_STRING_ID; i < MAX_DB_SCRIPT_STRING_ID; ++i)
-        if (GetIxiliumStringLocale(i))
+        if (GetWOPCCOREStringLocale(i))
             ids.insert(i);
 
     CheckScripts(sQuestEndScripts,ids);
@@ -9487,20 +9487,20 @@ uint32 GetAreaTriggerScriptId(uint32 trigger_id)
     return sObjectMgr.GetAreaTriggerScriptId(trigger_id);
 }
 
-bool LoadIxiliumStrings(DatabaseType& db, char const* table,int32 start_value, int32 end_value)
+bool LoadWOPCCOREStrings(DatabaseType& db, char const* table,int32 start_value, int32 end_value)
 {
     // MAX_DB_SCRIPT_STRING_ID is max allowed negative value for scripts (scrpts can use only more deep negative values
     // start/end reversed for negative values
     if (start_value > MAX_DB_SCRIPT_STRING_ID || end_value >= start_value)
     {
-        sLog.outErrorDb("Table '%s' attempt loaded with reserved by ixiliumemu range (%d - %d), strings not loaded.",table,start_value,end_value+1);
+        sLog.outErrorDb("Table '%s' attempt loaded with reserved by WOPCCOREemu range (%d - %d), strings not loaded.",table,start_value,end_value+1);
         return false;
     }
 
-    return sObjectMgr.LoadIxiliumStrings(db,table,start_value,end_value);
+    return sObjectMgr.LoadWOPCCOREStrings(db,table,start_value,end_value);
 }
 
-uint32 IXILIUM_DLL_SPEC GetScriptId(const char *name)
+uint32 WOPCCORE_DLL_SPEC GetScriptId(const char *name)
 {
     return sObjectMgr.GetScriptId(name);
 }
