@@ -1,0 +1,2 @@
+ALTER TABLE version CHANGE COLUMN required_1946_world_spell_proc_event required_1988_00_world_scripts bit;
+

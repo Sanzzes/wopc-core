@@ -1,0 +1,11 @@
+prefix=/opt/riboncore/.sys/
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: ACE_HTBP
+Description: ACE HTTP Tunneling, Bidirectional, Protocol
+Requires: ACE
+Version: 5.7.2
+Libs: -L${libdir} -lACE_HTBP
+Cflags: -I${includedir}

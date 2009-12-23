@@ -1,0 +1,2 @@
+/usr/bin/ar cr libribonauth.a  CMakeFiles/ribonauth.dir/AuthCrypt.cpp.o CMakeFiles/ribonauth.dir/BigNumber.cpp.o CMakeFiles/ribonauth.dir/Hmac.cpp.o CMakeFiles/ribonauth.dir/Sha1.cpp.o CMakeFiles/ribonauth.dir/md5.c.o CMakeFiles/ribonauth.dir/SARC4.cpp.o 
+/usr/bin/ranlib libribonauth.a 

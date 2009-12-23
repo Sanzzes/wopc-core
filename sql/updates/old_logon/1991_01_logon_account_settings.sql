@@ -1,0 +1,3 @@
+ALTER TABLE logon_db_version CHANGE COLUMN required_1636_logon_logonlist required_1991_01_logon_account_settings bit;
+
+RENAME TABLE account TO account_settings;

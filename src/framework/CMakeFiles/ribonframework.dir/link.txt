@@ -1,0 +1,2 @@
+/usr/bin/ar cr libribonframework.a  CMakeFiles/ribonframework.dir/Policies/ObjectLifeTime.cpp.o CMakeFiles/ribonframework.dir/Utilities/EventProcessor.cpp.o 
+/usr/bin/ranlib libribonframework.a 

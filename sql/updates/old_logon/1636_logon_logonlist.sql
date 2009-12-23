@@ -1,0 +1,2 @@
+ALTER TABLE logon_db_version CHANGE COLUMN required_1516_logon_account required_1636_logon_logonlist bit;
+RENAME TABLE realmlist TO logonlist;

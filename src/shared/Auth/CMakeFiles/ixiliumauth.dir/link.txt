@@ -1,0 +1,2 @@
+/usr/bin/ar cr libixiliumauth.a  CMakeFiles/ixiliumauth.dir/AuthCrypt.cpp.o CMakeFiles/ixiliumauth.dir/BigNumber.cpp.o CMakeFiles/ixiliumauth.dir/Hmac.cpp.o CMakeFiles/ixiliumauth.dir/Sha1.cpp.o CMakeFiles/ixiliumauth.dir/md5.c.o CMakeFiles/ixiliumauth.dir/SARC4.cpp.o 
+/usr/bin/ranlib libixiliumauth.a 

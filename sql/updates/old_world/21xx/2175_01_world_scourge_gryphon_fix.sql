@@ -1,0 +1,2 @@
+ALTER TABLE version CHANGE COLUMN required_2168_01_world_gossip_menu required_2175_01_world_scourge_gryphon_fix bit;
+

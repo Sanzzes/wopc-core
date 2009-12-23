@@ -1,0 +1,6 @@
+ALTER TABLE version CHANGE COLUMN required_2090_01_world_vehicle_datas required_2094_01_world_spell_script_target bit;
+
+DELETE FROM `spell_script_target` WHERE `entry`=45364 AND `type`=1 AND `targetEntry`=25478;
+DELETE FROM `spell_script_target` WHERE `entry`=45634;
+INSERT INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES
+(45634,1,25478);

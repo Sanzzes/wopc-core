@@ -1,0 +1,2 @@
+ALTER TABLE version CHANGE COLUMN required_1576_world_02_playercreateinfo_action required_1605_world_battlegrounds bit;
+UPDATE creature_template SET ScriptName='npc_spirit_guide' WHERE entry IN (13116, 13117);

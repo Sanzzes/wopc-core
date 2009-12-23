@@ -1,0 +1,2 @@
+ALTER TABLE character_db_version CHANGE COLUMN required_2015_01_characters_character_skills required_2175_01_characters_account_data bit;
+

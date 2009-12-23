@@ -1,0 +1,1 @@
+ALTER TABLE logon_db_version CHANGE COLUMN required_1923_logon_account_settings required_1991_01_logon_account_settings bit;

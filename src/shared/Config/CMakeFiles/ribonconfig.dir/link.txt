@@ -1,0 +1,2 @@
+/usr/bin/ar cr libribonconfig.a  CMakeFiles/ribonconfig.dir/dotconfpp/dotconfpp.cpp.o CMakeFiles/ribonconfig.dir/dotconfpp/mempool.cpp.o CMakeFiles/ribonconfig.dir/Config.cpp.o 
+/usr/bin/ranlib libribonconfig.a 

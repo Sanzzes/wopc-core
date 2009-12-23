@@ -1,0 +1,6 @@
+add_subdirectory(bindings)
+add_subdirectory(framework)
+add_subdirectory(game)
+add_subdirectory(logon)
+add_subdirectory(shared)
+add_subdirectory(world)

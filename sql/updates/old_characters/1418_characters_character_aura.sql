@@ -1,0 +1,9 @@
+ALTER TABLE character_db_version CHANGE COLUMN required_1287_character_characters_guild required_1418_characters_character_aura bit;
+
+ALTER TABLE `character_aura` MODIFY COLUMN `effect_mask` TINYINT(3) UNSIGNED NOT NULL DEFAULT 0,
+ MODIFY COLUMN `stackcount` TINYINT(3) UNSIGNED NOT NULL DEFAULT 1,
+ MODIFY COLUMN `remaincharges` TINYINT(3) UNSIGNED NOT NULL DEFAULT 0;
+
+ALTER TABLE `pet_aura` MODIFY COLUMN `effect_mask` TINYINT(3) UNSIGNED NOT NULL DEFAULT 0,
+ MODIFY COLUMN `stackcount` TINYINT(3) UNSIGNED NOT NULL DEFAULT 1,
+ MODIFY COLUMN `remaincharges` TINYINT(3) UNSIGNED NOT NULL DEFAULT 0;

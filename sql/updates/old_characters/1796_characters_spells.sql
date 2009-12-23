@@ -1,0 +1,1 @@
+ALTER TABLE character_db_version CHANGE COLUMN required_1418_characters_character_aura required_1796_characters_spells bit;
