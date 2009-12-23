@@ -1,2 +1,0 @@
-/usr/bin/ar cr libixiliumconfig.a  CMakeFiles/ixiliumconfig.dir/dotconfpp/dotconfpp.cpp.o CMakeFiles/ixiliumconfig.dir/dotconfpp/mempool.cpp.o CMakeFiles/ixiliumconfig.dir/Config.cpp.o 
-/usr/bin/ranlib libixiliumconfig.a 

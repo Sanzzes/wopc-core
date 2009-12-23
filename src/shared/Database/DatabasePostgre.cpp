@@ -1,7 +1,6 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2008-2009 Ixilium <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -124,7 +123,7 @@ bool DatabasePostgre::_Query(const char *sql, PGresult** pResult, uint64* pRowCo
 
     // guarded block for thread-safe request
     ACE_Guard<ACE_Thread_Mutex> query_connection_guard(mMutex);
-    #ifdef IXILIUM_DEBUG
+    #ifdef WOPCCORE_DEBUG
     uint32 _s = getMSTime();
     #endif
     // Send the query
@@ -141,7 +140,7 @@ bool DatabasePostgre::_Query(const char *sql, PGresult** pResult, uint64* pRowCo
     }
     else
     {
-        #ifdef IXILIUM_DEBUG
+        #ifdef WOPCCORE_DEBUG
         sLog.outDebug("[%u ms] SQL: %s", getMSTime() - _s, sql );
         #endif
     }
@@ -230,7 +229,7 @@ bool DatabasePostgre::DirectExecute(const char* sql)
     {
         // guarded block for thread-safe  request
         ACE_Guard<ACE_Thread_Mutex> query_connection_guard(mMutex);
-        #ifdef IXILIUM_DEBUG
+        #ifdef WOPCCORE_DEBUG
         uint32 _s = getMSTime();
         #endif
         PGresult *res = PQexec(mPGconn, sql);
@@ -242,7 +241,7 @@ bool DatabasePostgre::DirectExecute(const char* sql)
         }
         else
         {
-            #ifdef IXILIUM_DEBUG
+            #ifdef WOPCCORE_DEBUG
             sLog.outDebug("[%u ms] SQL: %s", getMSTime() - _s, sql );
             #endif
         }

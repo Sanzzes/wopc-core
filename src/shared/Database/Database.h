@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCORE <http://www.worldofprivatecraft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,7 +34,7 @@ typedef UNORDERED_MAP<ACE_Based::Thread* , SqlResultQueue*> QueryQueues;
 
 #define MAX_QUERY_LEN   32*1024
 
-class IXILIUM_DLL_SPEC Database
+class WOPCCORE_DLL_SPEC Database
 {
     protected:
         Database() : m_threadBody(NULL), m_delayThread(NULL) {};

@@ -1,7 +1,6 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -71,7 +70,7 @@ class SqlResultQueue;                                       /// queue for thread
 class SqlQueryHolder;                                       /// groups several async quries
 class SqlQueryHolderEx;                                     /// points to a holder, added to the delay thread
 
-class SqlResultQueue : public ACE_Based::LockedQueue<Ixilium::IQueryCallback* , ACE_Thread_Mutex>
+class SqlResultQueue : public ACE_Based::LockedQueue<WOPCCORE::IQueryCallback* , ACE_Thread_Mutex>
 {
     public:
         SqlResultQueue() {}
@@ -82,10 +81,10 @@ class SqlQuery : public SqlOperation
 {
     private:
         const char *m_sql;
-        Ixilium::IQueryCallback * m_callback;
+        WOPCCORE::IQueryCallback * m_callback;
         SqlResultQueue * m_queue;
     public:
-        SqlQuery(const char *sql, Ixilium::IQueryCallback * callback, SqlResultQueue * queue)
+        SqlQuery(const char *sql, WOPCCORE::IQueryCallback * callback, SqlResultQueue * queue)
             : m_sql(mangos_strdup(sql)), m_callback(callback), m_queue(queue) {}
         ~SqlQuery() { char* tofree = const_cast<char*>(m_sql); delete [] tofree; }
         void Execute(Database *db);
@@ -105,17 +104,17 @@ class SqlQueryHolder
         void SetSize(size_t size);
         QueryResult* GetResult(size_t index);
         void SetResult(size_t index, QueryResult *result);
-        bool Execute(Ixilium::IQueryCallback * callback, SqlDelayThread *thread, SqlResultQueue *queue);
+        bool Execute(WOPCCORE::IQueryCallback * callback, SqlDelayThread *thread, SqlResultQueue *queue);
 };
 
 class SqlQueryHolderEx : public SqlOperation
 {
     private:
         SqlQueryHolder * m_holder;
-        Ixilium::IQueryCallback * m_callback;
+        WOPCCORE::IQueryCallback * m_callback;
         SqlResultQueue * m_queue;
     public:
-        SqlQueryHolderEx(SqlQueryHolder *holder, Ixilium::IQueryCallback * callback, SqlResultQueue * queue)
+        SqlQueryHolderEx(SqlQueryHolder *holder, WOPCCORE::IQueryCallback * callback, SqlResultQueue * queue)
             : m_holder(holder), m_callback(callback), m_queue(queue) {}
         void Execute(Database *db);
 };

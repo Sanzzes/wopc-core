@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCORE <http://www.worldofprivatecraft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@
 
 class DOTCONFDocument;
 
-class IXILIUM_DLL_SPEC Config
+class WOPCCORE_DLL_SPEC Config
 {
     public:
 
@@ -50,7 +50,7 @@ class IXILIUM_DLL_SPEC Config
         DOTCONFDocument *mConf;
 };
 
-#define sConfig Ixilium::Singleton<Config>::Instance()
+#define sConfig WOPCCORE::Singleton<Config>::Instance()
 
 #endif
 

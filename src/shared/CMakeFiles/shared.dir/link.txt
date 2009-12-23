@@ -1,2 +1,0 @@
-/usr/bin/ar cr libshared.a  CMakeFiles/shared.dir/Common.cpp.o CMakeFiles/shared.dir/Log.cpp.o CMakeFiles/shared.dir/ProgressBar.cpp.o CMakeFiles/shared.dir/Threading.cpp.o CMakeFiles/shared.dir/Util.cpp.o 
-/usr/bin/ranlib libshared.a 

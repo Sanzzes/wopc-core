@@ -1,10 +1,10 @@
 = IxiliumEmu -- Linux installation =
 
-Copyright (C) IxiliumEmu/TrinityCore (http://www.ixi-soft.com / http://www.trinitycore.org)
+Copyright (C) WOPCCORE/TrinityCore (http://www.worldofprivatecraft.com / http://www.trinitycore.org)
 
 CHECK http://www.ixi-soft.com/git/index.php/p/ixiliumemu/page/HowToLinuxTutorial/ FOR FURTHER HELP
 
-Installing IxiliumEmu is fairly simple on a Linux machine, assuming
+Installing WOPCCORE is fairly simple on a Linux machine, assuming
 you have all required applications
 
 The most important ones are:
@@ -33,7 +33,7 @@ Make a directory to build in, you can call it anything you want like build or bi
 the directory and cmake and make. E.G. you created a dir named build ad want to have your final
  compiled product installed in /home/ixiemu/server1, an example sequence of commands can be : 
 
-    cmake ../ -DPREFIX=/home/ixiemu/server1
+    cmake -DPREFIX=/opt/WoPCCore/builds  -DSSLLIB=/opt/WoPCCore/.sys/lib/libssl.so
     make
     make install
     
@@ -54,10 +54,10 @@ Thats just about all thats needed. You can however tweak more settings than wher
 
 
 Of course, replace the paths in prefix, conf_dir with the directories you wish to install 
-IxiliumEmu to. The datadir is where maps, DBCs, and SQLs are stored. The sysconfdir
+WOPCCORE to. The datadir is where maps, DBCs, and SQLs are stored. The sysconfdir
 is where configuration files are stored.
 
-Once IxiliumEmu is installed you will need to
+Once WOPCCORE is installed you will need to
 apply database updates where necessary. Furthermore, you must
 configure your installation by editing the config files in the
 sysconfdir.

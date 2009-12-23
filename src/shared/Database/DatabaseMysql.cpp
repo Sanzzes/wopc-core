@@ -1,7 +1,6 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -153,7 +152,7 @@ bool DatabaseMysql::Initialize(const char *infoString)
         // by default. In crash case you can lose data!!!
         // So better to turn this off
         // ---
-        // This is wrong since Ixilium use transactions,
+        // This is wrong since WOPCCORE use transactions,
         // autocommit is turned of during it.
         // Setting it to on makes atomic updates work
         if (!mysql_autocommit(mMysql, 1))
@@ -201,7 +200,7 @@ bool DatabaseMysql::_Query(const char *sql, MYSQL_RES **pResult, MYSQL_FIELD **p
     {
         // guarded block for thread-safe mySQL request
         ACE_Guard<ACE_Thread_Mutex> query_connection_guard(mMutex);
-        #ifdef IXILIUM_DEBUG
+        #ifdef WOPCCORE_DEBUG
         uint32 _s = getMSTime();
         #endif
         if (mysql_query(mMysql, sql))
@@ -212,7 +211,7 @@ bool DatabaseMysql::_Query(const char *sql, MYSQL_RES **pResult, MYSQL_FIELD **p
         }
         else
         {
-            #ifdef IXILIUM_DEBUG
+            #ifdef WOPCCORE_DEBUG
             sLog.outDebug("[%u ms] SQL: %s", getMSTimeDiff(_s,getMSTime()), sql );
             #endif
         }
@@ -306,7 +305,7 @@ bool DatabaseMysql::DirectExecute(const char* sql)
         // guarded block for thread-safe mySQL request
         ACE_Guard<ACE_Thread_Mutex> query_connection_guard(mMutex);
 
-        #ifdef IXILIUM_DEBUG
+        #ifdef WOPCCORE_DEBUG
         uint32 _s = getMSTime();
         #endif
         if (mysql_query(mMysql, sql))
@@ -317,7 +316,7 @@ bool DatabaseMysql::DirectExecute(const char* sql)
         }
         else
         {
-            #ifdef IXILIUM_DEBUG
+            #ifdef WOPCCORE_DEBUG
             sLog.outDebug("[%u ms] SQL: %s", getMSTimeDiff(_s,getMSTime()), sql );
             #endif
         }

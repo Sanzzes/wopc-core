@@ -1,7 +1,6 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,7 +20,7 @@
 #if !defined(QUERYRESULT_H)
 #define QUERYRESULT_H
 
-class IXILIUM_DLL_SPEC QueryResult
+class WOPCCORE_DLL_SPEC QueryResult
 {
     public:
         QueryResult(uint64 rowCount, uint32 fieldCount)
@@ -46,7 +45,7 @@ class IXILIUM_DLL_SPEC QueryResult
 
 typedef std::vector<std::string> QueryFieldNames;
 
-class IXILIUM_DLL_SPEC QueryNamedResult
+class WOPCCORE_DLL_SPEC QueryNamedResult
 {
     public:
         explicit QueryNamedResult(QueryResult* query, QueryFieldNames const& names) : mQuery(query), mFieldNames(names) {}

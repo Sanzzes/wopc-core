@@ -1,7 +1,6 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -73,7 +72,7 @@ void SqlQuery::Execute(Database *db)
 void SqlResultQueue::Update()
 {
     /// execute the callbacks waiting in the synchronization queue
-    Ixilium::IQueryCallback* callback;
+    WOPCCORE::IQueryCallback* callback;
     while (next(callback))
     {
         callback->Execute();
@@ -81,7 +80,7 @@ void SqlResultQueue::Update()
     }
 }
 
-bool SqlQueryHolder::Execute(Ixilium::IQueryCallback * callback, SqlDelayThread *thread, SqlResultQueue *queue)
+bool SqlQueryHolder::Execute(WOPCCORE::IQueryCallback * callback, SqlDelayThread *thread, SqlResultQueue *queue)
 {
     if (!callback || !thread || !queue)
         return false;
