@@ -1,7 +1,7 @@
 /*
 * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
 *
-* Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+* Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
 *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -18,15 +18,15 @@
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 */
 
-#ifndef IXILIUM_FLEEINGMOVEMENTGENERATOR_H
-#define IXILIUM_FLEEINGMOVEMENTGENERATOR_H
+#ifndef WOPCCORE_FLEEINGMOVEMENTGENERATOR_H
+#define WOPCCORE_FLEEINGMOVEMENTGENERATOR_H
 
 #include "MovementGenerator.h"
 #include "DestinationHolder.h"
 #include "Traveller.h"
 
 template<class T>
-class IXILIUM_DLL_SPEC FleeingMovementGenerator
+class WOPCCORE_DLL_SPEC FleeingMovementGenerator
 : public MovementGeneratorMedium< T, FleeingMovementGenerator<T> >
 {
     public:
@@ -62,7 +62,7 @@ class IXILIUM_DLL_SPEC FleeingMovementGenerator
         DestinationHolder< Traveller<T> > i_destinationHolder;
 };
 
-class IXILIUM_DLL_SPEC TimedFleeingMovementGenerator
+class WOPCCORE_DLL_SPEC TimedFleeingMovementGenerator
 : public FleeingMovementGenerator<Creature>
 {
     public:

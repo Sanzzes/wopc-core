@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1640,7 +1640,7 @@ void GameEventMgr::SendWorldStateUpdate(Player * plr, uint16 event_id)
     }
 }
 
-IXILIUM_DLL_SPEC bool IsHolidayActive(HolidayIds id)
+WOPCCORE_DLL_SPEC bool IsHolidayActive(HolidayIds id)
 {
     GameEventMgr::GameEventDataMap const& events = sGameEventMgr.GetEventMap();
     GameEventMgr::ActiveEvents const& ae = sGameEventMgr.GetActiveEventList();
@@ -1652,7 +1652,7 @@ IXILIUM_DLL_SPEC bool IsHolidayActive(HolidayIds id)
     return false;
 }
 
-IXILIUM_DLL_SPEC bool IsEventActive(uint16 event_id)
+WOPCCORE_DLL_SPEC bool IsEventActive(uint16 event_id)
 {
     GameEventMgr::ActiveEvents const& ae = sGameEventMgr.GetActiveEventList();
     return ae.find(event_id) != ae.end();

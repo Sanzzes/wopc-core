@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -128,15 +128,15 @@ void DynamicObject::Update(uint32 p_time)
     if (m_radius)
     {
         // TODO: make a timer and update this in larger intervals
-        CellPair p(Ixilium::ComputeCellPair(GetPositionX(), GetPositionY()));
+        CellPair p(WOPCCORE::ComputeCellPair(GetPositionX(), GetPositionY()));
         Cell cell(p);
         cell.data.Part.reserved = ALL_DISTRICT;
         cell.SetNoCreate();
  
-        Ixilium::DynamicObjectUpdater notifier(*this, caster);
+        WOPCCORE::DynamicObjectUpdater notifier(*this, caster);
  
-        TypeContainerVisitor<Ixilium::DynamicObjectUpdater, WorldTypeMapContainer > world_object_notifier(notifier);
-        TypeContainerVisitor<Ixilium::DynamicObjectUpdater, GridTypeMapContainer > grid_object_notifier(notifier);
+        TypeContainerVisitor<WOPCCORE::DynamicObjectUpdater, WorldTypeMapContainer > world_object_notifier(notifier);
+        TypeContainerVisitor<WOPCCORE::DynamicObjectUpdater, GridTypeMapContainer > grid_object_notifier(notifier);
  
         CellLock<GridReadGuard> cell_lock(cell, p);
         cell_lock->Visit(cell_lock, world_object_notifier, *GetMap(), *this, m_radius);
@@ -148,7 +148,7 @@ void DynamicObject::Update(uint32 p_time)
     {
         if (m_updateTimer < p_time)
         {
-            Ixilium::DynamicObjectUpdater notifier(*this,caster);
+            WOPCCORE::DynamicObjectUpdater notifier(*this,caster);
             VisitNearbyObject(GetRadius(), notifier);
             m_updateTimer = 500; // is this official-like?
         } else m_updateTimer -= p_time;

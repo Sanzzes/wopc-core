@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -744,8 +744,8 @@ bool ChatHandler::HandleDebugEnterVehicle(const char * args)
     else
     {
         Creature *passenger = NULL;
-        Ixilium::AllCreaturesOfEntryInRange check(m_session->GetPlayer(), entry, 20.0f);
-        Ixilium::CreatureSearcher<Ixilium::AllCreaturesOfEntryInRange> searcher(m_session->GetPlayer(), passenger, check);
+        WOPCCORE::AllCreaturesOfEntryInRange check(m_session->GetPlayer(), entry, 20.0f);
+        WOPCCORE::CreatureSearcher<WOPCCORE::AllCreaturesOfEntryInRange> searcher(m_session->GetPlayer(), passenger, check);
         m_session->GetPlayer()->VisitNearbyObject(30.0f, searcher);
         if (!passenger || passenger == target)
             return false;
@@ -986,14 +986,14 @@ bool ChatHandler::HandleDebugSetValueCommand(const char* args)
     if (isint32)
     {
         iValue = (uint32)atoi(py);
-        sLog.outDebug(GetIxiliumString(LANG_SET_UINT), GUID_LOPART(guid), Opcode, iValue);
+        sLog.outDebug(GetWOPCCOREString(LANG_SET_UINT), GUID_LOPART(guid), Opcode, iValue);
         target->SetUInt32Value( Opcode , iValue );
         PSendSysMessage(LANG_SET_UINT_FIELD, GUID_LOPART(guid), Opcode,iValue);
     }
     else
     {
         fValue = (float)atof(py);
-        sLog.outDebug(GetIxiliumString(LANG_SET_FLOAT), GUID_LOPART(guid), Opcode, fValue);
+        sLog.outDebug(GetWOPCCOREString(LANG_SET_FLOAT), GUID_LOPART(guid), Opcode, fValue);
         target->SetFloatValue( Opcode , fValue );
         PSendSysMessage(LANG_SET_FLOAT_FIELD, GUID_LOPART(guid), Opcode,fValue);
     }
@@ -1037,13 +1037,13 @@ bool ChatHandler::HandleDebugGetValueCommand(const char* args)
     if (isint32)
     {
         iValue = target->GetUInt32Value( Opcode );
-        sLog.outDebug(GetIxiliumString(LANG_GET_UINT), GUID_LOPART(guid), Opcode, iValue);
+        sLog.outDebug(GetWOPCCOREString(LANG_GET_UINT), GUID_LOPART(guid), Opcode, iValue);
         PSendSysMessage(LANG_GET_UINT_FIELD, GUID_LOPART(guid), Opcode,    iValue);
     }
     else
     {
         fValue = target->GetFloatValue( Opcode );
-        sLog.outDebug(GetIxiliumString(LANG_GET_FLOAT), GUID_LOPART(guid), Opcode, fValue);
+        sLog.outDebug(GetWOPCCOREString(LANG_GET_FLOAT), GUID_LOPART(guid), Opcode, fValue);
         PSendSysMessage(LANG_GET_FLOAT_FIELD, GUID_LOPART(guid), Opcode, fValue);
     }
 
@@ -1070,7 +1070,7 @@ bool ChatHandler::HandleDebugMod32ValueCommand(const char* args)
         return false;
     }
 
-    sLog.outDebug(GetIxiliumString(LANG_CHANGE_32BIT), Opcode, Value);
+    sLog.outDebug(GetWOPCCOREString(LANG_CHANGE_32BIT), Opcode, Value);
 
     int CurrentValue = (int)m_session->GetPlayer( )->GetUInt32Value( Opcode );
 

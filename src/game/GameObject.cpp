@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -348,8 +348,8 @@ void GameObject::Update(uint32 /*p_time*/)
                     // search unfriendly creature
                     if (owner)                    // hunter trap
                     {
-                        Ixilium::AnyUnfriendlyNoTotemUnitInObjectRangeCheck checker(this, owner, radius);
-                        Ixilium::UnitSearcher<Ixilium::AnyUnfriendlyNoTotemUnitInObjectRangeCheck> searcher(this, ok, checker);
+                        WOPCCORE::AnyUnfriendlyNoTotemUnitInObjectRangeCheck checker(this, owner, radius);
+                        WOPCCORE::UnitSearcher<WOPCCORE::AnyUnfriendlyNoTotemUnitInObjectRangeCheck> searcher(this, ok, checker);
                         VisitNearbyGridObject(radius, searcher);
                         if (!ok) VisitNearbyWorldObject(radius, searcher);
                     }
@@ -358,8 +358,8 @@ void GameObject::Update(uint32 /*p_time*/)
                         // environmental damage spells already have around enemies targeting but this not help in case not existed GO casting support
                         // affect only players
                         Player* player = NULL;
-                        Ixilium::AnyPlayerInObjectRangeCheck checker(this, radius);
-                        Ixilium::PlayerSearcher<Ixilium::AnyPlayerInObjectRangeCheck> searcher(this, player, checker);
+                        WOPCCORE::AnyPlayerInObjectRangeCheck checker(this, radius);
+                        WOPCCORE::PlayerSearcher<WOPCCORE::AnyPlayerInObjectRangeCheck> searcher(this, player, checker);
                         VisitNearbyWorldObject(radius, searcher);
                         ok = player;
                     }
@@ -864,14 +864,14 @@ void GameObject::TriggeringLinkedGameObject( uint32 trapEntry, Unit* target)
     GameObject* trapGO = NULL;
     {
         // using original GO distance
-        CellPair p(Ixilium::ComputeCellPair(GetPositionX(), GetPositionY()));
+        CellPair p(WOPCCORE::ComputeCellPair(GetPositionX(), GetPositionY()));
         Cell cell(p);
         cell.data.Part.reserved = ALL_DISTRICT;
 
-        Ixilium::NearestGameObjectEntryInObjectRangeCheck go_check(*target,trapEntry,range);
-        Ixilium::GameObjectLastSearcher<Ixilium::NearestGameObjectEntryInObjectRangeCheck> checker(this, trapGO,go_check);
+        WOPCCORE::NearestGameObjectEntryInObjectRangeCheck go_check(*target,trapEntry,range);
+        WOPCCORE::GameObjectLastSearcher<WOPCCORE::NearestGameObjectEntryInObjectRangeCheck> checker(this, trapGO,go_check);
 
-        TypeContainerVisitor<Ixilium::GameObjectLastSearcher<Ixilium::NearestGameObjectEntryInObjectRangeCheck>, GridTypeMapContainer > object_checker(checker);
+        TypeContainerVisitor<WOPCCORE::GameObjectLastSearcher<WOPCCORE::NearestGameObjectEntryInObjectRangeCheck>, GridTypeMapContainer > object_checker(checker);
         CellLock<GridReadGuard> cell_lock(cell, p);
         cell_lock->Visit(cell_lock, object_checker, *GetMap(), *target, range);
     }
@@ -886,15 +886,15 @@ GameObject* GameObject::LookupFishingHoleAround(float range)
 {
     GameObject* ok = NULL;
 
-    CellPair p(Ixilium::ComputeCellPair(GetPositionX(),GetPositionY()));
+    CellPair p(WOPCCORE::ComputeCellPair(GetPositionX(),GetPositionY()));
     Cell cell(p);
     cell.data.Part.reserved = ALL_DISTRICT;
-    Ixilium::NearestGameObjectFishingHole u_check(*this, range);
-    Ixilium::GameObjectSearcher<Ixilium::NearestGameObjectFishingHole> checker(this, ok, u_check);
+    WOPCCORE::NearestGameObjectFishingHole u_check(*this, range);
+    WOPCCORE::GameObjectSearcher<WOPCCORE::NearestGameObjectFishingHole> checker(this, ok, u_check);
 
     CellLock<GridReadGuard> cell_lock(cell, p);
 
-    TypeContainerVisitor<Ixilium::GameObjectSearcher<Ixilium::NearestGameObjectFishingHole>, GridTypeMapContainer > grid_object_checker(checker);
+    TypeContainerVisitor<WOPCCORE::GameObjectSearcher<WOPCCORE::NearestGameObjectFishingHole>, GridTypeMapContainer > grid_object_checker(checker);
     cell_lock->Visit(cell_lock, grid_object_checker, *GetMap(), *this, range);
 
     return ok;

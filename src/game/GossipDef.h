@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#ifndef IXILIUMEMU_GOSSIP_H
-#define IXILIUMEMU_GOSSIP_H
+#ifndef WOPCCOREEMU_GOSSIP_H
+#define WOPCCOREEMU_GOSSIP_H
 
 #include "Common.h"
 #include "QuestDef.h"
@@ -147,7 +147,7 @@ struct QuestMenuItem
 
 typedef std::vector<QuestMenuItem> QuestMenuItemList;
 
-class IXILIUM_DLL_SPEC GossipMenu
+class WOPCCORE_DLL_SPEC GossipMenu
 {
     public:
         GossipMenu();
@@ -228,7 +228,7 @@ class QuestMenu
         QuestMenuItemList m_qItems;
 };
 
-class IXILIUM_DLL_SPEC PlayerMenu
+class WOPCCORE_DLL_SPEC PlayerMenu
 {
     private:
         GossipMenu mGossipMenu;

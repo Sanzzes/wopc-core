@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -67,7 +67,7 @@ CreatureEventAI::CreatureEventAI(Creature *c ) : CreatureAI(c)
         {
 
             //Debug check
-            #ifndef IXILIUM_DEBUG
+            #ifndef WOPCCORE_DEBUG
             if ((*i).event_flags & EFLAG_DEBUG_ONLY)
                 continue;
             #endif
@@ -753,7 +753,7 @@ void CreatureEventAI::ProcessAction(CreatureEventAI_Action const& action, uint32
         }
         break;
 
-        // IXILIUMEMU ONLY
+        // WOPCCOREEMU ONLY
         case ACTION_T_MOVE_RANDOM_POINT: //dosen't work in combat
         {
             float x,y,z;
@@ -1171,21 +1171,21 @@ inline Unit* CreatureEventAI::GetTargetByType(uint32 Target, Unit* pActionInvoke
 
 Unit* CreatureEventAI::DoSelectLowestHpFriendly(float range, uint32 MinHPDiff)
 {
-    CellPair p(Ixilium::ComputeCellPair(m_creature->GetPositionX(), m_creature->GetPositionY()));
+    CellPair p(WOPCCORE::ComputeCellPair(m_creature->GetPositionX(), m_creature->GetPositionY()));
     Cell cell(p);
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();
 
     Unit* pUnit = NULL;
 
-    Ixilium::MostHPMissingInRange u_check(m_creature, range, MinHPDiff);
-    Ixilium::UnitLastSearcher<Ixilium::MostHPMissingInRange> searcher(m_creature, pUnit, u_check);
+    WOPCCORE::MostHPMissingInRange u_check(m_creature, range, MinHPDiff);
+    WOPCCORE::UnitLastSearcher<WOPCCORE::MostHPMissingInRange> searcher(m_creature, pUnit, u_check);
 
     /*
     typedef TYPELIST_4(GameObject, Creature*except pets*, DynamicObject, Corpse*Bones*) AllGridObjectTypes;
     This means that if we only search grid then we cannot possibly return pets or players so this is safe
     */
-    TypeContainerVisitor<Ixilium::UnitLastSearcher<Ixilium::MostHPMissingInRange>, GridTypeMapContainer >  grid_unit_searcher(searcher);
+    TypeContainerVisitor<WOPCCORE::UnitLastSearcher<WOPCCORE::MostHPMissingInRange>, GridTypeMapContainer >  grid_unit_searcher(searcher);
 
     CellLock<GridReadGuard> cell_lock(cell, p);
     cell_lock->Visit(cell_lock, grid_unit_searcher, *m_creature->GetMap(), *m_creature, range);
@@ -1194,15 +1194,15 @@ Unit* CreatureEventAI::DoSelectLowestHpFriendly(float range, uint32 MinHPDiff)
 
 void CreatureEventAI::DoFindFriendlyCC(std::list<Creature*>& _list, float range)
 {
-    CellPair p(Ixilium::ComputeCellPair(m_creature->GetPositionX(), m_creature->GetPositionY()));
+    CellPair p(WOPCCORE::ComputeCellPair(m_creature->GetPositionX(), m_creature->GetPositionY()));
     Cell cell(p);
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();
 
-    Ixilium::FriendlyCCedInRange u_check(m_creature, range);
-    Ixilium::CreatureListSearcher<Ixilium::FriendlyCCedInRange> searcher(m_creature, _list, u_check);
+    WOPCCORE::FriendlyCCedInRange u_check(m_creature, range);
+    WOPCCORE::CreatureListSearcher<WOPCCORE::FriendlyCCedInRange> searcher(m_creature, _list, u_check);
 
-    TypeContainerVisitor<Ixilium::CreatureListSearcher<Ixilium::FriendlyCCedInRange>, GridTypeMapContainer >  grid_creature_searcher(searcher);
+    TypeContainerVisitor<WOPCCORE::CreatureListSearcher<WOPCCORE::FriendlyCCedInRange>, GridTypeMapContainer >  grid_creature_searcher(searcher);
 
     CellLock<GridReadGuard> cell_lock(cell, p);
     cell_lock->Visit(cell_lock, grid_creature_searcher, *m_creature->GetMap());
@@ -1210,15 +1210,15 @@ void CreatureEventAI::DoFindFriendlyCC(std::list<Creature*>& _list, float range)
 
 void CreatureEventAI::DoFindFriendlyMissingBuff(std::list<Creature*>& _list, float range, uint32 spellid)
 {
-    CellPair p(Ixilium::ComputeCellPair(m_creature->GetPositionX(), m_creature->GetPositionY()));
+    CellPair p(WOPCCORE::ComputeCellPair(m_creature->GetPositionX(), m_creature->GetPositionY()));
     Cell cell(p);
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();
 
-    Ixilium::FriendlyMissingBuffInRange u_check(m_creature, range, spellid);
-    Ixilium::CreatureListSearcher<Ixilium::FriendlyMissingBuffInRange> searcher(m_creature, _list, u_check);
+    WOPCCORE::FriendlyMissingBuffInRange u_check(m_creature, range, spellid);
+    WOPCCORE::CreatureListSearcher<WOPCCORE::FriendlyMissingBuffInRange> searcher(m_creature, _list, u_check);
 
-    TypeContainerVisitor<Ixilium::CreatureListSearcher<Ixilium::FriendlyMissingBuffInRange>, GridTypeMapContainer >  grid_creature_searcher(searcher);
+    TypeContainerVisitor<WOPCCORE::CreatureListSearcher<WOPCCORE::FriendlyMissingBuffInRange>, GridTypeMapContainer >  grid_creature_searcher(searcher);
 
     CellLock<GridReadGuard> cell_lock(cell, p);
     cell_lock->Visit(cell_lock, grid_creature_searcher, *m_creature->GetMap());

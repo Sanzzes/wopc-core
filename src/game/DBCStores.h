@@ -16,8 +16,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#ifndef IXILIUM_DBCSTORES_H
-#define IXILIUM_DBCSTORES_H
+#ifndef WOPCCORE_DBCSTORES_H
+#define WOPCCORE_DBCSTORES_H
 
 #include "Common.h"
 #include "Database/DBCStore.h"
@@ -35,8 +35,8 @@ TalentSpellPos const* GetTalentSpellPos(uint32 spellId);
 int32 GetAreaFlagByAreaID(uint32 area_id);                  // -1 if not found
 uint32 GetAreaFlagByMapId(uint32 mapid);
 
-IXILIUM_DLL_SPEC AreaTableEntry const* GetAreaEntryByAreaID(uint32 area_id);
-IXILIUM_DLL_SPEC AreaTableEntry const* GetAreaEntryByAreaFlagAndMap(uint32 area_flag,uint32 map_id);
+WOPCCORE_DLL_SPEC AreaTableEntry const* GetAreaEntryByAreaID(uint32 area_id);
+WOPCCORE_DLL_SPEC AreaTableEntry const* GetAreaEntryByAreaFlagAndMap(uint32 area_flag,uint32 map_id);
 
 uint32 GetVirtualMapForMapAndZone(uint32 mapid, uint32 zoneId);
 
@@ -156,13 +156,13 @@ extern DBCStorage <WorldSafeLocsEntry>           sWorldSafeLocsStore;
 void LoadDBCStores(const std::string& dataPath);
 
 // script support functions
-IXILIUM_DLL_SPEC DBCStorage <SoundEntriesEntry>          const* GetSoundEntriesStore();
-IXILIUM_DLL_SPEC DBCStorage <SpellEntry>                 const* GetSpellStore();
-IXILIUM_DLL_SPEC DBCStorage <SpellRangeEntry>            const* GetSpellRangeStore();
-IXILIUM_DLL_SPEC DBCStorage <FactionEntry>               const* GetFactionStore();
-IXILIUM_DLL_SPEC DBCStorage <ItemEntry>                  const* GetItemDisplayStore();
-IXILIUM_DLL_SPEC DBCStorage <CreatureDisplayInfoEntry>   const* GetCreatureDisplayStore();
-IXILIUM_DLL_SPEC DBCStorage <EmotesEntry>                const* GetEmotesStore();
-IXILIUM_DLL_SPEC DBCStorage <EmotesTextEntry>            const* GetEmotesTextStore();
-IXILIUM_DLL_SPEC DBCStorage <AchievementEntry>           const* GetAchievementStore();
+WOPCCORE_DLL_SPEC DBCStorage <SoundEntriesEntry>          const* GetSoundEntriesStore();
+WOPCCORE_DLL_SPEC DBCStorage <SpellEntry>                 const* GetSpellStore();
+WOPCCORE_DLL_SPEC DBCStorage <SpellRangeEntry>            const* GetSpellRangeStore();
+WOPCCORE_DLL_SPEC DBCStorage <FactionEntry>               const* GetFactionStore();
+WOPCCORE_DLL_SPEC DBCStorage <ItemEntry>                  const* GetItemDisplayStore();
+WOPCCORE_DLL_SPEC DBCStorage <CreatureDisplayInfoEntry>   const* GetCreatureDisplayStore();
+WOPCCORE_DLL_SPEC DBCStorage <EmotesEntry>                const* GetEmotesStore();
+WOPCCORE_DLL_SPEC DBCStorage <EmotesTextEntry>            const* GetEmotesTextStore();
+WOPCCORE_DLL_SPEC DBCStorage <AchievementEntry>           const* GetAchievementStore();
 #endif

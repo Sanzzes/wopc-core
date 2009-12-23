@@ -16,8 +16,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#ifndef IXILIUM_CREATURE_EAI_H
-#define IXILIUM_CREATURE_EAI_H
+#ifndef WOPCCORE_CREATURE_EAI_H
+#define WOPCCORE_CREATURE_EAI_H
 
 #include "Common.h"
 #include "Creature.h"
@@ -573,7 +573,7 @@ struct CreatureEventAIHolder
     bool UpdateRepeatTimer(Creature* creature, uint32 repeatMin, uint32 repeatMax);
 };
 
-class IXILIUM_DLL_SPEC CreatureEventAI : public CreatureAI
+class WOPCCORE_DLL_SPEC CreatureEventAI : public CreatureAI
 {
 
     public:

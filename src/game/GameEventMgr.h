@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef IXILIUM_GAMEEVENT_MGR_H
-#define IXILIUM_GAMEEVENT_MGR_H
+#ifndef WOPCCORE_GAMEEVENT_MGR_H
+#define WOPCCORE_GAMEEVENT_MGR_H
 
 #include "Common.h"
 #include "SharedDefines.h"
@@ -170,9 +170,9 @@ class GameEventMgr
         GameEventGuidMap  mGameEventGameobjectGuids;
 };
 
-#define sGameEventMgr Ixilium::Singleton<GameEventMgr>::Instance()
+#define sGameEventMgr WOPCCORE::Singleton<GameEventMgr>::Instance()
 
-IXILIUM_DLL_SPEC bool IsHolidayActive(HolidayIds id);
-IXILIUM_DLL_SPEC bool IsEventActive(uint16 event_id);
+WOPCCORE_DLL_SPEC bool IsHolidayActive(HolidayIds id);
+WOPCCORE_DLL_SPEC bool IsEventActive(uint16 event_id);
 
 #endif

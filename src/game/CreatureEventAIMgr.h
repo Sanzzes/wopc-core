@@ -16,8 +16,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#ifndef IXILIUM_CREATURE_EAI_MGR_H
-#define IXILIUM_CREATURE_EAI_MGR_H
+#ifndef WOPCCORE_CREATURE_EAI_MGR_H
+#define WOPCCORE_CREATURE_EAI_MGR_H
 
 #include "Common.h"
 #include "CreatureEventAI.h"
@@ -45,5 +45,5 @@ class CreatureEventAIMgr
         CreatureEventAI_TextMap    m_CreatureEventAI_TextMap;
 };
 
-#define sEventAIMgr Ixilium::Singleton<CreatureEventAIMgr>::Instance()
+#define sEventAIMgr WOPCCORE::Singleton<CreatureEventAIMgr>::Instance()
 #endif

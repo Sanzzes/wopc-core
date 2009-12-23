@@ -155,7 +155,7 @@ extern int main(int argc, char **argv)
     sLog.outString( " !!:  !: :!!  !!: !!:      !!: !!:  !!! !!:     !!:");
     sLog.outString( " :   :::  ::: :   : ::.: : :    :.:: :   :      :  ");
     sLog.outString( "                                          L O G O N");
-    sLog.outString( "http://www.ixi-soft.com                          \n");
+    sLog.outString( "http://www.worldofprivatecraft.com                          \n");
 
     sLog.outString("Using configuration file %s.", cfg_file);
 
