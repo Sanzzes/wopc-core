@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -478,7 +478,7 @@ struct AISpellInfoType
     float maxRange;
 };
 
-IXILIUM_DLL_SPEC AISpellInfoType * GetAISpellInfo(uint32 i);
+WOPCCORE_DLL_SPEC AISpellInfoType * GetAISpellInfo(uint32 i);
 
 inline void CreatureAI::SetGazeOn(Unit *target)
 {

@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -531,7 +531,7 @@ ChatCommand * ChatHandler::getCommandTable()
         { "spell_target_position",       SEC_ADMINISTRATOR, true,  &ChatHandler::HandleReloadSpellTargetPositionCommand,                    "", NULL },
         { "spell_threats",               SEC_ADMINISTRATOR, true,  &ChatHandler::HandleReloadSpellThreatsCommand,                           "", NULL },
         { "spell_disabled",              SEC_ADMINISTRATOR, true,  &ChatHandler::HandleReloadSpellDisabledCommand,                          "", NULL },
-        { "ixilium_string",              SEC_ADMINISTRATOR, true,  &ChatHandler::HandleReloadIxiliumStringCommand,                            "", NULL },
+        { "WOPCCORE_string",              SEC_ADMINISTRATOR, true,  &ChatHandler::HandleReloadWOPCCOREStringCommand,                            "", NULL },
         { "auctions",                    SEC_ADMINISTRATOR, true,  &ChatHandler::HandleReloadAuctionsCommand,                               "", NULL },
         { "waypoint_scripts",            SEC_ADMINISTRATOR, true,  &ChatHandler::HandleReloadWpScriptsCommand,                              "", NULL },
         { "gm_tickets",                  SEC_ADMINISTRATOR, true,  &ChatHandler::HandleGMTicketReloadCommand,                               "", NULL },
@@ -821,9 +821,9 @@ ChatCommand * ChatHandler::getCommandTable()
     return commandTable;
 }
 
-const char *ChatHandler::GetIxiliumString(int32 entry) const
+const char *ChatHandler::GetWOPCCOREString(int32 entry) const
 {
-    return m_session->GetIxiliumString(entry);
+    return m_session->GetWOPCCOREString(entry);
 }
 
 bool ChatHandler::isAvailable(ChatCommand const& cmd) const
@@ -960,12 +960,12 @@ void ChatHandler::SendGlobalGMSysMessage(const char *str)
 
 void ChatHandler::SendSysMessage(int32 entry)
 {
-    SendSysMessage(GetIxiliumString(entry));
+    SendSysMessage(GetWOPCCOREString(entry));
 }
 
 void ChatHandler::PSendSysMessage(int32 entry, ...)
 {
-    const char *format = GetIxiliumString(entry);
+    const char *format = GetWOPCCOREString(entry);
     va_list ap;
     char str [2048];
     va_start(ap, entry);
@@ -1234,7 +1234,7 @@ valid examples:
         }
         else if (reader.get() != '|')
         {
-#ifdef IXILIUM_DEBUG
+#ifdef WOPCCORE_DEBUG
             sLog.outBasic("ChatHandler::isValidChatMessage sequence aborted unexpectedly");
 #endif
             return false;
@@ -1243,7 +1243,7 @@ valid examples:
         // pipe has always to be followed by at least one char
         if (reader.peek() == '\0')
         {
-#ifdef IXILIUM_DEBUG
+#ifdef WOPCCORE_DEBUG
             sLog.outBasic("ChatHandler::isValidChatMessage pipe followed by \\0");
 #endif
             return false;
@@ -1268,7 +1268,7 @@ valid examples:
             }
             else
             {
-#ifdef IXILIUM_DEBUG
+#ifdef WOPCCORE_DEBUG
                 sLog.outBasic("ChatHandler::isValidChatMessage invalid sequence, expected %c but got %c", *validSequenceIterator, commandChar);
 #endif
                 return false;
@@ -1277,7 +1277,7 @@ valid examples:
         else if (validSequence != validSequenceIterator)
         {
             // no escaped pipes in sequences
-#ifdef IXILIUM_DEBUG
+#ifdef WOPCCORE_DEBUG
             sLog.outBasic("ChatHandler::isValidChatMessage got escaped pipe in sequence");
 #endif
             return false;
@@ -1294,7 +1294,7 @@ valid examples:
                     reader >> c;
                     if (!c)
                     {
-#ifdef IXILIUM_DEBUG
+#ifdef WOPCCORE_DEBUG
                         sLog.outBasic("ChatHandler::isValidChatMessage got \\0 while reading color in |c command");
 #endif
                         return false;
@@ -1312,7 +1312,7 @@ valid examples:
                         color |= 10+c-'a';
                         continue;
                     }
-#ifdef IXILIUM_DEBUG
+#ifdef WOPCCORE_DEBUG
                     sLog.outBasic("ChatHandler::isValidChatMessage got non hex char '%c' while reading color", c);
 #endif
                     return false;
@@ -1330,7 +1330,7 @@ valid examples:
                     linkedItem= ObjectMgr::GetItemPrototype(atoi(buffer));
                     if (!linkedItem)
                     {
-#ifdef IXILIUM_DEBUG
+#ifdef WOPCCORE_DEBUG
                         sLog.outBasic("ChatHandler::isValidChatMessage got invalid itemID %u in |item command", atoi(buffer));
 #endif
                         return false;
@@ -1338,7 +1338,7 @@ valid examples:
 
                     if (color != ItemQualityColors[linkedItem->Quality])
                     {
-#ifdef IXILIUM_DEBUG
+#ifdef WOPCCORE_DEBUG
                         sLog.outBasic("ChatHandler::isValidChatMessage linked item has color %u, but user claims %u", ItemQualityColors[linkedItem->Quality],
                                 color);
 #endif
@@ -1550,7 +1550,7 @@ valid examples:
                 }
                 else
                 {
-#ifdef IXILIUM_DEBUG
+#ifdef WOPCCORE_DEBUG
                     sLog.outBasic("ChatHandler::isValidChatMessage user sent unsupported link type '%s'", buffer);
 #endif
                     return false;
@@ -1563,7 +1563,7 @@ valid examples:
                     // links start with '['
                     if (reader.get() != '[')
                     {
-#ifdef IXILIUM_DEBUG
+#ifdef WOPCCORE_DEBUG
                         sLog.outBasic("ChatHandler::isValidChatMessage link caption doesn't start with '['");
 #endif
                         return false;
@@ -1689,7 +1689,7 @@ valid examples:
                             }
                             if (!foundName)
                             {
-#ifdef IXILIUM_DEBUG
+#ifdef WOPCCORE_DEBUG
                                 sLog.outBasic("ChatHandler::isValidChatMessage linked item name wasn't found in any localization");
 #endif
                                 return false;
@@ -1721,7 +1721,7 @@ valid examples:
                 // no further payload
                 break;
             default:
-#ifdef IXILIUM_DEBUG
+#ifdef WOPCCORE_DEBUG
                 sLog.outBasic("ChatHandler::isValidChatMessage got invalid command |%c", commandChar);
 #endif
                 return false;
@@ -1729,7 +1729,7 @@ valid examples:
     }
 
     // check if every opened sequence was also closed properly
-#ifdef IXILIUM_DEBUG
+#ifdef WOPCCORE_DEBUG
     if (validSequence != validSequenceIterator)
         sLog.outBasic("ChatHandler::isValidChatMessage EOF in active sequence");
 #endif
@@ -2109,8 +2109,8 @@ GameObject* ChatHandler::GetNearbyGameObject()
 
     Player* pl = m_session->GetPlayer();
     GameObject* obj = NULL;
-    Ixilium::NearestGameObjectCheck check(*pl);
-    Ixilium::GameObjectLastSearcher<Ixilium::NearestGameObjectCheck> searcher(pl, obj, check);
+    WOPCCORE::NearestGameObjectCheck check(*pl);
+    WOPCCORE::GameObjectLastSearcher<WOPCCORE::NearestGameObjectCheck> searcher(pl, obj, check);
     pl->VisitNearbyGridObject(999, searcher);
     return obj;
 }
@@ -2127,14 +2127,14 @@ GameObject* ChatHandler::GetObjectGlobalyWithGuidOrNearWithDbGuid(uint32 lowguid
     if (!obj && sObjectMgr.GetGOData(lowguid))                   // guid is DB guid of object
     {
         // search near player then
-        CellPair p(Ixilium::ComputeCellPair(pl->GetPositionX(), pl->GetPositionY()));
+        CellPair p(WOPCCORE::ComputeCellPair(pl->GetPositionX(), pl->GetPositionY()));
         Cell cell(p);
         cell.data.Part.reserved = ALL_DISTRICT;
 
-        Ixilium::GameObjectWithDbGUIDCheck go_check(*pl,lowguid);
-        Ixilium::GameObjectSearcher<Ixilium::GameObjectWithDbGUIDCheck> checker(pl,obj,go_check);
+        WOPCCORE::GameObjectWithDbGUIDCheck go_check(*pl,lowguid);
+        WOPCCORE::GameObjectSearcher<WOPCCORE::GameObjectWithDbGUIDCheck> checker(pl,obj,go_check);
 
-        TypeContainerVisitor<Ixilium::GameObjectSearcher<Ixilium::GameObjectWithDbGUIDCheck>, GridTypeMapContainer > object_checker(checker);
+        TypeContainerVisitor<WOPCCORE::GameObjectSearcher<WOPCCORE::GameObjectWithDbGUIDCheck>, GridTypeMapContainer > object_checker(checker);
         CellLock<GridReadGuard> cell_lock(cell, p);
         cell_lock->Visit(cell_lock, object_checker, *pl->GetMap());
     }
@@ -2413,9 +2413,9 @@ int ChatHandler::GetSessionDbLocaleIndex() const
     return m_session->GetSessionDbLocaleIndex();
 }
 
-const char *CliHandler::GetIxiliumString(int32 entry) const
+const char *CliHandler::GetWOPCCOREString(int32 entry) const
 {
-    return sObjectMgr.GetIxiliumStringForDBCLocale(entry);
+    return sObjectMgr.GetWOPCCOREStringForDBCLocale(entry);
 }
 
 bool CliHandler::isAvailable(ChatCommand const& cmd) const
@@ -2432,7 +2432,7 @@ void CliHandler::SendSysMessage(const char *str)
 
 std::string CliHandler::GetNameLink() const
 {
-    return GetIxiliumString(LANG_CONSOLE_COMMAND);
+    return GetWOPCCOREString(LANG_CONSOLE_COMMAND);
 }
 
 bool CliHandler::needReportToTarget(Player* /*chr*/) const

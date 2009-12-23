@@ -16,8 +16,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#ifndef IXILIUM_CALENDAR_H
-#define IXILIUM_CALENDAR_H
+#ifndef WOPCCORE_CALENDAR_H
+#define WOPCCORE_CALENDAR_H
 
 class Calendar
 {

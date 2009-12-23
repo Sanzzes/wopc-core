@@ -1,7 +1,6 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -58,5 +57,5 @@ class AccountMgr
         static bool normalizeString(std::string& utf8str);
 };
 
-#define sAccountMgr Ixilium::Singleton<AccountMgr>::Instance()
+#define sAccountMgr WOPCCORE::Singleton<AccountMgr>::Instance()
 #endif

@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -167,7 +167,7 @@ void WorldSession::HandleMessagechatOpcode( WorldPacket & recv_data )
         if (!_player->CanSpeak())
         {
             std::string timeStr = secsToTimeString(m_muteTime - time(NULL));
-            SendNotification(GetIxiliumString(LANG_WAIT_BEFORE_SPEAKING),timeStr.c_str());
+            SendNotification(GetWOPCCOREString(LANG_WAIT_BEFORE_SPEAKING),timeStr.c_str());
             return;
         }
 
@@ -180,7 +180,7 @@ void WorldSession::HandleMessagechatOpcode( WorldPacket & recv_data )
         std::string msg="";
         recv_data >> msg;
 
-        SendNotification(GetIxiliumString(LANG_GM_SILENCE), GetPlayer()->GetName());
+        SendNotification(GetWOPCCOREString(LANG_GM_SILENCE), GetPlayer()->GetName());
         return;
     }
 
@@ -259,7 +259,7 @@ void WorldSession::HandleMessagechatOpcode( WorldPacket & recv_data )
 
             if (GetPlayer()->HasAura(1852) && !player->isGameMaster())
             {
-                SendNotification(GetIxiliumString(LANG_GM_SILENCE), GetPlayer()->GetName());
+                SendNotification(GetWOPCCOREString(LANG_GM_SILENCE), GetPlayer()->GetName());
                 return;
             }
 
@@ -515,7 +515,7 @@ void WorldSession::HandleMessagechatOpcode( WorldPacket & recv_data )
                 break;
 
             if(GetPlayer()->getLevel()>= sWorld.getConfig(CONFIG_CHATLEV))
-		        //msg  = GetIxiliumString(LANG_CHATLEV_ERROR);
+		        //msg  = GetWOPCCOREString(LANG_CHATLEV_ERROR);
             {
                 if (ChannelMgr* cMgr = channelMgr(_player->GetTeam()))
                 {
@@ -543,7 +543,7 @@ void WorldSession::HandleMessagechatOpcode( WorldPacket & recv_data )
                 if (!_player->isAFK())
                 {
                     if (msg.empty())
-                        msg  = GetIxiliumString(LANG_PLAYER_AFK_DEFAULT);
+                        msg  = GetWOPCCOREString(LANG_PLAYER_AFK_DEFAULT);
                     _player->afkMsg = msg;
                 }
                 _player->ToggleAFK();
@@ -562,7 +562,7 @@ void WorldSession::HandleMessagechatOpcode( WorldPacket & recv_data )
                 if (!_player->isDND())
                 {
                     if (msg.empty())
-                        msg  = GetIxiliumString(LANG_PLAYER_DND_DEFAULT);
+                        msg  = GetWOPCCOREString(LANG_PLAYER_DND_DEFAULT);
                     _player->dndMsg = msg;
                 }
                 _player->ToggleDND();
@@ -587,7 +587,7 @@ void WorldSession::HandleEmoteOpcode( WorldPacket & recv_data )
     GetPlayer()->HandleEmoteCommand(emote);
 }
 
-namespace Ixilium
+namespace WOPCCORE
 {
     class EmoteChatBuilder
     {
@@ -617,7 +617,7 @@ namespace Ixilium
             uint32        i_emote_num;
             Unit const*   i_target;
     };
-}                                                           // namespace Ixilium
+}                                                           // namespace WOPCCORE
 
 void WorldSession::HandleTextEmoteOpcode( WorldPacket & recv_data )
 {
@@ -627,7 +627,7 @@ void WorldSession::HandleTextEmoteOpcode( WorldPacket & recv_data )
     if (!GetPlayer()->CanSpeak())
     {
         std::string timeStr = secsToTimeString(m_muteTime - time(NULL));
-        SendNotification(GetIxiliumString(LANG_WAIT_BEFORE_SPEAKING),timeStr.c_str());
+        SendNotification(GetWOPCCOREString(LANG_WAIT_BEFORE_SPEAKING),timeStr.c_str());
         return;
     }
 
@@ -658,16 +658,16 @@ void WorldSession::HandleTextEmoteOpcode( WorldPacket & recv_data )
 
     Unit* unit = ObjectAccessor::GetUnit(*_player, guid);
 
-    CellPair p = Ixilium::ComputeCellPair(GetPlayer()->GetPositionX(), GetPlayer()->GetPositionY());
+    CellPair p = WOPCCORE::ComputeCellPair(GetPlayer()->GetPositionX(), GetPlayer()->GetPositionY());
 
     Cell cell(p);
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();
 
-    Ixilium::EmoteChatBuilder emote_builder(*GetPlayer(), text_emote, emoteNum, unit);
-    Ixilium::LocalizedPacketDo<Ixilium::EmoteChatBuilder > emote_do(emote_builder);
-    Ixilium::PlayerDistWorker<Ixilium::LocalizedPacketDo<Ixilium::EmoteChatBuilder > > emote_worker(GetPlayer(),sWorld.getConfig(CONFIG_LISTEN_RANGE_TEXTEMOTE),emote_do);
-    TypeContainerVisitor<Ixilium::PlayerDistWorker<Ixilium::LocalizedPacketDo<Ixilium::EmoteChatBuilder > >, WorldTypeMapContainer > message(emote_worker);
+    WOPCCORE::EmoteChatBuilder emote_builder(*GetPlayer(), text_emote, emoteNum, unit);
+    WOPCCORE::LocalizedPacketDo<WOPCCORE::EmoteChatBuilder > emote_do(emote_builder);
+    WOPCCORE::PlayerDistWorker<WOPCCORE::LocalizedPacketDo<WOPCCORE::EmoteChatBuilder > > emote_worker(GetPlayer(),sWorld.getConfig(CONFIG_LISTEN_RANGE_TEXTEMOTE),emote_do);
+    TypeContainerVisitor<WOPCCORE::PlayerDistWorker<WOPCCORE::LocalizedPacketDo<WOPCCORE::EmoteChatBuilder > >, WorldTypeMapContainer > message(emote_worker);
     CellLock<GridReadGuard> cell_lock(cell, p);
     cell_lock->Visit(cell_lock, message, *GetPlayer()->GetMap(), *GetPlayer(), sWorld.getConfig(CONFIG_LISTEN_RANGE_TEXTEMOTE));
 

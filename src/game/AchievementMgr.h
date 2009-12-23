@@ -15,8 +15,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-#ifndef __IXILIUM_ACHIEVEMENTMGR_H
-#define __IXILIUM_ACHIEVEMENTMGR_H
+#ifndef __WOPCCORE_ACHIEVEMENTMGR_H
+#define __WOPCCORE_ACHIEVEMENTMGR_H
 
 #include <map>
 #include <string>
@@ -322,6 +322,6 @@ class AchievementGlobalMgr
         AchievementRewardLocales m_achievementRewardLocales;
 };
 
-#define sAchievementMgr Ixilium::Singleton<AchievementGlobalMgr>::Instance()
+#define sAchievementMgr WOPCCORE::Singleton<AchievementGlobalMgr>::Instance()
 
 #endif

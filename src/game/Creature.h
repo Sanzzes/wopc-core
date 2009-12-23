@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#ifndef IXILIUMEMU_CREATURE_H
-#define IXILIUMEMU_CREATURE_H
+#ifndef WOPCCORE_CREATURE_H
+#define WOPCCORE_CREATURE_H
 
 #include "Common.h"
 #include "Unit.h"
@@ -381,7 +381,7 @@ typedef std::map<uint32,time_t> CreatureSpellCooldowns;
 
 #define MAX_VENDOR_ITEMS 150                                // Limitation in 3.x.x item count in SMSG_LIST_INVENTORY
 
-class IXILIUM_DLL_SPEC Creature : public Unit
+class WOPCCORE_DLL_SPEC Creature : public Unit
 {
     public:
 

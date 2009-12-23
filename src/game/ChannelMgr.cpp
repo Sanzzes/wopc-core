@@ -26,12 +26,12 @@ INSTANTIATE_SINGLETON_1( HordeChannelMgr );
 ChannelMgr* channelMgr(uint32 team)
 {
     if (sWorld.getConfig(CONFIG_ALLOW_TWO_SIDE_INTERACTION_CHANNEL))
-        return &Ixilium::Singleton<AllianceChannelMgr>::Instance();        // cross-faction
+        return &WOPCCORE::Singleton<AllianceChannelMgr>::Instance();        // cross-faction
 
     if (team == ALLIANCE)
-        return &Ixilium::Singleton<AllianceChannelMgr>::Instance();
+        return &WOPCCORE::Singleton<AllianceChannelMgr>::Instance();
     if (team == HORDE)
-        return &Ixilium::Singleton<HordeChannelMgr>::Instance();
+        return &WOPCCORE::Singleton<HordeChannelMgr>::Instance();
 
     return NULL;
 }

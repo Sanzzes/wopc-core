@@ -1222,6 +1222,6 @@ public:
     uint32 GetAHBplayerGUID() { return AHBplayerGUID; };
 };
 
-#define auctionbot Ixilium::Singleton<AuctionHouseBot>::Instance()
+#define auctionbot WOPCCORE::Singleton<AuctionHouseBot>::Instance()
 
 #endif

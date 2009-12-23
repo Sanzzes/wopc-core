@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -665,14 +665,14 @@ void Creature::DoFleeToGetAssistance()
     {
         Creature* pCreature = NULL;
 
-        CellPair p(Ixilium::ComputeCellPair(GetPositionX(), GetPositionY()));
+        CellPair p(WOPCCORE::ComputeCellPair(GetPositionX(), GetPositionY()));
         Cell cell(p);
         cell.data.Part.reserved = ALL_DISTRICT;
         cell.SetNoCreate();
-        Ixilium::NearestAssistCreatureInCreatureRangeCheck u_check(this, getVictim(), radius);
-        Ixilium::CreatureLastSearcher<Ixilium::NearestAssistCreatureInCreatureRangeCheck> searcher(this, pCreature, u_check);
+        WOPCCORE::NearestAssistCreatureInCreatureRangeCheck u_check(this, getVictim(), radius);
+        WOPCCORE::CreatureLastSearcher<WOPCCORE::NearestAssistCreatureInCreatureRangeCheck> searcher(this, pCreature, u_check);
 
-        TypeContainerVisitor<Ixilium::CreatureLastSearcher<Ixilium::NearestAssistCreatureInCreatureRangeCheck>, GridTypeMapContainer > grid_creature_searcher(searcher);
+        TypeContainerVisitor<WOPCCORE::CreatureLastSearcher<WOPCCORE::NearestAssistCreatureInCreatureRangeCheck>, GridTypeMapContainer > grid_creature_searcher(searcher);
 
         CellLock<GridReadGuard> cell_lock(cell, p);
         cell_lock->Visit(cell_lock, grid_creature_searcher, *GetMap(), *this, radius);
@@ -1727,7 +1727,7 @@ bool Creature::IsVisibleInGridForPlayer(Player const* pl) const
 
 Unit* Creature::SelectNearestTarget(float dist) const
 {
-    CellPair p(Ixilium::ComputeCellPair(GetPositionX(), GetPositionY()));
+    CellPair p(WOPCCORE::ComputeCellPair(GetPositionX(), GetPositionY()));
     Cell cell(p);
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();
@@ -1735,11 +1735,11 @@ Unit* Creature::SelectNearestTarget(float dist) const
     Unit *target = NULL;
 
     {
-        Ixilium::NearestHostileUnitInAttackDistanceCheck u_check(this, dist);
-        Ixilium::UnitLastSearcher<Ixilium::NearestHostileUnitInAttackDistanceCheck> searcher(this, target, u_check);
+        WOPCCORE::NearestHostileUnitInAttackDistanceCheck u_check(this, dist);
+        WOPCCORE::UnitLastSearcher<WOPCCORE::NearestHostileUnitInAttackDistanceCheck> searcher(this, target, u_check);
 
-        TypeContainerVisitor<Ixilium::UnitLastSearcher<Ixilium::NearestHostileUnitInAttackDistanceCheck>, WorldTypeMapContainer > world_unit_searcher(searcher);
-        TypeContainerVisitor<Ixilium::UnitLastSearcher<Ixilium::NearestHostileUnitInAttackDistanceCheck>, GridTypeMapContainer >  grid_unit_searcher(searcher);
+        TypeContainerVisitor<WOPCCORE::UnitLastSearcher<WOPCCORE::NearestHostileUnitInAttackDistanceCheck>, WorldTypeMapContainer > world_unit_searcher(searcher);
+        TypeContainerVisitor<WOPCCORE::UnitLastSearcher<WOPCCORE::NearestHostileUnitInAttackDistanceCheck>, GridTypeMapContainer >  grid_unit_searcher(searcher);
 
         CellLock<GridReadGuard> cell_lock(cell, p);
         cell_lock->Visit(cell_lock, world_unit_searcher, *GetMap(), *this, ATTACK_DISTANCE);
@@ -1774,15 +1774,15 @@ void Creature::CallAssistance()
             std::list<Creature*> assistList;
 
             {
-                CellPair p(Ixilium::ComputeCellPair(GetPositionX(), GetPositionY()));
+                CellPair p(WOPCCORE::ComputeCellPair(GetPositionX(), GetPositionY()));
                 Cell cell(p);
                 cell.data.Part.reserved = ALL_DISTRICT;
                 cell.SetNoCreate();
 
-                Ixilium::AnyAssistCreatureInRangeCheck u_check(this, getVictim(), radius);
-                Ixilium::CreatureListSearcher<Ixilium::AnyAssistCreatureInRangeCheck> searcher(this, assistList, u_check);
+                WOPCCORE::AnyAssistCreatureInRangeCheck u_check(this, getVictim(), radius);
+                WOPCCORE::CreatureListSearcher<WOPCCORE::AnyAssistCreatureInRangeCheck> searcher(this, assistList, u_check);
 
-                TypeContainerVisitor<Ixilium::CreatureListSearcher<Ixilium::AnyAssistCreatureInRangeCheck>, GridTypeMapContainer >  grid_creature_searcher(searcher);
+                TypeContainerVisitor<WOPCCORE::CreatureListSearcher<WOPCCORE::AnyAssistCreatureInRangeCheck>, GridTypeMapContainer >  grid_creature_searcher(searcher);
 
                 CellLock<GridReadGuard> cell_lock(cell, p);
                 cell_lock->Visit(cell_lock, grid_creature_searcher, *GetMap(), *this, radius);
@@ -1808,15 +1808,15 @@ void Creature::CallForHelp(float fRadius)
     if (fRadius <= 0.0f || !getVictim() || isPet() || isCharmed())
         return;
 
-    CellPair p(Ixilium::ComputeCellPair(GetPositionX(), GetPositionY()));
+    CellPair p(WOPCCORE::ComputeCellPair(GetPositionX(), GetPositionY()));
     Cell cell(p);
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();
 
-    Ixilium::CallOfHelpCreatureInRangeDo u_do(this, getVictim(), fRadius);
-    Ixilium::CreatureWorker<Ixilium::CallOfHelpCreatureInRangeDo> worker(this, u_do);
+    WOPCCORE::CallOfHelpCreatureInRangeDo u_do(this, getVictim(), fRadius);
+    WOPCCORE::CreatureWorker<WOPCCORE::CallOfHelpCreatureInRangeDo> worker(this, u_do);
 
-    TypeContainerVisitor<Ixilium::CreatureWorker<Ixilium::CallOfHelpCreatureInRangeDo>, GridTypeMapContainer >  grid_creature_searcher(worker);
+    TypeContainerVisitor<WOPCCORE::CreatureWorker<WOPCCORE::CallOfHelpCreatureInRangeDo>, GridTypeMapContainer >  grid_creature_searcher(worker);
 
     CellLock<GridReadGuard> cell_lock(cell, p);
     cell_lock->Visit(cell_lock, grid_creature_searcher, *GetMap(), *this, fRadius);

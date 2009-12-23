@@ -1,7 +1,6 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,7 +35,7 @@
 #include "Formulas.h"
 #include "GridNotifiersImpl.h"
 
-namespace Ixilium
+namespace WOPCCORE
 {
     class BattleGroundChatBuilder
     {
@@ -45,7 +44,7 @@ namespace Ixilium
                 : i_msgtype(msgtype), i_textId(textId), i_source(source), i_args(args) {}
             void operator()(WorldPacket& data, int32 loc_idx)
             {
-                char const* text = sObjectMgr.GetIxiliumString(i_textId,loc_idx);
+                char const* text = sObjectMgr.GetWOPCCOREString(i_textId,loc_idx);
 
                 if (i_args)
                 {
@@ -90,7 +89,7 @@ namespace Ixilium
                 : i_language(language), i_textId(textId), i_source(source), i_args(args) {}
             void operator()(WorldPacket& data, int32 loc_idx)
             {
-                char const* text = sObjectMgr.GetIxiliumString(i_textId,loc_idx);
+                char const* text = sObjectMgr.GetWOPCCOREString(i_textId,loc_idx);
 
                 if(i_args)
                 {
@@ -137,9 +136,9 @@ namespace Ixilium
                 : i_msgtype(msgtype), i_textId(textId), i_source(source), i_arg1(arg1), i_arg2(arg2) {}
             void operator()(WorldPacket& data, int32 loc_idx)
             {
-                char const* text = sObjectMgr.GetIxiliumString(i_textId,loc_idx);
-                char const* arg1str = i_arg1 ? sObjectMgr.GetIxiliumString(i_arg1,loc_idx) : "";
-                char const* arg2str = i_arg2 ? sObjectMgr.GetIxiliumString(i_arg2,loc_idx) : "";
+                char const* text = sObjectMgr.GetWOPCCOREString(i_textId,loc_idx);
+                char const* arg1str = i_arg1 ? sObjectMgr.GetWOPCCOREString(i_arg1,loc_idx) : "";
+                char const* arg2str = i_arg2 ? sObjectMgr.GetWOPCCOREString(i_arg2,loc_idx) : "";
 
                 char str [2048];
                 snprintf(str,2048,text, arg1str, arg2str );
@@ -171,9 +170,9 @@ namespace Ixilium
                 : i_language(language), i_textId(textId), i_source(source), i_arg1(arg1), i_arg2(arg2) {}
             void operator()(WorldPacket& data, int32 loc_idx)
             {
-                char const* text = sObjectMgr.GetIxiliumString(i_textId,loc_idx);
-                char const* arg1str = i_arg1 ? sObjectMgr.GetIxiliumString(i_arg1,loc_idx) : "";
-                char const* arg2str = i_arg2 ? sObjectMgr.GetIxiliumString(i_arg2,loc_idx) : "";
+                char const* text = sObjectMgr.GetWOPCCOREString(i_textId,loc_idx);
+                char const* arg1str = i_arg1 ? sObjectMgr.GetWOPCCOREString(i_arg1,loc_idx) : "";
+                char const* arg2str = i_arg2 ? sObjectMgr.GetWOPCCOREString(i_arg2,loc_idx) : "";
 
                 char str [2048];
                 snprintf(str,2048,text, arg1str, arg2str );
@@ -197,7 +196,7 @@ namespace Ixilium
             int32 i_arg1;
             int32 i_arg2;
     };
-}                                                           // namespace Ixilium
+}                                                           // namespace WOPCCORE
 
 template<class Do>
 void BattleGround::BroadcastWorker(Do& _do)
@@ -838,7 +837,7 @@ void BattleGround::EndBattleGround(uint32 winner)
 uint32 BattleGround::GetBonusHonorFromKill(uint32 kills) const
 {
     //variable kills means how many honorable kills you scored (so we need kills * honor_for_one_kill)
-    return Ixilium::Honor::hk_honor_at_level(GetMaxLevel(), kills);
+    return WOPCCORE::Honor::hk_honor_at_level(GetMaxLevel(), kills);
 }
 
 uint32 BattleGround::GetBattlemasterEntry() const
@@ -962,7 +961,7 @@ void BattleGround::SendRewardMarkByMail(Player *plr,uint32 mark, uint32 count)
                     subject = il->Name[loc_idx];
 
         // text
-        std::string textFormat = plr->GetSession()->GetIxiliumString(LANG_BG_MARK_BY_MAIL);
+        std::string textFormat = plr->GetSession()->GetWOPCCOREString(LANG_BG_MARK_BY_MAIL);
         char textBuf[300];
         snprintf(textBuf,300,textFormat.c_str(),GetName(),GetName());
         uint32 itemTextId = sObjectMgr.CreateItemText( textBuf );
@@ -1631,8 +1630,8 @@ bool BattleGround::DelObject(uint32 type)
 
 void BattleGround::SendMessageToAll(int32 entry, ChatMsg type, Player const* source)
 {
-    Ixilium::BattleGroundChatBuilder bg_builder(type, entry, source);
-    Ixilium::LocalizedPacketDo<Ixilium::BattleGroundChatBuilder> bg_do(bg_builder);
+    WOPCCORE::BattleGroundChatBuilder bg_builder(type, entry, source);
+    WOPCCORE::LocalizedPacketDo<WOPCCORE::BattleGroundChatBuilder> bg_do(bg_builder);
     BroadcastWorker(bg_do);
 }
 
@@ -1641,8 +1640,8 @@ void BattleGround::SendYellToAll(int32 entry, uint32 language, uint64 const& gui
     Creature* source = GetBgMap()->GetCreature(guid);
     if(!source)
         return;
-    Ixilium::BattleGroundYellBuilder bg_builder(language, entry, source);
-    Ixilium::LocalizedPacketDo<Ixilium::BattleGroundYellBuilder> bg_do(bg_builder);
+    WOPCCORE::BattleGroundYellBuilder bg_builder(language, entry, source);
+    WOPCCORE::LocalizedPacketDo<WOPCCORE::BattleGroundYellBuilder> bg_do(bg_builder);
     BroadcastWorker(bg_do);
 }
 
@@ -1651,8 +1650,8 @@ void BattleGround::PSendMessageToAll(int32 entry, ChatMsg type, Player const* so
     va_list ap;
     va_start(ap, source);
 
-    Ixilium::BattleGroundChatBuilder bg_builder(type, entry, source, &ap);
-    Ixilium::LocalizedPacketDo<Ixilium::BattleGroundChatBuilder> bg_do(bg_builder);
+    WOPCCORE::BattleGroundChatBuilder bg_builder(type, entry, source, &ap);
+    WOPCCORE::LocalizedPacketDo<WOPCCORE::BattleGroundChatBuilder> bg_do(bg_builder);
     BroadcastWorker(bg_do);
 
     va_end(ap);
@@ -1660,8 +1659,8 @@ void BattleGround::PSendMessageToAll(int32 entry, ChatMsg type, Player const* so
 
 void BattleGround::SendMessage2ToAll(int32 entry, ChatMsg type, Player const* source, int32 arg1, int32 arg2)
 {
-    Ixilium::BattleGround2ChatBuilder bg_builder(type, entry, source, arg1, arg2);
-    Ixilium::LocalizedPacketDo<Ixilium::BattleGround2ChatBuilder> bg_do(bg_builder);
+    WOPCCORE::BattleGround2ChatBuilder bg_builder(type, entry, source, arg1, arg2);
+    WOPCCORE::LocalizedPacketDo<WOPCCORE::BattleGround2ChatBuilder> bg_do(bg_builder);
     BroadcastWorker(bg_do);
 }
 
@@ -1670,8 +1669,8 @@ void BattleGround::SendYell2ToAll(int32 entry, uint32 language, uint64 const& gu
     Creature* source = GetBgMap()->GetCreature(guid);
     if(!source)
         return;
-    Ixilium::BattleGround2YellBuilder bg_builder(language, entry, source, arg1, arg2);
-    Ixilium::LocalizedPacketDo<Ixilium::BattleGround2YellBuilder> bg_do(bg_builder);
+    WOPCCORE::BattleGround2YellBuilder bg_builder(language, entry, source, arg1, arg2);
+    WOPCCORE::LocalizedPacketDo<WOPCCORE::BattleGround2YellBuilder> bg_do(bg_builder);
     BroadcastWorker(bg_do);
 }
 

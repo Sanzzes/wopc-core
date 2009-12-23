@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -647,9 +647,9 @@ void WorldSession::HandlePlayerLogin(LoginQueryHolder * holder)
         // send server info (Show GIXI Version and WorldDB Version)
         if (sWorld.getConfig(CONFIG_ENABLE_SINFO_LOGIN) == 1)
         {
-			chH.PSendSysMessage(LANG_USED_IXILIUM_VERSION, _FULLVERSION);
+			chH.PSendSysMessage(LANG_USED_WOPCCORE_VERSION, _FULLVERSION);
 			chH.PSendSysMessage("WorldDB Version: %s", sWorld.GetDBVersion());
-			chH.PSendSysMessage("GIXI Version: %s", sWorld.GetGIXIVersion());
+			chH.PSendSysMessage("GPD Version: %s", sWorld.GetGIXIVersion());
         }
         DEBUG_LOG( "WORLD: Sent server info" );
     }

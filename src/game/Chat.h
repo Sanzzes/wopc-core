@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#ifndef IXILIUMEMU_CHAT_H
-#define IXILIUMEMU_CHAT_H
+#ifndef WOPCCOREEMU_CHAT_H
+#define WOPCCOREEMU_CHAT_H
 
 #include "SharedDefines.h"
 
@@ -41,7 +41,7 @@ class ChatCommand
         ChatCommand *      ChildCommands;
 };
 
-class IXILIUM_DLL_SPEC ChatHandler
+class WOPCCORE_DLL_SPEC ChatHandler
 {
     public:
         explicit ChatHandler(WorldSession* session) : m_session(session) {}
@@ -69,7 +69,7 @@ class IXILIUM_DLL_SPEC ChatHandler
         }
 
         // function with different implementation for chat/console
-        virtual const char *GetIxiliumString(int32 entry) const;
+        virtual const char *GetWOPCCOREString(int32 entry) const;
         virtual void SendSysMessage(const char *str);
 
         void SendSysMessage(int32 entry);
@@ -412,7 +412,7 @@ class IXILIUM_DLL_SPEC ChatHandler
         bool HandleReloadLootTemplatesSkinningCommand(const char* args);
         bool HandleReloadLootTemplatesSpellCommand(const char* args);
         bool HandleReloadMailLevelRewardCommand(const char* args);
-        bool HandleReloadIxiliumStringCommand(const char* args);
+        bool HandleReloadWOPCCOREStringCommand(const char* args);
         bool HandleReloadNpcGossipCommand(const char* args);
         bool HandleReloadNpcTrainerCommand(const char* args);
         bool HandleReloadNpcVendorCommand(const char* args);
@@ -654,7 +654,7 @@ class CliHandler : public ChatHandler
         explicit CliHandler(Print* zprint) : m_print(zprint) {}
 
         // overwrite functions
-        const char *GetIxiliumString(int32 entry) const;
+        const char *GetWOPCCOREString(int32 entry) const;
         bool isAvailable(ChatCommand const& cmd) const;
         void SendSysMessage(const char *str);
         std::string GetNameLink() const;

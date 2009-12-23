@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef IXILIUM_COMBATAI_H
-#define IXILIUM_COMBATAI_H
+#ifndef WOPCCORE_COMBATAI_H
+#define WOPCCORE_COMBATAI_H
 
 #include "CreatureAI.h"
 #include "CreatureAIImpl.h"
@@ -37,7 +37,7 @@ class SCRIPTS_DLL_DECL AggressorAI : public CreatureAI
 
 typedef std::vector<uint32> SpellVct;
 
-class IXILIUM_DLL_SPEC CombatAI : public CreatureAI
+class WOPCCORE_DLL_SPEC CombatAI : public CreatureAI
 {
     public:
         explicit CombatAI(Creature *c) : CreatureAI(c) {}
@@ -53,7 +53,7 @@ class IXILIUM_DLL_SPEC CombatAI : public CreatureAI
         SpellVct spells;
 };
 
-class IXILIUM_DLL_SPEC CasterAI : public CombatAI
+class WOPCCORE_DLL_SPEC CasterAI : public CombatAI
 {
     public:
         explicit CasterAI(Creature *c) : CombatAI(c) { m_attackDist = MELEE_RANGE; }
@@ -65,7 +65,7 @@ class IXILIUM_DLL_SPEC CasterAI : public CombatAI
         float m_attackDist;
 };
 
-struct IXILIUM_DLL_SPEC ArchorAI : public CreatureAI
+struct WOPCCORE_DLL_SPEC ArchorAI : public CreatureAI
 {
     public:
         explicit ArchorAI(Creature *c);
@@ -77,7 +77,7 @@ struct IXILIUM_DLL_SPEC ArchorAI : public CreatureAI
         float m_minRange;
 };
 
-struct IXILIUM_DLL_SPEC TurretAI : public CreatureAI
+struct WOPCCORE_DLL_SPEC TurretAI : public CreatureAI
 {
     public:
         explicit TurretAI(Creature *c);
@@ -90,7 +90,7 @@ struct IXILIUM_DLL_SPEC TurretAI : public CreatureAI
         float m_minRange;
 };
 
-struct IXILIUM_DLL_SPEC AOEAI : public CreatureAI
+struct WOPCCORE_DLL_SPEC AOEAI : public CreatureAI
 {
     public:
         explicit AOEAI(Creature *c);

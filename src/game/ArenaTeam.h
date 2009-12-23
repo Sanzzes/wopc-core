@@ -16,8 +16,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#ifndef IXILIUMEMU_ARENATEAM_H
-#define IXILIUMEMU_ARENATEAM_H
+#ifndef WOPCCORE_ARENATEAM_H
+#define WOPCCORE_ARENATEAM_H
 
 enum ArenaTeamCommandTypes
 {

@@ -41,7 +41,7 @@
 
 INSTANTIATE_SINGLETON_1(AchievementGlobalMgr);
 
-namespace Ixilium
+namespace WOPCCORE
 {
     class AchievementChatBuilder
     {
@@ -50,7 +50,7 @@ namespace Ixilium
                 : i_player(pl), i_msgtype(msgtype), i_textId(textId), i_achievementId(ach_id) {}
             void operator()(WorldPacket& data, int32 loc_idx)
             {
-                char const* text = sObjectMgr.GetIxiliumString(i_textId,loc_idx);
+                char const* text = sObjectMgr.GetWOPCCOREString(i_textId,loc_idx);
 
                 data << uint8(i_msgtype);
                 data << uint32(LANG_UNIVERSAL);
@@ -69,7 +69,7 @@ namespace Ixilium
             int32 i_textId;
             uint32 i_achievementId;
     };
-}                                                           // namespace Ixilium
+}                                                           // namespace WOPCCORE
 
 bool AchievementCriteriaRequirement::IsValid(AchievementCriteriaEntry const* criteria)
 {
@@ -570,15 +570,15 @@ void AchievementMgr::SendAchievementEarned(AchievementEntry const* achievement)
     if (GetPlayer()->GetSession()->PlayerLoading())
         return;
 
-    #ifdef IXILIUM_DEBUG
+    #ifdef WOPCCORE_DEBUG
     if ((sLog.getLogFilter() & LOG_FILTER_ACHIEVEMENT_UPDATES)==0)
         sLog.outDebug("AchievementMgr::SendAchievementEarned(%u)", achievement->ID);
     #endif
 
     if (Guild* guild = sObjectMgr.GetGuildById(GetPlayer()->GetGuildId()))
     {
-        Ixilium::AchievementChatBuilder say_builder(*GetPlayer(), CHAT_MSG_GUILD_ACHIEVEMENT, LANG_ACHIEVEMENT_EARNED,achievement->ID);
-        Ixilium::LocalizedPacketDo<Ixilium::AchievementChatBuilder> say_do(say_builder);
+        WOPCCORE::AchievementChatBuilder say_builder(*GetPlayer(), CHAT_MSG_GUILD_ACHIEVEMENT, LANG_ACHIEVEMENT_EARNED,achievement->ID);
+        WOPCCORE::LocalizedPacketDo<WOPCCORE::AchievementChatBuilder> say_do(say_builder);
         guild->BroadcastWorker(say_do,GetPlayer());
     }
 
@@ -595,16 +595,16 @@ void AchievementMgr::SendAchievementEarned(AchievementEntry const* achievement)
     // if player is in world he can tell his friends about new achievement
     else if (GetPlayer()->IsInWorld())
     {
-        CellPair p = Ixilium::ComputeCellPair(GetPlayer()->GetPositionX(), GetPlayer()->GetPositionY());
+        CellPair p = WOPCCORE::ComputeCellPair(GetPlayer()->GetPositionX(), GetPlayer()->GetPositionY());
 
         Cell cell(p);
         cell.data.Part.reserved = ALL_DISTRICT;
         cell.SetNoCreate();
 
-        Ixilium::AchievementChatBuilder say_builder(*GetPlayer(), CHAT_MSG_ACHIEVEMENT, LANG_ACHIEVEMENT_EARNED,achievement->ID);
-        Ixilium::LocalizedPacketDo<Ixilium::AchievementChatBuilder> say_do(say_builder);
-        Ixilium::PlayerDistWorker<Ixilium::LocalizedPacketDo<Ixilium::AchievementChatBuilder> > say_worker(GetPlayer(),sWorld.getConfig(CONFIG_LISTEN_RANGE_SAY),say_do);
-        TypeContainerVisitor<Ixilium::PlayerDistWorker<Ixilium::LocalizedPacketDo<Ixilium::AchievementChatBuilder> >, WorldTypeMapContainer > message(say_worker);
+        WOPCCORE::AchievementChatBuilder say_builder(*GetPlayer(), CHAT_MSG_ACHIEVEMENT, LANG_ACHIEVEMENT_EARNED,achievement->ID);
+        WOPCCORE::LocalizedPacketDo<WOPCCORE::AchievementChatBuilder> say_do(say_builder);
+        WOPCCORE::PlayerDistWorker<WOPCCORE::LocalizedPacketDo<WOPCCORE::AchievementChatBuilder> > say_worker(GetPlayer(),sWorld.getConfig(CONFIG_LISTEN_RANGE_SAY),say_do);
+        TypeContainerVisitor<WOPCCORE::PlayerDistWorker<WOPCCORE::LocalizedPacketDo<WOPCCORE::AchievementChatBuilder> >, WorldTypeMapContainer > message(say_worker);
         CellLock<GridReadGuard> cell_lock(cell, p);
         cell_lock->Visit(cell_lock, message, *GetPlayer()->GetMap(), *GetPlayer(), sWorld.getConfig(CONFIG_LISTEN_RANGE_SAY));
     }
