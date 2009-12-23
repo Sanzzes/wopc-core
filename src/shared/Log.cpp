@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WoPCCore <http://www.worldofprivatecraft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -211,8 +211,8 @@ FILE* Log::openGmlogPerAccount(uint32 account)
     if (m_gmlog_filename_format.empty())
         return NULL;
 
-    char namebuf[IXILIUM_PATH_MAX];
-    snprintf(namebuf,IXILIUM_PATH_MAX,m_gmlog_filename_format.c_str(),account);
+    char namebuf[WOPCCORE_PATH_MAX];
+    snprintf(namebuf,WOPCCORE_PATH_MAX,m_gmlog_filename_format.c_str(),account);
     return fopen(namebuf, "a");
 }
 

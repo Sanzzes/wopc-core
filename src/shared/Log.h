@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCORE <http://www.worldofprivatecraft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef IXILIUMEMU_LOG_H
-#define IXILIUMEMU_LOG_H
+#ifndef WOPCCORE_LOG_H
+#define WOPCCORE_LOG_H
 
 #include "Common.h"
 #include "Policies/Singleton.h"
@@ -83,9 +83,9 @@ enum ColorTypes
 
 const int Colors = int(WHITE)+1;
 
-class Log : public Ixilium::Singleton<Log, Ixilium::ClassLevelLockable<Log, ACE_Thread_Mutex> >
+class Log : public WOPCCORE::Singleton<Log, WOPCCORE::ClassLevelLockable<Log, ACE_Thread_Mutex> >
 {
-    friend class Ixilium::OperatorNew<Log>;
+    friend class WOPCCORE::OperatorNew<Log>;
     Log();
     ~Log();
 
@@ -174,19 +174,19 @@ class Log : public Ixilium::Singleton<Log, Ixilium::ClassLevelLockable<Log, ACE_
         bool m_charLog_Dump;
 };
 
-#define sLog Ixilium::Singleton<Log>::Instance()
+#define sLog WOPCCORE::Singleton<Log>::Instance()
 
-#ifdef IXILIUM_DEBUG
+#ifdef WOPCCORE_DEBUG
 #define DEBUG_LOG sLog.outDebug
 #else
 #define DEBUG_LOG
 #endif
 
 // primary for script library
-void IXILIUM_DLL_SPEC outstring_log(const char * str, ...) ATTR_PRINTF(1,2);
-void IXILIUM_DLL_SPEC detail_log(const char * str, ...) ATTR_PRINTF(1,2);
-void IXILIUM_DLL_SPEC debug_log(const char * str, ...) ATTR_PRINTF(1,2);
-void IXILIUM_DLL_SPEC error_log(const char * str, ...) ATTR_PRINTF(1,2);
-void IXILIUM_DLL_SPEC error_db_log(const char * str, ...) ATTR_PRINTF(1,2);
+void WOPCCORE_DLL_SPEC outstring_log(const char * str, ...) ATTR_PRINTF(1,2);
+void WOPCCORE_DLL_SPEC detail_log(const char * str, ...) ATTR_PRINTF(1,2);
+void WOPCCORE_DLL_SPEC debug_log(const char * str, ...) ATTR_PRINTF(1,2);
+void WOPCCORE_DLL_SPEC error_log(const char * str, ...) ATTR_PRINTF(1,2);
+void WOPCCORE_DLL_SPEC error_db_log(const char * str, ...) ATTR_PRINTF(1,2);
 #endif
 

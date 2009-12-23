@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WoPCCore <http://www.worldofprivatecraft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef IXILIUMEMU_ERRORS_H
-#define IXILIUMEMU_ERRORS_H
+#ifndef WOPCCORE_ERRORS_H
+#define WOPCCORE_ERRORS_H
 
 #include "Common.h"
 
@@ -70,7 +70,7 @@ if (!(CONDITION)) \
 }
 #endif
 
-#ifdef IXILIUM_DEBUG
+#ifdef WOPCCORE_DEBUG
 #  define ASSERT WPError
 #else
 #  define ASSERT WPError // Error even if in release mode.

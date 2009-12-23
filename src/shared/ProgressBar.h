@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCORE <http://www.worldofprivatecraft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,12 +17,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-#ifndef IXILIUMEMU_PROGRESSBAR_H
-#define IXILIUMEMU_PROGRESSBAR_H
+#ifndef WOPCCORE_PROGRESSBAR_H
+#define WOPCCORE_PROGRESSBAR_H
 
 #include "Platform/Define.h"
 
-class IXILIUM_DLL_SPEC barGoLink
+class WOPCCORE_DLL_SPEC barGoLink
 {
     static char const * const empty;
     static char const * const full;

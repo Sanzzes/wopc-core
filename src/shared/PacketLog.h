@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCORE <http://www.worldofprivatecraft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef IXILIUM_PACKETLOG_H
-#define IXILIUM_PACKETLOG_H
+#ifndef WOPCCORE_PACKETLOG_H
+#define WOPCCORE_PACKETLOG_H
 
 #include "Common.h"
 #include "Policies/Singleton.h"
@@ -44,6 +44,6 @@ class PacketLog
         void WorldHexDump(WorldPacket * data, uint32 socket, bool direction);
 };
 
-#define sPacketLog Ixilium::Singleton<PacketLog>::Instance()
+#define sPacketLog WOPCCORE::Singleton<PacketLog>::Instance()
 #endif
 

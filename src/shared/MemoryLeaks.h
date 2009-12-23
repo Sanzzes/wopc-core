@@ -16,8 +16,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#ifndef IXILIUMSERVER_MEMORY_H
-#define IXILIUMSERVER_MEMORY_H
+#ifndef WOPCCORESERVER_MEMORY_H
+#define WOPCCORESERVER_MEMORY_H
 
 #include "Platform/CompilerDefs.h"
 
@@ -41,7 +41,7 @@
 
 #include "Policies/Singleton.h"
 
-struct MemoryManager : public Ixilium::Singleton < MemoryManager >
+struct MemoryManager : public WOPCCORE::Singleton < MemoryManager >
 {
     MemoryManager();
 };

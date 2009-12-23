@@ -1,8 +1,8 @@
-# Install script for directory: /opt/riboncore/src/shared/Auth
+# Install script for directory: /opt/WoPCCore/src/shared/Auth
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  SET(CMAKE_INSTALL_PREFIX "/opt/riboncore/builds")
+  SET(CMAKE_INSTALL_PREFIX "/opt/WoPCCore/builds")
 ENDIF(NOT DEFINED CMAKE_INSTALL_PREFIX)
 STRING(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
