@@ -404,7 +404,7 @@ enum Opcodes
     CMSG_DUEL_CANCELLED                             = 0x16D,
     SMSG_MOUNTRESULT                                = 0x16E,
     SMSG_DISMOUNTRESULT                             = 0x16F,
-    SMSG_PUREMOUNT_CANCELLED_OBSOLETE               = 0x170,
+    SMSG_PUREMOUNT_CANCELLED_OBSOLETE               = 0x170,  // ERR_REMOVE_FROM_PVP_QUEUE_* events
     CMSG_MOUNTSPECIAL_ANIM                          = 0x171,
     SMSG_MOUNTSPECIAL_ANIM                          = 0x172,
     SMSG_PET_TAME_FAILURE                           = 0x173,
