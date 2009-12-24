@@ -1,7 +1,6 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -441,7 +440,7 @@ void World::LoadConfigSettings(bool reload)
 
     ///- Read the player limit and the Message of the day from the config file
     SetPlayerLimit(sConfig.GetIntDefault("PlayerLimit", DEFAULT_PLAYER_LIMIT), true);
-    SetMotd(sConfig.GetStringDefault("Motd", "Welcome to a IxiliumEmu Server."));
+    SetMotd(sConfig.GetStringDefault("Motd", "Welcome to a WOPCCOREEmu Server."));
 
     ///- Get string for new logins (newly created characters)
     SetNewCharString(sConfig.GetStringDefault("PlayerStart.String", ""));
@@ -1262,8 +1261,8 @@ void World::SetInitialWorldSettings()
 
     ///- Loading strings. Getting no records means core load has to be canceled because no error message can be output.
     sLog.outString();
-    sLog.outString("Loading Ixilium strings..."); // Lade Ixilium-String's...
-    if (!sObjectMgr.LoadIxiliumStrings())
+    sLog.outString("Loading WOPCCORE strings..."); // Lade WOPCCORE-String's...
+    if (!sObjectMgr.LoadWOPCCOREStrings())
         exit(1);                                            // Error message displayed in function already
 
     ///- Update the realm entry in the database with the realm type from the config file
@@ -1278,28 +1277,28 @@ void World::SetInitialWorldSettings()
     CharacterDatabase.PExecute("DELETE FROM corpse WHERE corpse_type = '0'");
 
     ///- Load the DBC files
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_INITIALIZE_DATA_STORE));
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_INITIALIZE_DATA_STORE));
     LoadDBCStores(m_dataPath);
     DetectDBCLang();
 
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_SCRIPT_NAMES));
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_SCRIPT_NAMES));
     sObjectMgr.LoadScriptNames();
 
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_INSTANCE_TEMPLATE));
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_INSTANCE_TEMPLATE));
     sObjectMgr.LoadInstanceTemplate();
 
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_SKILL_LINE_ABILITY));
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_SKILL_LINE_ABILITY));
     sSpellMgr.LoadSkillLineAbilityMap();
 
     ///- Clean up and pack instances
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_CLEANING_UP_INSTANCES));
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_CLEANING_UP_INSTANCES));
     sInstanceSaveMgr.CleanupInstances();                // must be called before `creature_respawn`/`gameobject_respawn` tables
 
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_PACKING_INSTANCES));
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_PACKING_INSTANCES));
     sInstanceSaveMgr.PackInstances();
 
     sLog.outString();
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_LOCAL_STRINGS_LOADING));
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_LOCAL_STRINGS_LOADING));
     sObjectMgr.LoadCreatureLocales();
     sObjectMgr.LoadGameObjectLocales();
     sObjectMgr.LoadItemLocales();
@@ -1309,100 +1308,100 @@ void World::SetInitialWorldSettings()
     sObjectMgr.LoadGossipMenuItemsLocales();
     sObjectMgr.LoadPointOfInterestLocales();
     sObjectMgr.SetDBCLocaleIndex(GetDefaultDbcLocale());        // Get once for all the locale index of DBC language (console/broadcasts)
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_LOCAL_STRINGS_LOADED));
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_LOCAL_STRINGS_LOADED));
     sLog.outString();
 
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_PAGE_TEXTS_LOADING));
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_PAGE_TEXTS_LOADING));
     sObjectMgr.LoadPageTexts();
 
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_PLAYER_INFO_CACHE_LOADING));
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_PLAYER_INFO_CACHE_LOADING));
     sObjectMgr.LoadPlayerInfoInCache();
 
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_GO_TEMPLATES_LOADING));   // must be after LoadPageTexts
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_GO_TEMPLATES_LOADING));   // must be after LoadPageTexts
     sObjectMgr.LoadGameobjectInfo();
 
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_SPELL_CHAIN_LOADING));
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_SPELL_CHAIN_LOADING));
     sSpellMgr.LoadSpellChains();
 
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_SPELL_REQUIRED_LOADING));
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_SPELL_REQUIRED_LOADING));
     sSpellMgr.LoadSpellRequired();
 
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_SPELL_ELIXIR_TYPES_LOADING));
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_SPELL_ELIXIR_TYPES_LOADING));
     sSpellMgr.LoadSpellElixirs();
 
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_SPELL_LEARN_SKILLS_LOADING));
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_SPELL_LEARN_SKILLS_LOADING));
     sSpellMgr.LoadSpellLearnSkills();                        // must be after LoadSpellChains
 
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_SPELL_LEARN_SPELLS_LOADING));
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_SPELL_LEARN_SPELLS_LOADING));
     sSpellMgr.LoadSpellLearnSpells();
 
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_SPELL_PROC_EVENT_LOADING));
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_SPELL_PROC_EVENT_LOADING));
     sSpellMgr.LoadSpellProcEvents();
 
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_SPELL_BONUS_LOADING));
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_SPELL_BONUS_LOADING));
     sSpellMgr.LoadSpellBonusess();
 
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_AGGRO_SPELL_LOADING));
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_AGGRO_SPELL_LOADING));
     sSpellMgr.LoadSpellThreats();
 
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_NPC_TEXTS_LOADING));
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_NPC_TEXTS_LOADING));
     sObjectMgr.LoadGossipText();
 
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_ENCHANT_SPELLS_PROC_LOADING));
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_ENCHANT_SPELLS_PROC_LOADING));
     sSpellMgr.LoadSpellEnchantProcData();
 
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_ITEM_RANDOM_ENCHANT_LOADING));
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_ITEM_RANDOM_ENCHANT_LOADING));
     LoadRandomEnchantmentsTable();
 
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_ITEMS_LOADING)); // must be after LoadRandomEnchantmentsTable and LoadPageTexts
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_ITEMS_LOADING)); // must be after LoadRandomEnchantmentsTable and LoadPageTexts
     sObjectMgr.LoadItemPrototypes();
 
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_ITEM_TEXTS_LOADING));
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_ITEM_TEXTS_LOADING));
     sObjectMgr.LoadItemTexts();
 
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_CREATURE_MODEL_DATA_LOADING));
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_CREATURE_MODEL_DATA_LOADING));
     sObjectMgr.LoadCreatureModelInfo();
 
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_EQUIPMENT_TEMPLATES_LOADING));
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_EQUIPMENT_TEMPLATES_LOADING));
     sObjectMgr.LoadEquipmentTemplates();
 
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_CREATURE_TEMPLATES_LOADING));
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_CREATURE_TEMPLATES_LOADING));
     sObjectMgr.LoadCreatureTemplates();
 
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_SPELL_SCRIPT_TARGET_LOADING));
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_SPELL_SCRIPT_TARGET_LOADING));
     sSpellMgr.LoadSpellScriptTarget();                       // must be after LoadCreatureTemplates and LoadGameobjectInfo
 
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_ITEM_REQUIRED_TARGET_LOADING));
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_ITEM_REQUIRED_TARGET_LOADING));
     sObjectMgr.LoadItemRequiredTarget();
 
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_CREATURE_REPU_ONKILL_LOADING));
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_CREATURE_REPU_ONKILL_LOADING));
     sObjectMgr.LoadReputationOnKill();
 
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_POINTS_OF_INTEREST_DATA_LOADING));
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_POINTS_OF_INTEREST_DATA_LOADING));
     sObjectMgr.LoadPointsOfInterest();
 
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_CREATURE_DATA_LOADING));
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_CREATURE_DATA_LOADING));
     sObjectMgr.LoadCreatures();
 
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_CREATURE_LINKED_RESPAWN_LOADING));
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_CREATURE_LINKED_RESPAWN_LOADING));
     sObjectMgr.LoadCreatureLinkedRespawn();                     // must be after LoadCreatures()
 
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_PET_LEVELUP_SPELLS_LOADING));
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_PET_LEVELUP_SPELLS_LOADING));
     sSpellMgr.LoadPetLevelupSpellMap();
 
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_PET_DEFAULT_LEVELUP_SPELLS_LOADING));
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_PET_DEFAULT_LEVELUP_SPELLS_LOADING));
     sSpellMgr.LoadPetDefaultSpells();
 
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_CREATURE_ADDON_DATA_LOADING));
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_CREATURE_ADDON_DATA_LOADING));
     sObjectMgr.LoadCreatureAddons();                            // must be after LoadCreatureTemplates() and LoadCreatures()
 
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_CREATURE_RESPAWN_DATA_LOADING));     // must be after PackInstances()
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_CREATURE_RESPAWN_DATA_LOADING));     // must be after PackInstances()
     sObjectMgr.LoadCreatureRespawnTimes();
 
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_GAMEOBJECT_DATA_LOADING));
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_GAMEOBJECT_DATA_LOADING));
     sObjectMgr.LoadGameobjects();
 
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_GAMEOBJECT_RESPAWN_TIMES_LOADING));   // must be after PackInstances()
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_GAMEOBJECT_RESPAWN_TIMES_LOADING));   // must be after PackInstances()
     sObjectMgr.LoadGameobjectRespawnTimes();
 
     sLog.outString("Loading Objects Pooling Data...");
@@ -2038,7 +2037,7 @@ void World::SendGlobalGMMessage(WorldPacket *packet, WorldSession *self, uint32 
     }
 }
 
-namespace Ixilium
+namespace WOPCCORE
 {
     class WorldWorldTextBuilder
     {
@@ -2047,7 +2046,7 @@ namespace Ixilium
             explicit WorldWorldTextBuilder(int32 textId, va_list* args = NULL) : i_textId(textId), i_args(args) {}
             void operator()(WorldPacketList& data_list, int32 loc_idx)
             {
-                char const* text = sObjectMgr.GetIxiliumString(i_textId,loc_idx);
+                char const* text = sObjectMgr.GetWOPCCOREString(i_textId,loc_idx);
 
                 if (i_args)
                 {
@@ -2093,7 +2092,7 @@ namespace Ixilium
             int32 i_textId;
             va_list* i_args;
     };
-}                                                           // namespace Ixilium
+}                                                           // namespace WOPCCORE
 
 /// Send a System Message to all players (except self if mentioned)
 void World::SendWorldText(int32 string_id, ...)
@@ -2101,8 +2100,8 @@ void World::SendWorldText(int32 string_id, ...)
     va_list ap;
     va_start(ap, string_id);
 
-    Ixilium::WorldWorldTextBuilder wt_builder(string_id, &ap);
-    Ixilium::LocalizedPacketListDo<Ixilium::WorldWorldTextBuilder> wt_do(wt_builder);
+    WOPCCORE::WorldWorldTextBuilder wt_builder(string_id, &ap);
+    WOPCCORE::LocalizedPacketListDo<WOPCCORE::WorldWorldTextBuilder> wt_do(wt_builder);
     for (SessionMap::const_iterator itr = m_sessions.begin(); itr != m_sessions.end(); ++itr)
     {
         if (!itr->second || !itr->second->GetPlayer() || !itr->second->GetPlayer()->IsInWorld())
@@ -2120,8 +2119,8 @@ void World::SendGMText(int32 string_id, ...)
     va_list ap;
     va_start(ap, string_id);
 
-    Ixilium::WorldWorldTextBuilder wt_builder(string_id, &ap);
-    Ixilium::LocalizedPacketListDo<Ixilium::WorldWorldTextBuilder> wt_do(wt_builder);
+    WOPCCORE::WorldWorldTextBuilder wt_builder(string_id, &ap);
+    WOPCCORE::LocalizedPacketListDo<WOPCCORE::WorldWorldTextBuilder> wt_do(wt_builder);
     for (SessionMap::iterator itr = m_sessions.begin(); itr != m_sessions.end(); ++itr)
     {
         if (!itr->second || !itr->second->GetPlayer() || !itr->second->GetPlayer()->IsInWorld())

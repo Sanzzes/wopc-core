@@ -1,7 +1,6 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +17,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef IXILIUMEMU_QUEST_H
-#define IXILIUMEMU_QUEST_H
+#ifndef WOPCCORE_QUEST_H
+#define WOPCCORE_QUEST_H
 
 #include "Platform/Define.h"
 #include "Database/DatabaseEnv.h"
@@ -139,16 +138,16 @@ enum __QuestFlags
     QUEST_FLAGS_UNK4           = 0x00004000,                // ? Membership Card Renewal
     QUEST_FLAGS_WEEKLY         = 0x00008000,                // Not used currently: Weekly quests
 
-    // Ixilium flags for set SpecialFlags in DB if required but used only at server
-    QUEST_IXILIUM_FLAGS_REPEATABLE           = 0x010000,     // Set by 1 in SpecialFlags from DB
-    QUEST_IXILIUM_FLAGS_EXPLORATION_OR_EVENT = 0x020000,     // Set by 2 in SpecialFlags from DB (if reequired area explore, spell SPELL_EFFECT_QUEST_COMPLETE casting, table `*_script` command SCRIPT_COMMAND_QUEST_EXPLORED use, set from script DLL)
-    QUEST_IXILIUM_FLAGS_DB_ALLOWED = 0xFFFF | QUEST_IXILIUM_FLAGS_REPEATABLE | QUEST_IXILIUM_FLAGS_EXPLORATION_OR_EVENT,
+    // WOPCCORE flags for set SpecialFlags in DB if required but used only at server
+    QUEST_WOPCCORE_FLAGS_REPEATABLE           = 0x010000,     // Set by 1 in SpecialFlags from DB
+    QUEST_WOPCCORE_FLAGS_EXPLORATION_OR_EVENT = 0x020000,     // Set by 2 in SpecialFlags from DB (if reequired area explore, spell SPELL_EFFECT_QUEST_COMPLETE casting, table `*_script` command SCRIPT_COMMAND_QUEST_EXPLORED use, set from script DLL)
+    QUEST_WOPCCORE_FLAGS_DB_ALLOWED = 0xFFFF | QUEST_WOPCCORE_FLAGS_REPEATABLE | QUEST_WOPCCORE_FLAGS_EXPLORATION_OR_EVENT,
 
-    // Ixilium flags for internal use only
-    QUEST_IXILIUM_FLAGS_DELIVER              = 0x040000,     // Internal flag computed only
-    QUEST_IXILIUM_FLAGS_SPEAKTO              = 0x080000,     // Internal flag computed only
-    QUEST_IXILIUM_FLAGS_KILL_OR_CAST         = 0x100000,     // Internal flag computed only
-    QUEST_IXILIUM_FLAGS_TIMED                = 0x200000,     // Internal flag computed only
+    // WOPCCORE flags for internal use only
+    QUEST_WOPCCORE_FLAGS_DELIVER              = 0x040000,     // Internal flag computed only
+    QUEST_WOPCCORE_FLAGS_SPEAKTO              = 0x080000,     // Internal flag computed only
+    QUEST_WOPCCORE_FLAGS_KILL_OR_CAST         = 0x100000,     // Internal flag computed only
+    QUEST_WOPCCORE_FLAGS_TIMED                = 0x200000,     // Internal flag computed only
 };
 
 struct QuestLocale
@@ -227,7 +226,7 @@ class Quest
         uint32 GetCompleteEmote() const { return CompleteEmote; }
         uint32 GetQuestStartScript() const { return QuestStartScript; }
         uint32 GetQuestCompleteScript() const { return QuestCompleteScript; }
-        bool   IsRepeatable() const { return QuestFlags & QUEST_IXILIUM_FLAGS_REPEATABLE; }
+        bool   IsRepeatable() const { return QuestFlags & QUEST_WOPCCORE_FLAGS_REPEATABLE; }
         bool   IsAutoComplete() const { return QuestMethod ? false : true; }
         uint32 GetFlags() const { return QuestFlags; }
         bool   IsDaily() const { return QuestFlags & (QUEST_FLAGS_DAILY | QUEST_FLAGS_WEEKLY); }

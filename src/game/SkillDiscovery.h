@@ -1,7 +1,6 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +17,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef IXILIUM_SKILLDISCOVERY_H
-#define IXILIUM_SKILLDISCOVERY_H
+#ifndef WOPCCORE_SKILLDISCOVERY_H
+#define WOPCCORE_SKILLDISCOVERY_H
 
 #include "Common.h"
 

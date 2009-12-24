@@ -1,7 +1,6 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +17,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef IXILIUM_UNITAI_H
-#define IXILIUM_UNITAI_H
+#ifndef WOPCCORE_UNITAI_H
+#define WOPCCORE_UNITAI_H
 
 #include "Platform/Define.h"
 #include <list>
@@ -39,7 +38,7 @@ enum SelectAggroTarget
     SELECT_TARGET_FARTHEST,
 };
 
-class IXILIUM_DLL_SPEC UnitAI
+class WOPCCORE_DLL_SPEC UnitAI
 {
     protected:
         Unit * const me;
@@ -84,7 +83,7 @@ class IXILIUM_DLL_SPEC UnitAI
         static void FillAISpellInfo();
 };
 
-class IXILIUM_DLL_SPEC PlayerAI : public UnitAI
+class WOPCCORE_DLL_SPEC PlayerAI : public UnitAI
 {
     protected:
         Player* const me;
@@ -94,7 +93,7 @@ class IXILIUM_DLL_SPEC PlayerAI : public UnitAI
         void OnCharmed(bool apply);
 };
 
-class IXILIUM_DLL_SPEC SimpleCharmedAI : public PlayerAI
+class WOPCCORE_DLL_SPEC SimpleCharmedAI : public PlayerAI
 {
     public:
         void UpdateAI(const uint32 diff);

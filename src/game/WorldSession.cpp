@@ -1,7 +1,6 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -102,7 +101,7 @@ void WorldSession::SendPacket(WorldPacket const* packet)
     if (!m_Socket)
         return;
 
-    #ifdef IXILIUM_DEBUG
+    #ifdef WOPCCORE_DEBUG
 
     // Code for network use statistic
     static uint64 sendPacketCount = 0;
@@ -136,7 +135,7 @@ void WorldSession::SendPacket(WorldPacket const* packet)
         sendLastPacketBytes = packet->wpos();               // wpos is real written size
     }
 
-    #endif                                                  // !IXILIUM_DEBUG
+    #endif                                                  // !WOPCCORE_DEBUG
     uint32 psize = packet->size();
     if (m_Socket->SendPacket (*packet) == -1)
         m_Socket->CloseSocket ();
@@ -524,7 +523,7 @@ void WorldSession::SendNotification(const char *format,...)
 
 void WorldSession::SendNotification(int32 string_id,...)
 {
-    char const* format = GetIxiliumString(string_id);
+    char const* format = GetWOPCCOREString(string_id);
     if (format)
     {
         va_list ap;
@@ -547,9 +546,9 @@ void WorldSession::SendSetPhaseShift(uint32 PhaseShift)
     SendPacket(&data);
 }
 
-const char * WorldSession::GetIxiliumString( int32 entry ) const
+const char * WorldSession::GetWOPCCOREString( int32 entry ) const
 {
-    return sObjectMgr.GetIxiliumString(entry,GetSessionDbLocaleIndex());
+    return sObjectMgr.GetWOPCCOREString(entry,GetSessionDbLocaleIndex());
 }
 
 void WorldSession::Handle_NULL( WorldPacket& recvPacket )

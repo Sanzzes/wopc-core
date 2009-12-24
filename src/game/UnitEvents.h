@@ -1,7 +1,6 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -69,7 +68,7 @@ enum UNIT_EVENT_TYPE
 
 //==============================================================
 
-class IXILIUM_DLL_SPEC UnitBaseEvent
+class WOPCCORE_DLL_SPEC UnitBaseEvent
 {
     private:
         uint32 iType;
@@ -84,7 +83,7 @@ class IXILIUM_DLL_SPEC UnitBaseEvent
 
 //==============================================================
 
-class IXILIUM_DLL_SPEC ThreatRefStatusChangeEvent : public UnitBaseEvent
+class WOPCCORE_DLL_SPEC ThreatRefStatusChangeEvent : public UnitBaseEvent
 {
     private:
         HostileReference* iHostileReference;
@@ -121,7 +120,7 @@ class IXILIUM_DLL_SPEC ThreatRefStatusChangeEvent : public UnitBaseEvent
 
 //==============================================================
 
-class IXILIUM_DLL_SPEC ThreatManagerEvent : public ThreatRefStatusChangeEvent
+class WOPCCORE_DLL_SPEC ThreatManagerEvent : public ThreatRefStatusChangeEvent
 {
     private:
         ThreatContainer* iThreatContainer;

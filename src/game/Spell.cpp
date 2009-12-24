@@ -1,7 +1,6 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -505,7 +504,7 @@ WorldObject* Spell::FindCorpseUsing()
     // non-standard target selection
     float max_range = GetSpellMaxRange(m_spellInfo, false);
 
-    CellPair p(Ixilium::ComputeCellPair(m_caster->GetPositionX(), m_caster->GetPositionY()));
+    CellPair p(WOPCCORE::ComputeCellPair(m_caster->GetPositionX(), m_caster->GetPositionY()));
     Cell cell(p);
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();
@@ -513,15 +512,15 @@ WorldObject* Spell::FindCorpseUsing()
     WorldObject* result = NULL;
 
     T u_check(m_caster, max_range);
-    Ixilium::WorldObjectSearcher<T> searcher(m_caster, result, u_check);
+    WOPCCORE::WorldObjectSearcher<T> searcher(m_caster, result, u_check);
 
-    TypeContainerVisitor<Ixilium::WorldObjectSearcher<T>, GridTypeMapContainer > grid_searcher(searcher);
+    TypeContainerVisitor<WOPCCORE::WorldObjectSearcher<T>, GridTypeMapContainer > grid_searcher(searcher);
     CellLock<GridReadGuard> cell_lock(cell, p);
     cell_lock->Visit(cell_lock, grid_searcher, *m_caster->GetMap(), *m_caster, max_range);
 
     if (!result)
     {
-        TypeContainerVisitor<Ixilium::WorldObjectSearcher<T>, WorldTypeMapContainer > world_searcher(searcher);
+        TypeContainerVisitor<WOPCCORE::WorldObjectSearcher<T>, WorldTypeMapContainer > world_searcher(searcher);
         cell_lock->Visit(cell_lock, world_searcher, *m_caster->GetMap(), *m_caster, max_range);
     }
 
@@ -587,7 +586,7 @@ void Spell::SelectSpellTargets()
                     {
                         case 20577:                         // Cannibalize
                         {
-                            WorldObject* result = FindCorpseUsing<Ixilium::CannibalizeObjectCheck> ();
+                            WorldObject* result = FindCorpseUsing<WOPCCORE::CannibalizeObjectCheck> ();
 
                             if (result)
                             {
@@ -1713,7 +1712,7 @@ void Spell::SearchAreaTarget(std::list<Unit*> &TagUnitMap, float radius, SpellNo
             break;
     }
 
-    Ixilium::SpellNotifierCreatureAndPlayer notifier(m_caster, TagUnitMap, radius, type, TargetType, pos, entry);
+    WOPCCORE::SpellNotifierCreatureAndPlayer notifier(m_caster, TagUnitMap, radius, type, TargetType, pos, entry);
     if ((m_spellInfo->AttributesEx3 & SPELL_ATTR_EX3_PLAYERS_ONLY)
         || TargetType == SPELL_TARGETS_ENTRY && !entry)
         m_caster->GetMap()->VisitWorld(pos->m_positionX, pos->m_positionY, radius, notifier);
@@ -1802,16 +1801,16 @@ WorldObject* Spell::SearchNearbyTarget(float range, SpellTargets TargetType)
         case SPELL_TARGETS_ENEMY:
         {
             Unit *target = NULL;
-            Ixilium::AnyUnfriendlyUnitInObjectRangeCheck u_check(m_caster, m_caster, range);
-            Ixilium::UnitLastSearcher<Ixilium::AnyUnfriendlyUnitInObjectRangeCheck> searcher(m_caster, target, u_check);
+            WOPCCORE::AnyUnfriendlyUnitInObjectRangeCheck u_check(m_caster, m_caster, range);
+            WOPCCORE::UnitLastSearcher<WOPCCORE::AnyUnfriendlyUnitInObjectRangeCheck> searcher(m_caster, target, u_check);
             m_caster->VisitNearbyObject(range, searcher);
             return target;
         }
         case SPELL_TARGETS_ALLY:
         {
             Unit *target = NULL;
-            Ixilium::AnyFriendlyUnitInObjectRangeCheck u_check(m_caster, m_caster, range);
-            Ixilium::UnitLastSearcher<Ixilium::AnyFriendlyUnitInObjectRangeCheck> searcher(m_caster, target, u_check);
+            WOPCCORE::AnyFriendlyUnitInObjectRangeCheck u_check(m_caster, m_caster, range);
+            WOPCCORE::UnitLastSearcher<WOPCCORE::AnyFriendlyUnitInObjectRangeCheck> searcher(m_caster, target, u_check);
             m_caster->VisitNearbyObject(range, searcher);
             return target;
         }
@@ -2289,7 +2288,7 @@ void Spell::SelectEffectTargets(uint32 i, uint32 cur)
                     case 46584: // Raise Dead
                     {
                         m_targets.m_targetMask &= ~TARGET_FLAG_DEST_LOCATION;
-                        if (WorldObject* result = FindCorpseUsing<Ixilium::RaiseDeadObjectCheck> ())
+                        if (WorldObject* result = FindCorpseUsing<WOPCCORE::RaiseDeadObjectCheck> ())
                         {
                             switch(result->GetTypeId())
                             {
@@ -2316,7 +2315,7 @@ void Spell::SelectEffectTargets(uint32 i, uint32 cur)
                         {
                             CleanupTargetList();
 
-                            WorldObject* result = FindCorpseUsing <Ixilium::ExplodeCorpseObjectCheck> ();
+                            WorldObject* result = FindCorpseUsing <WOPCCORE::ExplodeCorpseObjectCheck> ();
 
                             if (result)
                             {
@@ -2395,9 +2394,9 @@ void Spell::SelectEffectTargets(uint32 i, uint32 cur)
                             break;
                     }
 
-                    Ixilium::GameObjectInRangeCheck check(x, y, z, radius + 50);
+                    WOPCCORE::GameObjectInRangeCheck check(x, y, z, radius + 50);
                     std::list<GameObject*> goList;
-                    Ixilium::GameObjectListSearcher<Ixilium::GameObjectInRangeCheck> searcher(m_caster, goList, check);
+                    WOPCCORE::GameObjectListSearcher<WOPCCORE::GameObjectInRangeCheck> searcher(m_caster, goList, check);
                     m_caster->GetMap()->VisitGrid(x, y, radius, searcher);
                     for (std::list<GameObject*>::iterator itr = goList.begin(); itr != goList.end(); ++itr)
                         AddGOTarget(*itr, i);
@@ -2451,7 +2450,7 @@ void Spell::SelectEffectTargets(uint32 i, uint32 cur)
 
                 if (m_spellInfo->Id == 5246) //Intimidating Shout
                     unitList.remove(m_targets.getUnitTarget());
-                Ixilium::RandomResizeList(unitList, m_spellValue->MaxAffectedTargets);
+                WOPCCORE::RandomResizeList(unitList, m_spellValue->MaxAffectedTargets);
             }
             else
             {
@@ -4628,14 +4627,14 @@ SpellCastResult Spell::CheckCast(bool strict)
 
                             if (i_spellST->second.targetEntry)
                             {
-                                CellPair p(Ixilium::ComputeCellPair(m_caster->GetPositionX(), m_caster->GetPositionY()));
+                                CellPair p(WOPCCORE::ComputeCellPair(m_caster->GetPositionX(), m_caster->GetPositionY()));
                                 Cell cell(p);
                                 cell.data.Part.reserved = ALL_DISTRICT;
 
-                                Ixilium::NearestGameObjectEntryInObjectRangeCheck go_check(*m_caster,i_spellST->second.targetEntry,range);
-                                Ixilium::GameObjectLastSearcher<Ixilium::NearestGameObjectEntryInObjectRangeCheck> checker(m_caster, p_GameObject,go_check);
+                                WOPCCORE::NearestGameObjectEntryInObjectRangeCheck go_check(*m_caster,i_spellST->second.targetEntry,range);
+                                WOPCCORE::GameObjectLastSearcher<WOPCCORE::NearestGameObjectEntryInObjectRangeCheck> checker(m_caster, p_GameObject,go_check);
 
-                                TypeContainerVisitor<Ixilium::GameObjectLastSearcher<Ixilium::NearestGameObjectEntryInObjectRangeCheck>, GridTypeMapContainer > object_checker(checker);
+                                TypeContainerVisitor<WOPCCORE::GameObjectLastSearcher<WOPCCORE::NearestGameObjectEntryInObjectRangeCheck>, GridTypeMapContainer > object_checker(checker);
                                 CellLock<GridReadGuard> cell_lock(cell, p);
                                 cell_lock->Visit(cell_lock, object_checker, *m_caster->GetMap());
 
@@ -4665,15 +4664,15 @@ SpellCastResult Spell::CheckCast(bool strict)
                         {
                             Creature *p_Creature = NULL;
 
-                            CellPair p(Ixilium::ComputeCellPair(m_caster->GetPositionX(), m_caster->GetPositionY()));
+                            CellPair p(WOPCCORE::ComputeCellPair(m_caster->GetPositionX(), m_caster->GetPositionY()));
                             Cell cell(p);
                             cell.data.Part.reserved = ALL_DISTRICT;
                             cell.SetNoCreate();             // Really don't know what is that???
 
-                            Ixilium::NearestCreatureEntryWithLiveStateInObjectRangeCheck u_check(*m_caster,i_spellST->second.targetEntry,i_spellST->second.type!=SPELL_TARGET_TYPE_DEAD,range);
-                            Ixilium::CreatureLastSearcher<Ixilium::NearestCreatureEntryWithLiveStateInObjectRangeCheck> searcher(m_caster, p_Creature, u_check);
+                            WOPCCORE::NearestCreatureEntryWithLiveStateInObjectRangeCheck u_check(*m_caster,i_spellST->second.targetEntry,i_spellST->second.type!=SPELL_TARGET_TYPE_DEAD,range);
+                            WOPCCORE::CreatureLastSearcher<WOPCCORE::NearestCreatureEntryWithLiveStateInObjectRangeCheck> searcher(m_caster, p_Creature, u_check);
 
-                            TypeContainerVisitor<Ixilium::CreatureLastSearcher<Ixilium::NearestCreatureEntryWithLiveStateInObjectRangeCheck>, GridTypeMapContainer >  grid_creature_searcher(searcher);
+                            TypeContainerVisitor<WOPCCORE::CreatureLastSearcher<WOPCCORE::NearestCreatureEntryWithLiveStateInObjectRangeCheck>, GridTypeMapContainer >  grid_creature_searcher(searcher);
 
                             CellLock<GridReadGuard> cell_lock(cell, p);
                             cell_lock->Visit(cell_lock, grid_creature_searcher, *m_caster->GetMap(), *m_caster, range);
@@ -5679,15 +5678,15 @@ SpellCastResult Spell::CheckItems()
     // check spell focus object
     if (m_spellInfo->RequiresSpellFocus)
     {
-        CellPair p(Ixilium::ComputeCellPair(m_caster->GetPositionX(), m_caster->GetPositionY()));
+        CellPair p(WOPCCORE::ComputeCellPair(m_caster->GetPositionX(), m_caster->GetPositionY()));
         Cell cell(p);
         cell.data.Part.reserved = ALL_DISTRICT;
 
         GameObject* ok = NULL;
-        Ixilium::GameObjectFocusCheck go_check(m_caster,m_spellInfo->RequiresSpellFocus);
-        Ixilium::GameObjectSearcher<Ixilium::GameObjectFocusCheck> checker(m_caster, ok, go_check);
+        WOPCCORE::GameObjectFocusCheck go_check(m_caster,m_spellInfo->RequiresSpellFocus);
+        WOPCCORE::GameObjectSearcher<WOPCCORE::GameObjectFocusCheck> checker(m_caster, ok, go_check);
 
-        TypeContainerVisitor<Ixilium::GameObjectSearcher<Ixilium::GameObjectFocusCheck>, GridTypeMapContainer > object_checker(checker);
+        TypeContainerVisitor<WOPCCORE::GameObjectSearcher<WOPCCORE::GameObjectFocusCheck>, GridTypeMapContainer > object_checker(checker);
         CellLock<GridReadGuard> cell_lock(cell, p);
         Map& map = *m_caster->GetMap();
         cell_lock->Visit(cell_lock, object_checker, map, *m_caster, map.GetVisibilityDistance());

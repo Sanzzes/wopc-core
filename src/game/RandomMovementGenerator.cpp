@@ -1,7 +1,6 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -73,8 +72,8 @@ RandomMovementGenerator<Creature>::_setRandomLocation(Creature &creature)
     ny = Y + distanceY;
 
     // prevent invalid coordinates generation
-    Ixilium::NormalizeMapCoord(nx);
-    Ixilium::NormalizeMapCoord(ny);
+    WOPCCORE::NormalizeMapCoord(nx);
+    WOPCCORE::NormalizeMapCoord(ny);
 
     dist = (nx - X)*(nx - X) + (ny - Y)*(ny - Y);
 

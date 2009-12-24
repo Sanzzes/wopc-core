@@ -1,7 +1,6 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -109,7 +108,7 @@ enum PartyResult
 };
 
 /// Player session in the World
-class IXILIUM_DLL_SPEC WorldSession
+class WOPCCORE_DLL_SPEC WorldSession
 {
     friend class CharacterHandler;
     public:
@@ -268,7 +267,7 @@ class IXILIUM_DLL_SPEC WorldSession
         // Locales
         LocaleConstant GetSessionDbcLocale() const { return m_sessionDbcLocale; }
         int GetSessionDbLocaleIndex() const { return m_sessionDbLocaleIndex; }
-        const char *GetIxiliumString(int32 entry) const;
+        const char *GetWOPCCOREString(int32 entry) const;
 
         uint32 GetLatency() const { return m_latency; }
         void SetLatency(uint32 latency) { m_latency = latency; }

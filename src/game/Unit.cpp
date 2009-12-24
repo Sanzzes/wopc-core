@@ -1,7 +1,6 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13551,8 +13550,8 @@ void Unit::UpdateReactives( uint32 p_time )
 Unit* Unit::SelectNearbyTarget(float dist) const
 {
     std::list<Unit *> targets;
-    Ixilium::AnyUnfriendlyUnitInObjectRangeCheck u_check(this, this, dist);
-    Ixilium::UnitListSearcher<Ixilium::AnyUnfriendlyUnitInObjectRangeCheck> searcher(this, targets, u_check);
+    WOPCCORE::AnyUnfriendlyUnitInObjectRangeCheck u_check(this, this, dist);
+    WOPCCORE::UnitListSearcher<WOPCCORE::AnyUnfriendlyUnitInObjectRangeCheck> searcher(this, targets, u_check);
     VisitNearbyObject(dist, searcher);
 
     // remove current target
@@ -14068,7 +14067,7 @@ bool Unit::HandleAuraRaidProcFromCharge(AuraEffect* triggeredByAura)
 
     return true;
 }
-/*-----------------------IXILIUM------------------------------*/
+/*-----------------------WOPCCORE------------------------------*/
 
 void Unit::SetToNotify()
 {

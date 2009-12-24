@@ -1,7 +1,7 @@
 /*
- * Copyright (C) 2008-2009 Ixilium <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2009 TRINITY <http://www.trinitycore.org/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCORE <http://www.worldofprivatecraft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -476,15 +476,15 @@ void OutdoorPvPWG::ProcessEvent(GameObject *obj, uint32 eventId)
             switch(state->type)
             {
                 case BUILDING_WORKSHOP:
-                    msgStr = fmtstring(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_BG_WG_WORKSHOP_DAMAGED), msgStr.c_str(), sObjectMgr.GetIxiliumStringForDBCLocale(getDefenderTeam() == TEAM_ALLIANCE ? LANG_BG_ALLY : LANG_BG_HORDE));
+                    msgStr = fmtstring(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_BG_WG_WORKSHOP_DAMAGED), msgStr.c_str(), sObjectMgr.GetWOPCCOREStringForDBCLocale(getDefenderTeam() == TEAM_ALLIANCE ? LANG_BG_ALLY : LANG_BG_HORDE));
                     sWorld.SendZoneText(ZONE_WINTERGRASP, msgStr.c_str());
                     break;
                 case BUILDING_WALL:
-                    sWorld.SendZoneText(ZONE_WINTERGRASP, sObjectMgr.GetIxiliumStringForDBCLocale(LANG_BG_WG_FORTRESS_UNDER_ATTACK));
+                    sWorld.SendZoneText(ZONE_WINTERGRASP, sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_BG_WG_FORTRESS_UNDER_ATTACK));
                     break;
                 case BUILDING_TOWER:
                     ++m_towerDamagedCount[state->GetTeam()];
-                    msgStr = fmtstring(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_BG_WG_TOWER_DAMAGED), msgStr.c_str());
+                    msgStr = fmtstring(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_BG_WG_TOWER_DAMAGED), msgStr.c_str());
                     sWorld.SendZoneText(ZONE_WINTERGRASP, msgStr.c_str());
                     break;
             }
@@ -497,11 +497,11 @@ void OutdoorPvPWG::ProcessEvent(GameObject *obj, uint32 eventId)
             {
                 case BUILDING_WORKSHOP:
                     ModifyWorkshopCount(state->GetTeam(), false);
-                    msgStr = fmtstring(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_BG_WG_WORKSHOP_DESTROYED), msgStr.c_str(), sObjectMgr.GetIxiliumStringForDBCLocale(getDefenderTeam() == TEAM_ALLIANCE ? LANG_BG_ALLY : LANG_BG_HORDE));
+                    msgStr = fmtstring(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_BG_WG_WORKSHOP_DESTROYED), msgStr.c_str(), sObjectMgr.GetWOPCCOREStringForDBCLocale(getDefenderTeam() == TEAM_ALLIANCE ? LANG_BG_ALLY : LANG_BG_HORDE));
                     sWorld.SendZoneText(ZONE_WINTERGRASP, msgStr.c_str());
                     break;
                 case BUILDING_WALL:
-                    sWorld.SendZoneText(ZONE_WINTERGRASP, sObjectMgr.GetIxiliumStringForDBCLocale(LANG_BG_WG_FORTRESS_UNDER_ATTACK));
+                    sWorld.SendZoneText(ZONE_WINTERGRASP, sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_BG_WG_FORTRESS_UNDER_ATTACK));
                     break;
                 case BUILDING_TOWER:
                     --m_towerDamagedCount[state->GetTeam()];
@@ -533,7 +533,7 @@ void OutdoorPvPWG::ProcessEvent(GameObject *obj, uint32 eventId)
                                 m_timer = m_timer - 600000; // - 10 mins
                         }
                     }
-                    msgStr = fmtstring(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_BG_WG_TOWER_DESTROYED), msgStr.c_str());
+                    msgStr = fmtstring(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_BG_WG_TOWER_DESTROYED), msgStr.c_str());
                     sWorld.SendZoneText(ZONE_WINTERGRASP, msgStr.c_str());
                     break;
             }
@@ -1322,13 +1322,13 @@ bool OutdoorPvPWG::Update(uint32 diff)
         if (isWarTime())
         {
             if (m_timer != 1) // 1 = forceStopBattle
-                sWorld.SendZoneText(ZONE_WINTERGRASP, fmtstring(sObjectMgr.GetIxiliumStringForDBCLocale(entry), sObjectMgr.GetIxiliumStringForDBCLocale(getDefenderTeam() == TEAM_ALLIANCE ? LANG_BG_ALLY : LANG_BG_HORDE)));
+                sWorld.SendZoneText(ZONE_WINTERGRASP, fmtstring(sObjectMgr.GetWOPCCOREStringForDBCLocale(entry), sObjectMgr.GetWOPCCOREStringForDBCLocale(getDefenderTeam() == TEAM_ALLIANCE ? LANG_BG_ALLY : LANG_BG_HORDE)));
             EndBattle();
         }
         else
         {
             if (m_timer != 1) // 1 = forceStartBattle
-                sWorld.SendZoneText(ZONE_WINTERGRASP, sObjectMgr.GetIxiliumStringForDBCLocale(LANG_BG_WG_BATTLE_STARTS));
+                sWorld.SendZoneText(ZONE_WINTERGRASP, sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_BG_WG_BATTLE_STARTS));
             StartBattle();
         }
 
@@ -1349,7 +1349,7 @@ void OutdoorPvPWG::forceStartBattle()
     if (m_timer != 1)
     {
         m_timer = 1;
-        sWorld.SendZoneText(ZONE_WINTERGRASP, sObjectMgr.GetIxiliumStringForDBCLocale(LANG_BG_WG_BATTLE_FORCE_START));
+        sWorld.SendZoneText(ZONE_WINTERGRASP, sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_BG_WG_BATTLE_FORCE_START));
     }
 }
 
@@ -1362,7 +1362,7 @@ void OutdoorPvPWG::forceStopBattle()
     if (m_timer != 1)
     {
         m_timer = 1;
-        sWorld.SendZoneText(ZONE_WINTERGRASP, sObjectMgr.GetIxiliumStringForDBCLocale(LANG_BG_WG_BATTLE_FORCE_STOP));
+        sWorld.SendZoneText(ZONE_WINTERGRASP, sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_BG_WG_BATTLE_FORCE_STOP));
     }
 }
 
@@ -1370,7 +1370,7 @@ void OutdoorPvPWG::forceChangeTeam()
 {
     m_changeDefender = true;
     m_timer = 1;
-    sWorld.SendZoneText(ZONE_WINTERGRASP, fmtstring(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_BG_WG_SWITCH_FACTION), sObjectMgr.GetIxiliumStringForDBCLocale(getAttackerTeam() == TEAM_ALLIANCE ? LANG_BG_ALLY : LANG_BG_HORDE)));
+    sWorld.SendZoneText(ZONE_WINTERGRASP, fmtstring(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_BG_WG_SWITCH_FACTION), sObjectMgr.GetWOPCCOREStringForDBCLocale(getAttackerTeam() == TEAM_ALLIANCE ? LANG_BG_ALLY : LANG_BG_HORDE)));
     if (isWarTime())
         forceStartBattle();
     else

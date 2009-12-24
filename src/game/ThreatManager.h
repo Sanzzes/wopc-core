@@ -1,7 +1,6 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -47,7 +46,7 @@ class ThreatCalcHelper
 };
 
 //==============================================================
-class IXILIUM_DLL_SPEC HostileReference : public Reference<Unit, ThreatManager>
+class WOPCCORE_DLL_SPEC HostileReference : public Reference<Unit, ThreatManager>
 {
     public:
         HostileReference(Unit* pUnit, ThreatManager *pThreatManager, float fThreat);
@@ -142,7 +141,7 @@ class IXILIUM_DLL_SPEC HostileReference : public Reference<Unit, ThreatManager>
 //==============================================================
 class ThreatManager;
 
-class IXILIUM_DLL_SPEC ThreatContainer
+class WOPCCORE_DLL_SPEC ThreatContainer
 {
     private:
         std::list<HostileReference*> iThreatList;
@@ -180,7 +179,7 @@ class IXILIUM_DLL_SPEC ThreatContainer
 
 //=================================================
 
-class IXILIUM_DLL_SPEC ThreatManager
+class WOPCCORE_DLL_SPEC ThreatManager
 {
     public:
         friend class HostileReference;

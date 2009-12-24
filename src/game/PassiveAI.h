@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCORE <http://www.worldofprivatecraft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,13 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef IXILIUM_PASSIVEAI_H
-#define IXILIUM_PASSIVEAI_H
+#ifndef WOPCCORE_PASSIVEAI_H
+#define WOPCCORE_PASSIVEAI_H
 
 #include "CreatureAI.h"
 //#include "CreatureAIImpl.h"
 
-class IXILIUM_DLL_SPEC PassiveAI : public CreatureAI
+class WOPCCORE_DLL_SPEC PassiveAI : public CreatureAI
 {
     public:
         explicit PassiveAI(Creature *c);
@@ -52,7 +52,7 @@ class SCRIPTS_DLL_DECL PossessedAI : public CreatureAI
         static int Permissible(const Creature *) { return PERMIT_BASE_IDLE;  }
 };
 
-class IXILIUM_DLL_SPEC NullCreatureAI : public CreatureAI
+class WOPCCORE_DLL_SPEC NullCreatureAI : public CreatureAI
 {
     public:
         explicit NullCreatureAI(Creature *c);
@@ -75,7 +75,7 @@ class SCRIPTS_DLL_DECL CritterAI : public PassiveAI
         void EnterEvadeMode();
 };
 
-class IXILIUM_DLL_SPEC TriggerAI : public NullCreatureAI
+class WOPCCORE_DLL_SPEC TriggerAI : public NullCreatureAI
 {
     public:
         explicit TriggerAI(Creature *c) : NullCreatureAI(c) {}

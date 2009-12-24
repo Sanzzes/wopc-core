@@ -1,7 +1,6 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -273,7 +272,7 @@ void WorldSession::HandlePetitionShowSignOpcode(WorldPacket & recv_data)
     WorldPacket data(SMSG_PETITION_SHOW_SIGNATURES, (8+8+4+1+signs*12));
     data << petitionguid;                                   // petition guid
     data << _player->GetGUID();                             // owner guid
-    data << petitionguid_low;                               // guild guid (in Ixilium always same as GUID_LOPART(petitionguid)
+    data << petitionguid_low;                               // guild guid (in WOPCCORE always same as GUID_LOPART(petitionguid)
     data << signs;                                          // sign's count
 
     for (uint8 i = 1; i <= signs; ++i)
@@ -297,7 +296,7 @@ void WorldSession::HandlePetitionQueryOpcode(WorldPacket & recv_data)
 
     uint32 guildguid;
     uint64 petitionguid;
-    recv_data >> guildguid;                                 // in Ixilium always same as GUID_LOPART(petitionguid)
+    recv_data >> guildguid;                                 // in WOPCCORE always same as GUID_LOPART(petitionguid)
     recv_data >> petitionguid;                              // petition guid
     sLog.outDebug("CMSG_PETITION_QUERY Petition GUID %u Guild GUID %u", GUID_LOPART(petitionguid), guildguid);
 
@@ -333,7 +332,7 @@ void WorldSession::SendPetitionQueryOpcode(uint64 petitionguid)
     }
 
     WorldPacket data(SMSG_PETITION_QUERY_RESPONSE, (4+8+name.size()+1+1+4*12+2+10));
-    data << uint32(GUID_LOPART(petitionguid));              // guild/team guid (in Ixilium always same as GUID_LOPART(petition guid)
+    data << uint32(GUID_LOPART(petitionguid));              // guild/team guid (in WOPCCORE always same as GUID_LOPART(petition guid)
     data << uint64(ownerguid);                              // charter owner guid
     data << name;                                           // name (guild/arena team)
     data << uint8(0);                                       // some string
@@ -680,7 +679,7 @@ void WorldSession::HandleOfferPetitionOpcode(WorldPacket & recv_data)
     WorldPacket data(SMSG_PETITION_SHOW_SIGNATURES, (8+8+4+signs+signs*12));
     data << petitionguid;                                   // petition guid
     data << _player->GetGUID();                             // owner guid
-    data << GUID_LOPART(petitionguid);                      // guild guid (in Ixilium always same as GUID_LOPART(petition guid)
+    data << GUID_LOPART(petitionguid);                      // guild guid (in WOPCCORE always same as GUID_LOPART(petition guid)
     data << signs;                                          // sign's count
 
     for (uint8 i = 1; i <= signs; ++i)

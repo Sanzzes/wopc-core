@@ -1,7 +1,6 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -753,15 +752,15 @@ void AreaAuraEffect::Update(uint32 diff)
                     break;
                 case AREA_AURA_FRIEND:
                 {
-                    Ixilium::AnyFriendlyUnitInObjectRangeCheck u_check(source, caster, m_radius);
-                    Ixilium::UnitListSearcher<Ixilium::AnyFriendlyUnitInObjectRangeCheck> searcher(source, targets, u_check);
+                    WOPCCORE::AnyFriendlyUnitInObjectRangeCheck u_check(source, caster, m_radius);
+                    WOPCCORE::UnitListSearcher<WOPCCORE::AnyFriendlyUnitInObjectRangeCheck> searcher(source, targets, u_check);
                     source->VisitNearbyObject(m_radius, searcher);
                     break;
                 }
                 case AREA_AURA_ENEMY:
                 {
-                    Ixilium::AnyAoETargetUnitInObjectRangeCheck u_check(source, caster, m_radius); // No GetCharmer in searcher
-                    Ixilium::UnitListSearcher<Ixilium::AnyAoETargetUnitInObjectRangeCheck> searcher(source, targets, u_check);
+                    WOPCCORE::AnyAoETargetUnitInObjectRangeCheck u_check(source, caster, m_radius); // No GetCharmer in searcher
+                    WOPCCORE::UnitListSearcher<WOPCCORE::AnyAoETargetUnitInObjectRangeCheck> searcher(source, targets, u_check);
                     source->VisitNearbyObject(m_radius, searcher);
                     break;
                 }
@@ -3956,7 +3955,7 @@ void AuraEffect::HandleChannelDeathItem(bool apply, bool Real, bool /*changeAmou
 
         // Soul Shard only from non-grey units
         if ( spellInfo->EffectItemType[m_effIndex] == 6265 &&
-            (victim->getLevel() <= Ixilium::XP::GetGrayLevel(caster->getLevel()) ||
+            (victim->getLevel() <= WOPCCORE::XP::GetGrayLevel(caster->getLevel()) ||
              victim->GetTypeId()==TYPEID_UNIT && !((Player*)caster)->isAllowedToLoot((Creature*)victim)) )
             return;
         //Adding items
@@ -4072,8 +4071,8 @@ void AuraEffect::HandleFeignDeath(bool apply, bool Real, bool /*changeAmount*/)
         */
 
         std::list<Unit*> targets;
-        Ixilium::AnyUnfriendlyUnitInObjectRangeCheck u_check(m_target, m_target, m_target->GetMap()->GetVisibilityDistance());
-        Ixilium::UnitListSearcher<Ixilium::AnyUnfriendlyUnitInObjectRangeCheck> searcher(m_target, targets, u_check);
+        WOPCCORE::AnyUnfriendlyUnitInObjectRangeCheck u_check(m_target, m_target, m_target->GetMap()->GetVisibilityDistance());
+        WOPCCORE::UnitListSearcher<WOPCCORE::AnyUnfriendlyUnitInObjectRangeCheck> searcher(m_target, targets, u_check);
         m_target->VisitNearbyObject(m_target->GetMap()->GetVisibilityDistance(), searcher);
         for (std::list<Unit*>::iterator iter = targets.begin(); iter != targets.end(); ++iter)
         {
@@ -6746,15 +6745,15 @@ void AuraEffect::PeriodicDummyTick()
                         // eff_radius == 0
                         float radius = GetSpellMaxRange(spell, false);
 
-                        CellPair p(Ixilium::ComputeCellPair(m_target->GetPositionX(),m_target->GetPositionY()));
+                        CellPair p(WOPCCORE::ComputeCellPair(m_target->GetPositionX(),m_target->GetPositionY()));
                         Cell cell(p);
                         cell.data.Part.reserved = ALL_DISTRICT;
 
-                        Ixilium::AnyUnfriendlyVisibleUnitInObjectRangeCheck u_check(m_target, m_target, radius);
-                        Ixilium::UnitListSearcher<Ixilium::AnyUnfriendlyVisibleUnitInObjectRangeCheck> checker(m_target, targets, u_check);
+                        WOPCCORE::AnyUnfriendlyVisibleUnitInObjectRangeCheck u_check(m_target, m_target, radius);
+                        WOPCCORE::UnitListSearcher<WOPCCORE::AnyUnfriendlyVisibleUnitInObjectRangeCheck> checker(m_target, targets, u_check);
 
-                        TypeContainerVisitor<Ixilium::UnitListSearcher<Ixilium::AnyUnfriendlyVisibleUnitInObjectRangeCheck>, GridTypeMapContainer > grid_object_checker(checker);
-                        TypeContainerVisitor<Ixilium::UnitListSearcher<Ixilium::AnyUnfriendlyVisibleUnitInObjectRangeCheck>, WorldTypeMapContainer > world_object_checker(checker);
+                        TypeContainerVisitor<WOPCCORE::UnitListSearcher<WOPCCORE::AnyUnfriendlyVisibleUnitInObjectRangeCheck>, GridTypeMapContainer > grid_object_checker(checker);
+                        TypeContainerVisitor<WOPCCORE::UnitListSearcher<WOPCCORE::AnyUnfriendlyVisibleUnitInObjectRangeCheck>, WorldTypeMapContainer > world_object_checker(checker);
 
                         CellLock<GridReadGuard> cell_lock(cell, p);
 

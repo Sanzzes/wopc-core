@@ -1,7 +1,6 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1136,7 +1135,7 @@ void Player::SetDrunkValue(uint16 newDrunkenValue, uint32 itemId)
 
 void Player::Update( uint32 p_time )
 {
-    // Until Ixilium is thread safe, anything that could result in a
+    // Until WOPCCORE is thread safe, anything that could result in a
     // map, zone, or area change in this Update should be preceded by:
     // #pragma omp critical(UpdateThreadSafety)
     // This will only allow one thread at a time to process a "UpdateThreadSafety" block.
@@ -2099,7 +2098,7 @@ void Player::Regenerate(Powers power)
                 // no blizzlike
                 ManaIncreaseRate = sWorld.getRate(RATE_POWER_MANA) * (2.066f - (getLevel() * 0.066f));
 
-			if (recentCast) // Ixilium Updates Mana in intervals of 2s, which is correct
+			if (recentCast) // WOPCCORE Updates Mana in intervals of 2s, which is correct
                 addvalue = GetFloatValue(UNIT_FIELD_POWER_REGEN_INTERRUPTED_FLAT_MODIFIER) *  ManaIncreaseRate * 0.001f * m_regenTimer;
 			else
                 addvalue = GetFloatValue(UNIT_FIELD_POWER_REGEN_FLAT_MODIFIER) * ManaIncreaseRate * 0.001f * m_regenTimer;
@@ -3601,7 +3600,7 @@ void Player::removeSpell(uint32 spell_id, bool disabled, bool learn_low_rank)
         // if talent then lesser rank also talent and need learn
         if (talentCosts)
         {
-            // I cannot see why ixiliumemu has these lines.
+            // I cannot see why WOPCCOREemu has these lines.
             //if (learn_low_rank)
             //    learnSpell (prev_id,false);
         }
@@ -5619,7 +5618,7 @@ void Player::UpdateWeaponSkill (WeaponAttackType attType)
 void Player::UpdateCombatSkills(Unit *pVictim, WeaponAttackType attType, bool defence)
 {
     uint8 plevel = getLevel();                              // if defense than pVictim == attacker
-    uint8 greylevel = Ixilium::XP::GetGrayLevel(plevel);
+    uint8 greylevel = WOPCCORE::XP::GetGrayLevel(plevel);
     uint8 moblevel = pVictim->getLevelForTarget(this);
     if (moblevel < greylevel)
         return;
@@ -6053,7 +6052,7 @@ void Player::removeActionButton(uint8 button)
 bool Player::SetPosition(float x, float y, float z, float orientation, bool teleport)
 {
     // prevent crash when a bad coord is sent by the client
-    if (!Ixilium::IsValidMapCoord(x,y,z,orientation))
+    if (!WOPCCORE::IsValidMapCoord(x,y,z,orientation))
     {
         sLog.outDebug("Player::SetPosition(%f, %f, %f, %f, %d) .. bad coordinates for player %d!",x,y,z,orientation,teleport,GetGUIDLow());
         return false;
@@ -6113,7 +6112,7 @@ void Player::SendMessageToSet(WorldPacket *data, bool self)
     // we use World::GetMaxVisibleDistance() because i cannot see why not use a distance
     // update: replaced by GetMap()->GetVisibilityDistance()
 
-    Ixilium::MessageDistDeliverer notifier(this, data, GetMap()->GetVisibilityDistance());
+    WOPCCORE::MessageDistDeliverer notifier(this, data, GetMap()->GetVisibilityDistance());
     VisitNearbyWorldObject(GetMap()->GetVisibilityDistance(), notifier);
 }
 
@@ -6122,7 +6121,7 @@ void Player::SendMessageToSetInRange(WorldPacket *data, float dist, bool self)
     if (self)
         GetSession()->SendPacket(data);
 
-    Ixilium::MessageDistDeliverer notifier(this, data, dist);
+    WOPCCORE::MessageDistDeliverer notifier(this, data, dist);
     VisitNearbyWorldObject(dist, notifier);
 }
 
@@ -6131,7 +6130,7 @@ void Player::SendMessageToSetInRange(WorldPacket *data, float dist, bool self, b
     if (self)
         GetSession()->SendPacket(data);
 
-    Ixilium::MessageDistDeliverer notifier(this, data, dist, own_team_only);
+    WOPCCORE::MessageDistDeliverer notifier(this, data, dist, own_team_only);
     VisitNearbyWorldObject(dist, notifier);
 }
 
@@ -6283,7 +6282,7 @@ int32 Player::CalculateReputationGain(uint32 creatureOrQuestLevel, int32 rep, in
 
     float rate = for_quest ? sWorld.getRate(RATE_REPUTATION_LOWLEVEL_QUEST) : sWorld.getRate(RATE_REPUTATION_LOWLEVEL_KILL);
 
-    if (rate != 1.0f && creatureOrQuestLevel <= Ixilium::XP::GetGrayLevel(getLevel()))
+    if (rate != 1.0f && creatureOrQuestLevel <= WOPCCORE::XP::GetGrayLevel(getLevel()))
         percent *= rate;
 
     float repMod = GetTotalAuraModifier(SPELL_AURA_MOD_REPUTATION_GAIN);
@@ -6529,7 +6528,7 @@ bool Player::RewardHonor(Unit *uVictim, uint32 groupsize, float honor, bool pvpt
                     victim_guid = 0;                        // Don't show HK: <rank> message, only log.
             }
 
-            k_grey = Ixilium::XP::GetGrayLevel(k_level);
+            k_grey = WOPCCORE::XP::GetGrayLevel(k_level);
 
             if (v_level<=k_grey)
                 return false;
@@ -13475,7 +13474,7 @@ bool Player::CanCompleteQuest( uint32 quest_id )
         if ( q_status.m_status == QUEST_STATUS_INCOMPLETE )
         {
 
-            if ( qInfo->HasFlag( QUEST_IXILIUM_FLAGS_DELIVER ) )
+            if ( qInfo->HasFlag( QUEST_WOPCCORE_FLAGS_DELIVER ) )
             {
                 for (uint8 i = 0; i < QUEST_ITEM_OBJECTIVES_COUNT; i++)
                 {
@@ -13484,7 +13483,7 @@ bool Player::CanCompleteQuest( uint32 quest_id )
                 }
             }
 
-            if ( qInfo->HasFlag(QUEST_IXILIUM_FLAGS_KILL_OR_CAST | QUEST_IXILIUM_FLAGS_SPEAKTO) )
+            if ( qInfo->HasFlag(QUEST_WOPCCORE_FLAGS_KILL_OR_CAST | QUEST_WOPCCORE_FLAGS_SPEAKTO) )
             {
                 for (uint8 i = 0; i < QUEST_OBJECTIVES_COUNT; i++)
                 {
@@ -13496,10 +13495,10 @@ bool Player::CanCompleteQuest( uint32 quest_id )
                 }
             }
 
-            if ( qInfo->HasFlag( QUEST_IXILIUM_FLAGS_EXPLORATION_OR_EVENT ) && !q_status.m_explored )
+            if ( qInfo->HasFlag( QUEST_WOPCCORE_FLAGS_EXPLORATION_OR_EVENT ) && !q_status.m_explored )
                 return false;
 
-            if ( qInfo->HasFlag( QUEST_IXILIUM_FLAGS_TIMED ) && q_status.m_timer == 0 )
+            if ( qInfo->HasFlag( QUEST_WOPCCORE_FLAGS_TIMED ) && q_status.m_timer == 0 )
                 return false;
 
             if ( qInfo->GetRewOrReqMoney() < 0 )
@@ -13526,7 +13525,7 @@ bool Player::CanCompleteRepeatableQuest( Quest const *pQuest )
     if ( !CanTakeQuest(pQuest, false) )
         return false;
 
-    if (pQuest->HasFlag( QUEST_IXILIUM_FLAGS_DELIVER) )
+    if (pQuest->HasFlag( QUEST_WOPCCORE_FLAGS_DELIVER) )
         for (uint8 i = 0; i < QUEST_ITEM_OBJECTIVES_COUNT; i++)
             if ( pQuest->ReqItemId[i] && pQuest->ReqItemCount[i] && !HasItemCount(pQuest->ReqItemId[i], pQuest->ReqItemCount[i]) )
                 return false;
@@ -13552,7 +13551,7 @@ bool Player::CanRewardQuest( Quest const *pQuest, bool msg )
         return false;
 
     // prevent receive reward with quest items in bank
-    if ( pQuest->HasFlag( QUEST_IXILIUM_FLAGS_DELIVER ) )
+    if ( pQuest->HasFlag( QUEST_WOPCCORE_FLAGS_DELIVER ) )
     {
         for (uint8 i = 0; i < QUEST_ITEM_OBJECTIVES_COUNT; i++)
         {
@@ -13634,13 +13633,13 @@ void Player::AddQuest( Quest const *pQuest, Object *questGiver )
     questStatusData.m_status = QUEST_STATUS_INCOMPLETE;
     questStatusData.m_explored = false;
 
-    if (pQuest->HasFlag( QUEST_IXILIUM_FLAGS_DELIVER))
+    if (pQuest->HasFlag( QUEST_WOPCCORE_FLAGS_DELIVER))
     {
         for (uint8 i = 0; i < QUEST_ITEM_OBJECTIVES_COUNT; ++i)
             questStatusData.m_itemcount[i] = 0;
     }
 
-    if ( pQuest->HasFlag(QUEST_IXILIUM_FLAGS_KILL_OR_CAST | QUEST_IXILIUM_FLAGS_SPEAKTO) )
+    if ( pQuest->HasFlag(QUEST_WOPCCORE_FLAGS_KILL_OR_CAST | QUEST_WOPCCORE_FLAGS_SPEAKTO) )
     {
         for (uint8 i = 0; i < QUEST_OBJECTIVES_COUNT; ++i)
             questStatusData.m_creatureOrGOcount[i] = 0;
@@ -13654,7 +13653,7 @@ void Player::AddQuest( Quest const *pQuest, Object *questGiver )
             GetReputationMgr().SetVisible(factionEntry);
 
     uint32 qtime = 0;
-    if ( pQuest->HasFlag( QUEST_IXILIUM_FLAGS_TIMED ) )
+    if ( pQuest->HasFlag( QUEST_WOPCCORE_FLAGS_TIMED ) )
     {
         uint32 limittime = pQuest->GetLimitTime();
 
@@ -13821,7 +13820,7 @@ void Player::RewardQuest( Quest const *pQuest, uint32 reward, Object* questGiver
 
     // honor reward
     if (pQuest->GetRewHonorableKills())
-        RewardHonor(NULL, 0, Ixilium::Honor::hk_honor_at_level(getLevel(), pQuest->GetRewHonorableKills()));
+        RewardHonor(NULL, 0, WOPCCORE::Honor::hk_honor_at_level(getLevel(), pQuest->GetRewHonorableKills()));
 
     // title reward
     if (pQuest->GetCharTitleId())
@@ -13914,7 +13913,7 @@ void Player::FailQuest(uint32 questId)
             SetQuestSlotState(log_slot, QUEST_STATE_FAIL);
         }
 
-        if (pQuest->HasFlag(QUEST_IXILIUM_FLAGS_TIMED))
+        if (pQuest->HasFlag(QUEST_WOPCCORE_FLAGS_TIMED))
         {
             QuestStatusData& q_status = mQuestStatus[questId];
 
@@ -14156,7 +14155,7 @@ bool Player::SatisfyQuestStatus(Quest const* qInfo, bool msg)
 
 bool Player::SatisfyQuestTimed(Quest const* qInfo, bool msg)
 {
-    if (!m_timedquests.empty() && qInfo->HasFlag(QUEST_IXILIUM_FLAGS_TIMED))
+    if (!m_timedquests.empty() && qInfo->HasFlag(QUEST_WOPCCORE_FLAGS_TIMED))
     {
         if (msg)
             SendCanTakeQuestResponse(INVALIDREASON_QUEST_ONLY_ONE_TIMED);
@@ -14398,7 +14397,7 @@ void Player::SetQuestStatus(uint32 quest_id, QuestStatus status)
     UpdateForQuestWorldObjects();
 }
 
-// not used in Ixilium, but used in scripting code
+// not used in WOPCCORE, but used in scripting code
 uint32 Player::GetReqKillOrCastCurrentCount(uint32 quest_id, int32 entry)
 {
     Quest const* qInfo = sObjectMgr.GetQuestTemplate(quest_id);
@@ -14414,7 +14413,7 @@ uint32 Player::GetReqKillOrCastCurrentCount(uint32 quest_id, int32 entry)
 
 void Player::AdjustQuestReqItemCount(Quest const* pQuest, QuestStatusData& questStatusData)
 {
-    if (pQuest->HasFlag( QUEST_IXILIUM_FLAGS_DELIVER))
+    if (pQuest->HasFlag( QUEST_WOPCCORE_FLAGS_DELIVER))
     {
         for (uint8 i = 0; i < QUEST_ITEM_OBJECTIVES_COUNT; ++i)
         {
@@ -14461,7 +14460,7 @@ void Player::AreaExploredOrEventHappens(uint32 questId)
     }
 }
 
-//not used in Ixiliumd, function for external script library
+//not used in WOPCCOREd, function for external script library
 void Player::GroupEventHappens( uint32 questId, WorldObject const* pEventObject )
 {
     if (Group *pGroup = GetGroup())
@@ -14493,7 +14492,7 @@ void Player::ItemAddedQuestCheck( uint32 entry, uint32 count )
             continue;
 
         Quest const* qInfo = sObjectMgr.GetQuestTemplate(questid);
-        if (!qInfo || !qInfo->HasFlag( QUEST_IXILIUM_FLAGS_DELIVER))
+        if (!qInfo || !qInfo->HasFlag( QUEST_WOPCCORE_FLAGS_DELIVER))
             continue;
 
         for (uint8 j = 0; j < QUEST_ITEM_OBJECTIVES_COUNT; ++j)
@@ -14531,7 +14530,7 @@ void Player::ItemRemovedQuestCheck( uint32 entry, uint32 count )
         Quest const* qInfo = sObjectMgr.GetQuestTemplate(questid);
         if ( !qInfo )
             continue;
-        if ( !qInfo->HasFlag( QUEST_IXILIUM_FLAGS_DELIVER ) )
+        if ( !qInfo->HasFlag( QUEST_WOPCCORE_FLAGS_DELIVER ) )
             continue;
 
         for (uint8 j = 0; j < QUEST_ITEM_OBJECTIVES_COUNT; ++j)
@@ -14598,7 +14597,7 @@ void Player::KilledMonsterCredit( uint32 entry, uint64 guid )
         QuestStatusData& q_status = mQuestStatus[questid];
         if ( q_status.m_status == QUEST_STATUS_INCOMPLETE && (!GetGroup() || !GetGroup()->isRaidGroup() || qInfo->GetType() == QUEST_TYPE_RAID))
         {
-            if ( qInfo->HasFlag( QUEST_IXILIUM_FLAGS_KILL_OR_CAST) )
+            if ( qInfo->HasFlag( QUEST_WOPCCORE_FLAGS_KILL_OR_CAST) )
             {
                 for (uint8 j = 0; j < QUEST_OBJECTIVES_COUNT; ++j)
                 {
@@ -14655,7 +14654,7 @@ void Player::CastedCreatureOrGO( uint32 entry, uint64 guid, uint32 spell_id )
 
         if ( q_status.m_status == QUEST_STATUS_INCOMPLETE )
         {
-            if ( qInfo->HasFlag( QUEST_IXILIUM_FLAGS_KILL_OR_CAST ) )
+            if ( qInfo->HasFlag( QUEST_WOPCCORE_FLAGS_KILL_OR_CAST ) )
             {
                 for (uint8 j = 0; j < QUEST_OBJECTIVES_COUNT; ++j)
                 {
@@ -14723,7 +14722,7 @@ void Player::TalkedToCreature( uint32 entry, uint64 guid )
 
         if ( q_status.m_status == QUEST_STATUS_INCOMPLETE )
         {
-            if ( qInfo->HasFlag( QUEST_IXILIUM_FLAGS_KILL_OR_CAST | QUEST_IXILIUM_FLAGS_SPEAKTO ) )
+            if ( qInfo->HasFlag( QUEST_WOPCCORE_FLAGS_KILL_OR_CAST | QUEST_WOPCCORE_FLAGS_SPEAKTO ) )
             {
                 for (uint8 j = 0; j < QUEST_OBJECTIVES_COUNT; ++j)
                 {
@@ -14909,7 +14908,7 @@ void Player::SendQuestReward( Quest const *pQuest, uint32 XP, Object * questGive
         data << uint32(pQuest->GetRewOrReqMoney() + int32(pQuest->GetRewMoneyMaxLevel() * sWorld.getRate(RATE_DROP_MONEY)));
     }
 
-    data << uint32(10*Ixilium::Honor::hk_honor_at_level(getLevel(), pQuest->GetRewHonorableKills()));
+    data << uint32(10*WOPCCORE::Honor::hk_honor_at_level(getLevel(), pQuest->GetRewHonorableKills()));
     data << uint32(pQuest->GetBonusTalents());              // bonus talents
     data << uint32(0);
     GetSession()->SendPacket( &data );
@@ -15488,7 +15487,7 @@ bool Player::LoadFromDB( uint32 guid, SqlQueryHolder *holder )
         m_movementInfo.t_z = fields[29].GetFloat();
         m_movementInfo.t_o = fields[30].GetFloat();
 
-        if (!Ixilium::IsValidMapCoord(
+        if (!WOPCCORE::IsValidMapCoord(
             GetPositionX()+m_movementInfo.t_x,GetPositionY()+m_movementInfo.t_y,
             GetPositionZ()+m_movementInfo.t_z,GetOrientation()+m_movementInfo.t_o) ||
             // transport size limited
@@ -16210,7 +16209,7 @@ void Player::_LoadInventory(QueryResult *result, uint32 timediff)
         // send by mail problematic items
         while(!problematicItems.empty())
         {
-            std::string subject = GetSession()->GetIxiliumString(LANG_NOT_EQUIPPED_ITEM);
+            std::string subject = GetSession()->GetWOPCCOREString(LANG_NOT_EQUIPPED_ITEM);
 
             // fill mail
             MailDraft draft(subject);
@@ -16387,7 +16386,7 @@ void Player::_LoadQuestStatus(QueryResult *result)
 
                 time_t quest_time = time_t(fields[4].GetUInt64());
 
-                if ( pQuest->HasFlag( QUEST_IXILIUM_FLAGS_TIMED ) && !GetQuestRewardStatus(quest_id) &&  questStatusData.m_status != QUEST_STATUS_NONE )
+                if ( pQuest->HasFlag( QUEST_WOPCCORE_FLAGS_TIMED ) && !GetQuestRewardStatus(quest_id) &&  questStatusData.m_status != QUEST_STATUS_NONE )
                 {
                     AddTimedQuest( quest_id );
 
@@ -16866,7 +16865,7 @@ bool Player::Satisfy(AccessRequirement const *ar, uint32 target_map, bool report
             if (report)
             {
                 if (missingItem)
-                    GetSession()->SendAreaTriggerMessage(GetSession()->GetIxiliumString(LANG_LEVEL_MINREQUIRED_AND_ITEM), LevelMin, ObjectMgr::GetItemPrototype(missingItem)->Name1);
+                    GetSession()->SendAreaTriggerMessage(GetSession()->GetWOPCCOREString(LANG_LEVEL_MINREQUIRED_AND_ITEM), LevelMin, ObjectMgr::GetItemPrototype(missingItem)->Name1);
                 else if (missingKey)
                     SendTransferAborted(target_map, TRANSFER_ABORT_DIFFICULTY, isNormalTargetMap ? DUNGEON_DIFFICULTY_NORMAL : DUNGEON_DIFFICULTY_HEROIC);
                 else if (missingHeroicQuest)
@@ -16874,7 +16873,7 @@ bool Player::Satisfy(AccessRequirement const *ar, uint32 target_map, bool report
                 else if (missingQuest)
                     GetSession()->SendAreaTriggerMessage(ar->questFailedText.c_str());
                 else if (LevelMin)
-                    GetSession()->SendAreaTriggerMessage(GetSession()->GetIxiliumString(LANG_LEVEL_MINREQUIRED), LevelMin);
+                    GetSession()->SendAreaTriggerMessage(GetSession()->GetWOPCCOREString(LANG_LEVEL_MINREQUIRED), LevelMin);
             }
             return false;
         }
@@ -18418,8 +18417,8 @@ void Player::SetRestBonus (float rest_bonus_new)
 void Player::HandleStealthedUnitsDetection()
 {
     std::list<Unit*> stealthedUnits;
-    Ixilium::AnyStealthedCheck u_check;
-    Ixilium::UnitListSearcher<Ixilium::AnyStealthedCheck > searcher(this, stealthedUnits, u_check);
+    WOPCCORE::AnyStealthedCheck u_check;
+    WOPCCORE::UnitListSearcher<WOPCCORE::AnyStealthedCheck > searcher(this, stealthedUnits, u_check);
     VisitNearbyObject(GetMap()->GetVisibilityDistance(), searcher);
 
     for (std::list<Unit*>::const_iterator i = stealthedUnits.begin(); i != stealthedUnits.end(); ++i)
@@ -18437,7 +18436,7 @@ void Player::HandleStealthedUnitsDetection()
                 (*i)->SendUpdateToPlayer(this);
                 m_clientGUIDs.insert((*i)->GetGUID());
 
-                #ifdef IXILIUM_DEBUG
+                #ifdef WOPCCORE_DEBUG
                 if ((sLog.getLogFilter() & LOG_FILTER_VISIBILITY_CHANGES)==0)
                     sLog.outDebug("Object %u (Type: %u) is detected in stealth by player %u. Distance = %f",(*i)->GetGUIDLow(),(*i)->GetTypeId(),GetGUIDLow(),GetDistance(*i));
                 #endif
@@ -19819,7 +19818,7 @@ void Player::UpdateVisibilityOf(WorldObject* target)
             target->DestroyForPlayer(this);
             m_clientGUIDs.erase(target->GetGUID());
 
-            #ifdef IXILIUM_DEBUG
+            #ifdef WOPCCORE_DEBUG
             if ((sLog.getLogFilter() & LOG_FILTER_VISIBILITY_CHANGES)==0)
                 sLog.outDebug("Object %u (Type: %u) out of range for player %u. Distance = %f",target->GetGUIDLow(),target->GetTypeId(),GetGUIDLow(),GetDistance(target));
             #endif
@@ -19834,7 +19833,7 @@ void Player::UpdateVisibilityOf(WorldObject* target)
             target->SendUpdateToPlayer(this);
             UpdateVisibilityOf_helper(m_clientGUIDs, target);
 
-            #ifdef IXILIUM_DEBUG
+            #ifdef WOPCCORE_DEBUG
             if ((sLog.getLogFilter() & LOG_FILTER_VISIBILITY_CHANGES)==0)
                 sLog.outDebug("Object %u (Type: %u) is visible now for player %u. Distance = %f",target->GetGUIDLow(),target->GetTypeId(),GetGUIDLow(),GetDistance(target));
             #endif
@@ -19869,7 +19868,7 @@ void Player::UpdateVisibilityOf(T* target, UpdateData& data, std::set<WorldObjec
             target->BuildOutOfRangeUpdateBlock(&data);
             m_clientGUIDs.erase(target->GetGUID());
 
-            #ifdef IXILIUM_DEBUG
+            #ifdef WOPCCORE_DEBUG
             if ((sLog.getLogFilter() & LOG_FILTER_VISIBILITY_CHANGES)==0)
                 sLog.outDebug("Object %u (Type: %u, Entry: %u) is out of range for player %u. Distance = %f",target->GetGUIDLow(),target->GetTypeId(),target->GetEntry(),GetGUIDLow(),GetDistance(target));
             #endif
@@ -19886,7 +19885,7 @@ void Player::UpdateVisibilityOf(T* target, UpdateData& data, std::set<WorldObjec
             target->BuildCreateUpdateBlockForPlayer(&data, this);
             UpdateVisibilityOf_helper(m_clientGUIDs,target);
 
-            #ifdef IXILIUM_DEBUG
+            #ifdef WOPCCORE_DEBUG
             if ((sLog.getLogFilter() & LOG_FILTER_VISIBILITY_CHANGES)==0)
                 sLog.outDebug("Object %u (Type: %u, Entry: %u) is visible now for player %u. Distance = %f",target->GetGUIDLow(),target->GetTypeId(),target->GetEntry(),GetGUIDLow(),GetDistance(target));
             #endif
@@ -20674,7 +20673,7 @@ void Player::AutoUnequipOffhandIfNeed(bool force /*= false*/)
         offItem->SaveToDB();                                // recursive and not have transaction guard into self, item not in inventory and can be save standalone
         CharacterDatabase.CommitTransaction();
 
-        std::string subject = GetSession()->GetIxiliumString(LANG_NOT_EQUIPPED_ITEM);
+        std::string subject = GetSession()->GetWOPCCOREString(LANG_NOT_EQUIPPED_ITEM);
         MailDraft(subject).AddItem(offItem).SendMailTo(this, MailSender(this, MAIL_STATIONERY_GM));
     }
 }
@@ -20826,7 +20825,7 @@ uint32 Player::GetResurrectionSpellId()
 bool Player::isHonorOrXPTarget(Unit* pVictim)
 {
     uint8 v_level = pVictim->getLevel();
-    uint8 k_grey  = Ixilium::XP::GetGrayLevel(getLevel());
+    uint8 k_grey  = WOPCCORE::XP::GetGrayLevel(getLevel());
 
     // Victim level less gray level
     if (v_level <= k_grey)
@@ -20863,12 +20862,12 @@ bool Player::RewardPlayerAndGroupAtKill(Unit* pVictim)
         {
             // PvP kills doesn't yield experience
             // also no XP gained if there is no member below gray level
-            xp = (PvP || !not_gray_member_with_max_level || GetVehicle()) ? 0 : Ixilium::XP::Gain(not_gray_member_with_max_level, pVictim);
+            xp = (PvP || !not_gray_member_with_max_level || GetVehicle()) ? 0 : WOPCCORE::XP::Gain(not_gray_member_with_max_level, pVictim);
 
             /// skip in check PvP case (for speed, not used)
             bool is_raid = PvP ? false : sMapStore.LookupEntry(GetMapId())->IsRaid() && pGroup->isRaidGroup();
             bool is_dungeon = PvP ? false : sMapStore.LookupEntry(GetMapId())->IsDungeon();
-            float group_rate = Ixilium::XP::xp_in_group_rate(count,is_raid);
+            float group_rate = WOPCCORE::XP::xp_in_group_rate(count,is_raid);
 
             for (GroupReference *itr = pGroup->GetFirstMember(); itr != NULL; itr = itr->next())
             {
@@ -20921,7 +20920,7 @@ bool Player::RewardPlayerAndGroupAtKill(Unit* pVictim)
     }
     else                                                    // if (!pGroup)
     {
-        xp = (PvP || GetVehicle()) ? 0 : Ixilium::XP::Gain(this, pVictim);
+        xp = (PvP || GetVehicle()) ? 0 : WOPCCORE::XP::Gain(this, pVictim);
 
         // honor can be in PvP and !PvP (racial leader) cases
         if (RewardHonor(pVictim,1, -1, true))
@@ -21325,7 +21324,7 @@ bool ItemPosCount::isContainedIn(ItemPosCountVec const& vec) const
 }
 
 //***********************************
-//-------------IXILIUM---------------
+//-------------WOPCCORE---------------
 //***********************************
 
 void Player::StopCastingBindSight()
@@ -21525,7 +21524,7 @@ void Player::SetTitle(CharTitlesEntry const* title, bool lost)
     GetSession()->SendPacket(&data);
 }
 
-/*-----------------------IXILIUM--------------------------*/
+/*-----------------------WOPCCORE--------------------------*/
 bool Player::isTotalImmunity()
 {
     AuraEffectList const& immune = GetAurasByType(SPELL_AURA_SCHOOL_IMMUNITY);

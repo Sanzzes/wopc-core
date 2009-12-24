@@ -1,7 +1,6 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -73,8 +72,8 @@ void WaypointStore::Load()
         y = fields[3].GetFloat();
         z = fields[4].GetFloat();
 
-        Ixilium::NormalizeMapCoord(x);
-        Ixilium::NormalizeMapCoord(y);
+        WOPCCORE::NormalizeMapCoord(x);
+        WOPCCORE::NormalizeMapCoord(y);
 
         wp->id = fields[1].GetUInt32();
         wp->x = x;
@@ -125,8 +124,8 @@ void WaypointStore::UpdatePath(uint32 id)
         y = fields[3].GetFloat();
         z = fields[4].GetFloat();
 
-        Ixilium::NormalizeMapCoord(x);
-        Ixilium::NormalizeMapCoord(y);
+        WOPCCORE::NormalizeMapCoord(x);
+        WOPCCORE::NormalizeMapCoord(y);
 
         wp->id = fields[1].GetUInt32();
         wp->x = x;

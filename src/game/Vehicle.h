@@ -16,8 +16,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#ifndef IXILIUM_VEHICLE_H
-#define IXILIUM_VEHICLE_H
+#ifndef WOPCCORE_VEHICLE_H
+#define WOPCCORE_VEHICLE_H
 
 #include "ObjectDefines.h"
 
@@ -40,7 +40,7 @@ struct VehicleSeat
 
 typedef std::map<int8, VehicleSeat> SeatMap;
 
-class IXILIUM_DLL_SPEC Vehicle
+class WOPCCORE_DLL_SPEC Vehicle
 {
     public:
         explicit Vehicle(Unit *unit, VehicleEntry const *vehInfo);

@@ -1,7 +1,6 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -747,6 +746,6 @@ class World
 
 extern uint32 realmID;
 
-#define sWorld Ixilium::Singleton<World>::Instance()
+#define sWorld WOPCCORE::Singleton<World>::Instance()
 #endif
 /// @}

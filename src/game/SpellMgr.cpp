@@ -1,7 +1,6 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1281,7 +1280,7 @@ void SpellMgr::LoadSpellProcEvents()
         barGoLink bar( 1 );
         bar.step();
         sLog.outString();
-        sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_SPELL_PROC_EVENT_EMPTY), count);
+        sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_SPELL_PROC_EVENT_EMPTY), count);
         return;
     }
 
@@ -1333,9 +1332,9 @@ void SpellMgr::LoadSpellProcEvents()
 
     sLog.outString();
     if (customProc)
-        sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_SPELL_PROC_EVENT_LOADED_1), count, customProc);
+        sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_SPELL_PROC_EVENT_LOADED_1), count, customProc);
     else
-        sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_SPELL_PROC_EVENT_LOADED_2), count);
+        sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_SPELL_PROC_EVENT_LOADED_2), count);
 }
 
 void SpellMgr::LoadSpellBonusess()
@@ -1349,7 +1348,7 @@ void SpellMgr::LoadSpellBonusess()
         barGoLink bar( 1 );
         bar.step();
         sLog.outString();
-        sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_SPELL_BONUS_EMPTY), count);
+        sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_SPELL_BONUS_EMPTY), count);
         return;
     }
 
@@ -1381,7 +1380,7 @@ void SpellMgr::LoadSpellBonusess()
     delete result;
 
     sLog.outString();
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_SPELL_BONUS_LOADED), count);
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_SPELL_BONUS_LOADED), count);
 }
 
 bool SpellMgr::IsSpellProcEventCanTriggeredBy(SpellProcEventEntry const* spellProcEvent, uint32 EventProcFlag, SpellEntry const * procSpell, uint32 procFlags, uint32 procExtra, bool active)
@@ -1529,7 +1528,7 @@ void SpellMgr::LoadSpellElixirs()
         bar.step();
 
         sLog.outString();
-        sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_SPELL_ELIXIR_TYPES_EMPTY), count);
+        sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_SPELL_ELIXIR_TYPES_EMPTY), count);
         return;
     }
 
@@ -1560,7 +1559,7 @@ void SpellMgr::LoadSpellElixirs()
     delete result;
 
     sLog.outString();
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_SPELL_ELIXIR_TYPES_LOADED), count);
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_SPELL_ELIXIR_TYPES_LOADED), count);
 }
 
 void SpellMgr::LoadSpellThreats()
@@ -1800,7 +1799,7 @@ void SpellMgr::LoadSpellLearnSkills()
     }
 
     sLog.outString();
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_SPELL_LEARN_SKILLS_LOADED), dbc_count);
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_SPELL_LEARN_SKILLS_LOADED), dbc_count);
 }
 
 void SpellMgr::LoadSpellLearnSpells()
@@ -1815,7 +1814,7 @@ void SpellMgr::LoadSpellLearnSpells()
         bar.step();
 
         sLog.outString();
-        sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_SPELL_LEARN_SPELLS_EMPTY));
+        sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_SPELL_LEARN_SPELLS_EMPTY));
         sLog.outErrorDb("`spell_learn_spell` table is empty!");
         return;
     }
@@ -1910,7 +1909,7 @@ void SpellMgr::LoadSpellLearnSpells()
     }
 
     sLog.outString();
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_SPELL_LEARN_SPELLS_LOADED), count, dbc_count);
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_SPELL_LEARN_SPELLS_LOADED), count, dbc_count);
 }
 
 void SpellMgr::LoadSpellScriptTarget()
@@ -1928,7 +1927,7 @@ void SpellMgr::LoadSpellScriptTarget()
         bar.step();
 
         sLog.outString();
-        sLog.outErrorDb(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_SPELL_SCRIPT_TARGET_EMPTY));
+        sLog.outErrorDb(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_SPELL_SCRIPT_TARGET_EMPTY));
         return;
     }
 
@@ -2092,7 +2091,7 @@ void SpellMgr::LoadSpellScriptTarget()
     }
 
     sLog.outString();
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_SPELL_SCRIPT_TARGET_LOADED), count);
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_SPELL_SCRIPT_TARGET_LOADED), count);
 }
 
 void SpellMgr::LoadSpellPetAuras()
@@ -2219,7 +2218,7 @@ void SpellMgr::LoadPetLevelupSpellMap()
     }
 
     sLog.outString();
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_PET_LEVELUP_SPELLS_LOADED), count, family_count);
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_PET_LEVELUP_SPELLS_LOADED), count, family_count);
 }
 
 bool LoadPetDefaultSpells_helper(CreatureInfo const* cInfo, PetDefaultSpellsEntry& petDefSpells)
@@ -2342,7 +2341,7 @@ void SpellMgr::LoadPetDefaultSpells()
     }
 
     sLog.outString();
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_PET_DEFAULT_LEVELUP_SPELLS_LOADED), countData, countCreature);
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_PET_DEFAULT_LEVELUP_SPELLS_LOADED), countData, countCreature);
 }
 
 /// Some checks for spells, to prevent adding deprecated/broken spells for trainers, spell book, etc
@@ -3516,7 +3515,7 @@ void SpellMgr::LoadSpellEnchantProcData()
 
     delete result;
 
-    sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_ENCHANT_SPELLS_PROC_LOADED_2), count);
+    sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_ENCHANT_SPELLS_PROC_LOADED_2), count);
 }
 
 void SpellMgr::LoadSpellRequired()
@@ -3532,7 +3531,7 @@ void SpellMgr::LoadSpellRequired()
         bar.step();
 
         sLog.outString();
-        sLog.outString(sObjectMgr.GetIxiliumStringForDBCLocale(LANG_WORLD_LOAD_SPELL_REQUIRED_EMPTY));
+        sLog.outString(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_WORLD_LOAD_SPELL_REQUIRED_EMPTY));
         sLog.outErrorDb("`spell_required` table is empty!");
         return;
     }

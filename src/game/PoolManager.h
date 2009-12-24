@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2005-2009 Ixilium <http://www.mangosproject.org/>
+ * Copyright (C) 2005-2009 WOPCCORE <http://www.mangosproject.org/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,8 +16,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#ifndef IXILIUM_POOLHANDLER_H
-#define IXILIUM_POOLHANDLER_H
+#ifndef WOPCCORE_POOLHANDLER_H
+#define WOPCCORE_POOLHANDLER_H
 
 #include "Platform/Define.h"
 #include "Policies/Singleton.h"
@@ -100,5 +100,5 @@ class PoolManager
 
 };
 
-#define sPoolMgr Ixilium::Singleton<PoolManager>::Instance()
+#define sPoolMgr WOPCCORE::Singleton<PoolManager>::Instance()
 #endif

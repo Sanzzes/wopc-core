@@ -1,7 +1,6 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -66,7 +65,7 @@ enum SpellModType
     SPELLMOD_PCT          = 108                             // SPELL_AURA_ADD_PCT_MODIFIER
 };
 
-// 2^n values, Player::m_isunderwater is a bitmask. These are ixiliumemu internal values, they are never send to any client
+// 2^n values, Player::m_isunderwater is a bitmask. These are WOPCCOREemu internal values, they are never send to any client
 enum PlayerUnderwaterState
 {
     UNDERWATER_NONE                     = 0x00,
@@ -881,7 +880,7 @@ struct AccessRequirement
     std::string heroicQuestFailedText;
 };
 
-class IXILIUM_DLL_SPEC PlayerTaxi
+class WOPCCORE_DLL_SPEC PlayerTaxi
 {
     public:
         PlayerTaxi();
@@ -961,7 +960,7 @@ struct BGData
     bool HasTaxiPath() const { return taxiPath[0] && taxiPath[1]; }
 };
 
-class IXILIUM_DLL_SPEC Player : public Unit
+class WOPCCORE_DLL_SPEC Player : public Unit
 {
     friend class WorldSession;
     friend void Item::AddToUpdateQueueOf(Player *player);

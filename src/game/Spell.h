@@ -1,7 +1,6 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -103,7 +102,7 @@ enum SpellNotifyPushType
 
 bool IsQuestTameSpell(uint32 spellId);
 
-namespace Ixilium
+namespace WOPCCORE
 {
     struct SpellNotifierCreatureAndPlayer;
 }
@@ -247,7 +246,7 @@ enum SpellTargets
 
 class Spell
 {
-    friend struct Ixilium::SpellNotifierCreatureAndPlayer;
+    friend struct WOPCCORE::SpellNotifierCreatureAndPlayer;
     friend void Unit::SetCurrentCastedSpell( Spell * pSpell );
     public:
 
@@ -425,7 +424,7 @@ class Spell
         void CheckSrc() { if (!m_targets.HasSrc()) m_targets.setSrc(m_caster); }
         void CheckDst() { if (!m_targets.HasDst()) m_targets.setDst(m_caster); }
 
-        static void IXILIUM_DLL_SPEC SendCastResult(Player* caster, SpellEntry const* spellInfo, uint8 cast_count, SpellCastResult result);
+        static void WOPCCORE_DLL_SPEC SendCastResult(Player* caster, SpellEntry const* spellInfo, uint8 cast_count, SpellCastResult result);
         void SendCastResult(SpellCastResult result);
         void SendSpellStart();
         void SendSpellGo();
@@ -663,7 +662,7 @@ class Spell
 #endif
 };
 
-namespace Ixilium
+namespace WOPCCORE
 {
     struct SCRIPTS_DLL_DECL SpellNotifierCreatureAndPlayer
     {

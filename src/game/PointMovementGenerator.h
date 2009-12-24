@@ -1,7 +1,6 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +17,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef IXILIUM_POINTMOVEMENTGENERATOR_H
-#define IXILIUM_POINTMOVEMENTGENERATOR_H
+#ifndef WOPCCORE_POINTMOVEMENTGENERATOR_H
+#define WOPCCORE_POINTMOVEMENTGENERATOR_H
 
 #include "MovementGenerator.h"
 #include "DestinationHolder.h"
@@ -27,7 +26,7 @@
 #include "FollowerReference.h"
 
 template<class T>
-class IXILIUM_DLL_SPEC PointMovementGenerator
+class WOPCCORE_DLL_SPEC PointMovementGenerator
 : public MovementGeneratorMedium< T, PointMovementGenerator<T> >
 {
     public:
@@ -52,7 +51,7 @@ class IXILIUM_DLL_SPEC PointMovementGenerator
         bool arrived;
 };
 
-class IXILIUM_DLL_SPEC AssistanceMovementGenerator
+class WOPCCORE_DLL_SPEC AssistanceMovementGenerator
 : public PointMovementGenerator<Creature>
 {
     public:
