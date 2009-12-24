@@ -1,7 +1,6 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,17 +17,17 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef IXILIUM_OBJECTLIFETIME_H
-#define IXILIUM_OBJECTLIFETIME_H
+#ifndef WOPCCORE_OBJECTLIFETIME_H
+#define WOPCCORE_OBJECTLIFETIME_H
 
 #include <stdexcept>
 #include "Platform/Define.h"
 
 typedef void (* Destroyer)(void);
 
-namespace Ixilium
+namespace WOPCCORE
 {
-    void IXILIUM_DLL_SPEC at_exit( void (*func)() );
+    void WOPCCORE_DLL_SPEC at_exit( void (*func)() );
 
     template <class T>
         class SCRIPTS_DLL_DECL ObjectLifeTime

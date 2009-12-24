@@ -1,7 +1,6 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +17,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef IXILIUM_TYPECONTAINER_H
-#define IXILIUM_TYPECONTAINER_H
+#ifndef WOPCCORE_TYPECONTAINER_H
+#define WOPCCORE_TYPECONTAINER_H
 
 /*
  * Here, you'll find a series of containers that allow you to hold multiple
@@ -100,24 +99,24 @@ template<class OBJECT_TYPES>
 class SCRIPTS_DLL_DECL TypeMapContainer
 {
     public:
-        template<class SPECIFIC_TYPE> size_t Count() const { return Ixilium::Count(i_elements, (SPECIFIC_TYPE*)NULL); }
+        template<class SPECIFIC_TYPE> size_t Count() const { return WOPCCORE::Count(i_elements, (SPECIFIC_TYPE*)NULL); }
 
-        template<class SPECIFIC_TYPE> SPECIFIC_TYPE* find(OBJECT_HANDLE hdl, SPECIFIC_TYPE *fake) { return Ixilium::Find(i_elements, hdl,fake); }
+        template<class SPECIFIC_TYPE> SPECIFIC_TYPE* find(OBJECT_HANDLE hdl, SPECIFIC_TYPE *fake) { return WOPCCORE::Find(i_elements, hdl,fake); }
 
         /// find a specific type of object in the container
-        template<class SPECIFIC_TYPE> const SPECIFIC_TYPE* find(OBJECT_HANDLE hdl, SPECIFIC_TYPE *fake) const { return Ixilium::Find(i_elements, hdl,fake); }
+        template<class SPECIFIC_TYPE> const SPECIFIC_TYPE* find(OBJECT_HANDLE hdl, SPECIFIC_TYPE *fake) const { return WOPCCORE::Find(i_elements, hdl,fake); }
 
         /// inserts a specific object into the container
         template<class SPECIFIC_TYPE> bool insert(OBJECT_HANDLE hdl, SPECIFIC_TYPE *obj)
         {
-            SPECIFIC_TYPE* t = Ixilium::Insert(i_elements, obj, hdl);
+            SPECIFIC_TYPE* t = WOPCCORE::Insert(i_elements, obj, hdl);
             return (t != NULL);
         }
 
         ///  Removes the object from the container, and returns the removed object
         template<class SPECIFIC_TYPE> bool remove(SPECIFIC_TYPE* obj, OBJECT_HANDLE hdl)
         {
-            SPECIFIC_TYPE* t = Ixilium::Remove(i_elements, obj, hdl);
+            SPECIFIC_TYPE* t = WOPCCORE::Remove(i_elements, obj, hdl);
             return (t != NULL);
         }
 

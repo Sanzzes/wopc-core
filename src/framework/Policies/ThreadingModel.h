@@ -1,7 +1,6 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +17,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef IXILIUM_THREADINGMODEL_H
-#define IXILIUM_THREADINGMODEL_H
+#ifndef WOPCCORE_THREADINGMODEL_H
+#define WOPCCORE_THREADINGMODEL_H
 
 /**
  * @class ThreadingModel<T>
@@ -28,7 +27,7 @@
 
 #include "Platform/Define.h"
 
-namespace Ixilium
+namespace WOPCCORE
 {
     inline void Guard(void *) {}
 
@@ -122,9 +121,9 @@ namespace Ixilium
 
 }
 
-template<class T, class MUTEX> MUTEX Ixilium::ClassLevelLockable<T, MUTEX>::si_mtx;
+template<class T, class MUTEX> MUTEX WOPCCORE::ClassLevelLockable<T, MUTEX>::si_mtx;
 
 #define INSTANTIATE_CLASS_MUTEX(CTYPE,MUTEX) \
-    template class SCRIPTS_DLL_DECL Ixilium::ClassLevelLockable<CTYPE, MUTEX >
+    template class SCRIPTS_DLL_DECL WOPCCORE::ClassLevelLockable<CTYPE, MUTEX >
 #endif
 

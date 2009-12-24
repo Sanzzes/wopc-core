@@ -1,7 +1,6 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +17,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef IXILIUM_SINGLETONIMPL_H
-#define IXILIUM_SINGLETONIMPL_H
+#ifndef WOPCCORE_SINGLETONIMPL_H
+#define WOPCCORE_SINGLETONIMPL_H
 
 #include "Singleton.h"
 
@@ -34,7 +33,7 @@ class CreatePolicy,
 class LifeTimePolicy
 >
 T&
-Ixilium::Singleton<T, ThreadingModel, CreatePolicy, LifeTimePolicy >::Instance()
+WOPCCORE::Singleton<T, ThreadingModel, CreatePolicy, LifeTimePolicy >::Instance()
 {
     if ( !si_instance )
     {
@@ -63,7 +62,7 @@ class CreatePolicy,
 class LifeTimePolicy
 >
 void
-Ixilium::Singleton<T, ThreadingModel, CreatePolicy, LifeTimePolicy>::DestroySingleton()
+WOPCCORE::Singleton<T, ThreadingModel, CreatePolicy, LifeTimePolicy>::DestroySingleton()
 {
     CreatePolicy::Destroy(si_instance);
     si_instance = NULL;
@@ -71,23 +70,23 @@ Ixilium::Singleton<T, ThreadingModel, CreatePolicy, LifeTimePolicy>::DestroySing
 }
 
 #define INSTANTIATE_SINGLETON_1(TYPE) \
-    template class SCRIPTS_DLL_DECL Ixilium::Singleton<TYPE, Ixilium::SingleThreaded<TYPE>, Ixilium::OperatorNew<TYPE>, Ixilium::ObjectLifeTime<TYPE> >; \
-    template<> TYPE* Ixilium::Singleton<TYPE, Ixilium::SingleThreaded<TYPE>, Ixilium::OperatorNew<TYPE>, Ixilium::ObjectLifeTime<TYPE> >::si_instance = 0; \
-    template<> bool Ixilium::Singleton<TYPE, Ixilium::SingleThreaded<TYPE>, Ixilium::OperatorNew<TYPE>, Ixilium::ObjectLifeTime<TYPE> >::si_destroyed = false
+    template class SCRIPTS_DLL_DECL WOPCCORE::Singleton<TYPE, WOPCCORE::SingleThreaded<TYPE>, WOPCCORE::OperatorNew<TYPE>, WOPCCORE::ObjectLifeTime<TYPE> >; \
+    template<> TYPE* WOPCCORE::Singleton<TYPE, WOPCCORE::SingleThreaded<TYPE>, WOPCCORE::OperatorNew<TYPE>, WOPCCORE::ObjectLifeTime<TYPE> >::si_instance = 0; \
+    template<> bool WOPCCORE::Singleton<TYPE, WOPCCORE::SingleThreaded<TYPE>, WOPCCORE::OperatorNew<TYPE>, WOPCCORE::ObjectLifeTime<TYPE> >::si_destroyed = false
 
 #define INSTANTIATE_SINGLETON_2(TYPE, THREADINGMODEL) \
-    template class SCRIPTS_DLL_DECL Ixilium::Singleton<TYPE, THREADINGMODEL, Ixilium::OperatorNew<TYPE>, Ixilium::ObjectLifeTime<TYPE> >; \
-    template<> TYPE* Ixilium::Singleton<TYPE, THREADINGMODEL, Ixilium::OperatorNew<TYPE>, Ixilium::ObjectLifeTime<TYPE> >::si_instance = 0; \
-    template<> bool Ixilium::Singleton<TYPE, THREADINGMODEL, Ixilium::OperatorNew<TYPE>, Ixilium::ObjectLifeTime<TYPE> >::si_destroyed = false
+    template class SCRIPTS_DLL_DECL WOPCCORE::Singleton<TYPE, THREADINGMODEL, WOPCCORE::OperatorNew<TYPE>, WOPCCORE::ObjectLifeTime<TYPE> >; \
+    template<> TYPE* WOPCCORE::Singleton<TYPE, THREADINGMODEL, WOPCCORE::OperatorNew<TYPE>, WOPCCORE::ObjectLifeTime<TYPE> >::si_instance = 0; \
+    template<> bool WOPCCORE::Singleton<TYPE, THREADINGMODEL, WOPCCORE::OperatorNew<TYPE>, WOPCCORE::ObjectLifeTime<TYPE> >::si_destroyed = false
 
 #define INSTANTIATE_SINGLETON_3(TYPE, THREADINGMODEL, CREATIONPOLICY ) \
-    template class SCRIPTS_DLL_DECL Ixilium::Singleton<TYPE, THREADINGMODEL, CREATIONPOLICY, Ixilium::ObjectLifeTime<TYPE> >; \
-    template<> TYPE* Ixilium::Singleton<TYPE, THREADINGMODEL, CREATIONPOLICY, Ixilium::ObjectLifeTime<TYPE> >::si_instance = 0; \
-    template<> bool Ixilium::Singleton<TYPE, THREADINGMODEL, CREATIONPOLICY, Ixilium::ObjectLifeType<TYPE> >::si_destroyed = false
+    template class SCRIPTS_DLL_DECL WOPCCORE::Singleton<TYPE, THREADINGMODEL, CREATIONPOLICY, WOPCCORE::ObjectLifeTime<TYPE> >; \
+    template<> TYPE* WOPCCORE::Singleton<TYPE, THREADINGMODEL, CREATIONPOLICY, WOPCCORE::ObjectLifeTime<TYPE> >::si_instance = 0; \
+    template<> bool WOPCCORE::Singleton<TYPE, THREADINGMODEL, CREATIONPOLICY, WOPCCORE::ObjectLifeType<TYPE> >::si_destroyed = false
 
 #define INSTANTIATE_SINGLETON_4(TYPE, THREADINGMODEL, CREATIONPOLICY, OBJECTLIFETIME) \
-    template class SCRIPTS_DLL_DECL Ixilium::Singleton<TYPE, THREADINGMODEL, CREATIONPOLICY, OBJECTLIFETIME >; \
-    template<> TYPE* Ixilium::Singleton<TYPE, THREADINGMODEL, CREATIONPOLICY, OBJECTLIFETIME >::si_instance = 0; \
-    template<> bool Ixilium::Singleton<TYPE, THREADINGMODEL, CREATIONPOLICY, OBJECTLIFETIME >::si_destroyed = false
+    template class SCRIPTS_DLL_DECL WOPCCORE::Singleton<TYPE, THREADINGMODEL, CREATIONPOLICY, OBJECTLIFETIME >; \
+    template<> TYPE* WOPCCORE::Singleton<TYPE, THREADINGMODEL, CREATIONPOLICY, OBJECTLIFETIME >::si_instance = 0; \
+    template<> bool WOPCCORE::Singleton<TYPE, THREADINGMODEL, CREATIONPOLICY, OBJECTLIFETIME >::si_destroyed = false
 #endif
 

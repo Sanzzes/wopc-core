@@ -1,7 +1,6 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,7 +26,7 @@ template<class OBJECT>
 class GridRefManager;
 
 template<class OBJECT>
-class IXILIUM_DLL_SPEC GridReference : public Reference<GridRefManager<OBJECT>, OBJECT>
+class WOPCCORE_DLL_SPEC GridReference : public Reference<GridRefManager<OBJECT>, OBJECT>
 {
     protected:
         void targetObjectBuildLink()

@@ -1,7 +1,6 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +17,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef IXILIUM_NGRID_H
-#define IXILIUM_NGRID_H
+#ifndef WOPCCORE_NGRID_H
+#define WOPCCORE_NGRID_H
 
 /** NGrid is nothing more than a wrapper of the Grid with an NxN cells
  */
@@ -68,7 +67,7 @@ unsigned int N,
 class ACTIVE_OBJECT,
 class WORLD_OBJECT_TYPES,
 class GRID_OBJECT_TYPES,
-class ThreadModel = Ixilium::SingleThreaded<ACTIVE_OBJECT>
+class ThreadModel = WOPCCORE::SingleThreaded<ACTIVE_OBJECT>
 >
 class SCRIPTS_DLL_DECL NGrid
 {

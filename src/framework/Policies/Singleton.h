@@ -1,7 +1,6 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +17,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef IXILIUM_SINGLETON_H
-#define IXILIUM_SINGLETON_H
+#ifndef WOPCCORE_SINGLETON_H
+#define WOPCCORE_SINGLETON_H
 
 /**
  * @brief class Singleton
@@ -29,14 +28,14 @@
 #include "ThreadingModel.h"
 #include "ObjectLifeTime.h"
 
-namespace Ixilium
+namespace WOPCCORE
 {
     template
         <
         typename T,
-        class ThreadingModel = Ixilium::SingleThreaded<T>,
-        class CreatePolicy = Ixilium::OperatorNew<T>,
-        class LifeTimePolicy = Ixilium::ObjectLifeTime<T>
+        class ThreadingModel = WOPCCORE::SingleThreaded<T>,
+        class CreatePolicy = WOPCCORE::OperatorNew<T>,
+        class LifeTimePolicy = WOPCCORE::ObjectLifeTime<T>
         >
         class SCRIPTS_DLL_DECL Singleton
     {

@@ -1,7 +1,6 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,14 +20,14 @@
 #include <cstdlib>
 #include "ObjectLifeTime.h"
 
-namespace Ixilium
+namespace WOPCCORE
 {
     extern "C" void external_wrapper(void *p)
     {
         std::atexit( (void (*)())p );
     }
 
-    void IXILIUM_DLL_SPEC at_exit( void (*func)() )
+    void WOPCCORE_DLL_SPEC at_exit( void (*func)() )
     {
         external_wrapper((void*)func);
     }

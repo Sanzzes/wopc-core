@@ -1,7 +1,6 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +17,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef IXILIUM_OBJECTREGISTRY_H
-#define IXILIUM_OBJECTREGISTRY_H
+#ifndef WOPCCORE_OBJECTREGISTRY_H
+#define WOPCCORE_OBJECTREGISTRY_H
 
 #include "Platform/Define.h"
 #include "Utilities/UnorderedMap.h"
@@ -96,7 +95,7 @@ class SCRIPTS_DLL_DECL ObjectRegistry
 
     private:
         RegistryMapType i_registeredObjects;
-        friend class Ixilium::OperatorNew<ObjectRegistry<T, Key> >;
+        friend class WOPCCORE::OperatorNew<ObjectRegistry<T, Key> >;
 
         // protected for friend use since it should be a singleton
         ObjectRegistry() {}

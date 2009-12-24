@@ -1,7 +1,6 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +17,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#ifndef IXILIUM_DEFINE_H
-#define IXILIUM_DEFINE_H
+#ifndef WOPCCORE_DEFINE_H
+#define WOPCCORE_DEFINE_H
 
 #include <sys/types.h>
 
@@ -28,89 +27,89 @@
 
 #include "Platform/CompilerDefs.h"
 
-#define IXILIUM_LITTLEENDIAN 0
-#define IXILIUM_BIGENDIAN    1
+#define WOPCCORE_LITTLEENDIAN 0
+#define WOPCCORE_BIGENDIAN    1
 
-#if !defined(IXILIUM_ENDIAN)
+#if !defined(WOPCCORE_ENDIAN)
 #  if defined (ACE_BIG_ENDIAN)
-#    define IXILIUM_ENDIAN IXILIUM_BIGENDIAN
+#    define WOPCCORE_ENDIAN WOPCCORE_BIGENDIAN
 #  else //ACE_BYTE_ORDER != ACE_BIG_ENDIAN
-#    define IXILIUM_ENDIAN IXILIUM_LITTLEENDIAN
+#    define WOPCCORE_ENDIAN WOPCCORE_LITTLEENDIAN
 #  endif //ACE_BYTE_ORDER
-#endif //IXILIUM_ENDIAN
+#endif //WOPCCORE_ENDIAN
 
 #if PLATFORM == PLATFORM_WINDOWS
-#  define IXILIUM_EXPORT __declspec(dllexport)
-#  define IXILIUM_LIBRARY_HANDLE HMODULE
-#  define IXILIUM_LOAD_LIBRARY(a) LoadLibrary(a)
-#  define IXILIUM_CLOSE_LIBRARY FreeLibrary
-#  define IXILIUM_GET_PROC_ADDR GetProcAddress
-#  define IXILIUM_IMPORT __cdecl
-#  define IXILIUM_SCRIPT_EXT ".dll"
-#  define IXILIUM_SCRIPT_NAME "Scripts"
-#  define IXILIUM_PATH_MAX MAX_PATH
+#  define WOPCCORE_EXPORT __declspec(dllexport)
+#  define WOPCCORE_LIBRARY_HANDLE HMODULE
+#  define WOPCCORE_LOAD_LIBRARY(a) LoadLibrary(a)
+#  define WOPCCORE_CLOSE_LIBRARY FreeLibrary
+#  define WOPCCORE_GET_PROC_ADDR GetProcAddress
+#  define WOPCCORE_IMPORT __cdecl
+#  define WOPCCORE_SCRIPT_EXT ".dll"
+#  define WOPCCORE_SCRIPT_NAME "Scripts"
+#  define WOPCCORE_PATH_MAX MAX_PATH
 #else //PLATFORM != PLATFORM_WINDOWS
-#  define IXILIUM_LIBRARY_HANDLE void*
-#  define IXILIUM_EXPORT export
-#  define IXILIUM_LOAD_LIBRARY(a) dlopen(a,RTLD_NOW)
-#  define IXILIUM_CLOSE_LIBRARY dlclose
-#  define IXILIUM_GET_PROC_ADDR dlsym
+#  define WOPCCORE_LIBRARY_HANDLE void*
+#  define WOPCCORE_EXPORT export
+#  define WOPCCORE_LOAD_LIBRARY(a) dlopen(a,RTLD_NOW)
+#  define WOPCCORE_CLOSE_LIBRARY dlclose
+#  define WOPCCORE_GET_PROC_ADDR dlsym
 #  if defined(__APPLE_CC__) && defined(BIG_ENDIAN)
-#    define IXILIUM_IMPORT __attribute__ ((longcall))
+#    define WOPCCORE_IMPORT __attribute__ ((longcall))
 #  elif defined(__x86_64__)
-#    define IXILIUM_IMPORT
+#    define WOPCCORE_IMPORT
 #  else
-#    define IXILIUM_IMPORT __attribute__ ((cdecl))
+#    define WOPCCORE_IMPORT __attribute__ ((cdecl))
 #  endif //__APPLE_CC__ && BIG_ENDIAN
 #  if defined(__APPLE_CC__)
-#    define IXILIUM_SCRIPT_EXT ".dylib"
+#    define WOPCCORE_SCRIPT_EXT ".dylib"
 #    if defined(DO_SCRIPTS)
-#      define IXILIUM_SCRIPT_NAME "../lib/libixiliumscript"
+#      define WOPCCORE_SCRIPT_NAME "../lib/libWOPCCOREscript"
 #    else
-#      define IXILIUM_SCRIPT_NAME "../lib/libixiliuminterface"
+#      define WOPCCORE_SCRIPT_NAME "../lib/libWOPCCOREinterface"
 #    endif // DO_SCRIPTS
 #  else
-#    define IXILIUM_SCRIPT_EXT ".so"
+#    define WOPCCORE_SCRIPT_EXT ".so"
 #    if defined(DO_SCRIPTS)
-#      define IXILIUM_SCRIPT_NAME "libixiliumscript"
+#      define WOPCCORE_SCRIPT_NAME "libWOPCCOREscript"
 #    else
-#      define IXILIUM_SCRIPT_NAME "libixiliuminterface"
+#      define WOPCCORE_SCRIPT_NAME "libWOPCCOREinterface"
 #    endif // DO_SCRIPTS
 #  endif //__APPLE_CC__
-#  define IXILIUM_PATH_MAX PATH_MAX
+#  define WOPCCORE_PATH_MAX PATH_MAX
 #endif //PLATFORM
 
 #if PLATFORM == PLATFORM_WINDOWS
-#  ifdef IXILIUM_WIN32_DLL_IMPORT
+#  ifdef WOPCCORE_WIN32_DLL_IMPORT
 #    define SCRIPTS_DLL_DECL __declspec(dllimport)
-#  else //!IXILIUM_WIN32_DLL_IMPORT
-#    ifdef IXILIUM_WIND_DLL_EXPORT
+#  else //!WOPCCORE_WIN32_DLL_IMPORT
+#    ifdef WOPCCORE_WIND_DLL_EXPORT
 #      define SCRIPTS_DLL_DECL __declspec(dllexport)
-#    else //!IXILIUM_WIND_DLL_EXPORT
+#    else //!WOPCCORE_WIND_DLL_EXPORT
 #      define SCRIPTS_DLL_DECL
-#    endif //IXILIUM_WIND_DLL_EXPORT
-#  endif //IXILIUM_WIN32_DLL_IMPORT
+#    endif //WOPCCORE_WIND_DLL_EXPORT
+#  endif //WOPCCORE_WIN32_DLL_IMPORT
 #else //PLATFORM != PLATFORM_WINDOWS
 #  define SCRIPTS_DLL_DECL
 #endif //PLATFORM
 
 #if PLATFORM == PLATFORM_WINDOWS
-#  define IXILIUM_DLL_SPEC __declspec(dllexport)
+#  define WOPCCORE_DLL_SPEC __declspec(dllexport)
 #  ifndef DECLSPEC_NORETURN
 #    define DECLSPEC_NORETURN __declspec(noreturn)
 #  endif //DECLSPEC_NORETURN
 #else //PLATFORM != PLATFORM_WINDOWS
-#  define IXILIUM_DLL_SPEC
+#  define WOPCCORE_DLL_SPEC
 #  define DECLSPEC_NORETURN
 #endif //PLATFORM
 
 #if !defined(DEBUG)
-#  define IXILIUM_INLINE inline
+#  define WOPCCORE_INLINE inline
 #else //DEBUG
-#  if !defined(IXILIUM_DEBUG)
-#    define IXILIUM_DEBUG
-#  endif //IXILIUM_DEBUG
-#  define IXILIUM_INLINE
+#  if !defined(WOPCCORE_DEBUG)
+#    define WOPCCORE_DEBUG
+#  endif //WOPCCORE_DEBUG
+#  define WOPCCORE_INLINE
 #endif //!DEBUG
 
 #if COMPILER == COMPILER_GNU
@@ -137,7 +136,7 @@ typedef uint32      DWORD;
 
 typedef uint64 OBJECT_HANDLE;
 
-#if !defined(DEBUG) && !defined(IXILIUM_DEBUG)
+#if !defined(DEBUG) && !defined(WOPCCORE_DEBUG)
   #if defined(USE_MULTI_THREAD_MAP)
     #define MULTI_THREAD_MAP
   #endif
@@ -151,5 +150,5 @@ typedef uint64 OBJECT_HANDLE;
 #define CLIENT_VER 313 
 #endif 
 
-#endif //IXILIUM_DEFINE_H
+#endif //WOPCCORE_DEFINE_H
 

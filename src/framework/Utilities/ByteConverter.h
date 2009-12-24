@@ -1,7 +1,6 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +17,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#ifndef IXILIUM_BYTECONVERTER_H
-#define IXILIUM_BYTECONVERTER_H
+#ifndef WOPCCORE_BYTECONVERTER_H
+#define WOPCCORE_BYTECONVERTER_H
 
 /** ByteConverter reverse your byte order.  This is use
     for cross platform where they have different endians.
@@ -46,7 +45,7 @@ namespace ByteConverter
     }
 }
 
-#if IXILIUM_ENDIAN == IXILIUM_BIGENDIAN
+#if WOPCCORE_ENDIAN == WOPCCORE_BIGENDIAN
 template<typename T> inline void EndianConvert(T& val) { ByteConverter::apply<T>(&val); }
 template<typename T> inline void EndianConvertReverse(T&) { }
 #else

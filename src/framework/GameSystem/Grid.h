@@ -1,7 +1,6 @@
 /*
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,12 +17,12 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef IXILIUM_GRID_H
-#define IXILIUM_GRID_H
+#ifndef WOPCCORE_GRID_H
+#define WOPCCORE_GRID_H
 
 /*
   @class Grid
-  Grid is a logical segment of the game world represented inside Ixilium.
+  Grid is a logical segment of the game world represented inside WOPCCORE.
   Grid is bind at compile time to a particular type of object which
   we call it the object of interested.  There are many types of loader,
   specially, dynamic loader, static loader, or on-demand loader.  There's
@@ -45,7 +44,7 @@ template
 class ACTIVE_OBJECT,
 class WORLD_OBJECT_TYPES,
 class GRID_OBJECT_TYPES,
-class ThreadModel = Ixilium::SingleThreaded<ACTIVE_OBJECT>
+class ThreadModel = WOPCCORE::SingleThreaded<ACTIVE_OBJECT>
 >
 class SCRIPTS_DLL_DECL Grid
 {
