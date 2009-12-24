@@ -91,7 +91,7 @@ struct SCRIPTS_DLL_DECL boss_drakkari_colossusAI : public ScriptedAI
     {
         m_creature->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
         m_creature->addUnitState(UNIT_STAT_STUNNED);
-        m_creature->CastSpell(m_creature,SPELL_EMERGE,false);
+        DoCast(m_creature, SPELL_EMERGE, false);
     }
 
     void UpdateAI(const uint32 diff)
@@ -103,7 +103,7 @@ struct SCRIPTS_DLL_DECL boss_drakkari_colossusAI : public ScriptedAI
         if (Summoned == false && m_creature->GetHealth()*100 / m_creature->GetMaxHealth() <= 50 && m_creature->GetHealth()*100 / m_creature->GetMaxHealth() > 6)
         {
             PrepareToSummonElemental();
-            m_creature->CastSpell(m_creature->getVictim(), SPELL_EMERGE_2, true);
+            DoCast(m_creature->getVictim(), SPELL_EMERGE_2, true);
             Summoned = true;
         }
 
@@ -121,7 +121,7 @@ struct SCRIPTS_DLL_DECL boss_drakkari_colossusAI : public ScriptedAI
         {
             if (!m_creature->hasUnitState(UNIT_STAT_STUNNED))
             {
-                m_creature->CastSpell(m_creature->getVictim(),SPELL_MIGHTY_BLOW,true);
+                DoCast(m_creature->getVictim(), SPELL_MIGHTY_BLOW, true);
             }
 
             MightyBlowTimer = 10000;
@@ -145,12 +145,17 @@ struct SCRIPTS_DLL_DECL boss_drakkari_colossusAI : public ScriptedAI
 
 struct SCRIPTS_DLL_DECL boss_drakkari_elementalAI : public ScriptedAI
 {
-    boss_drakkari_elementalAI(Creature *c) : ScriptedAI(c)
+    boss_drakkari_elementalAI(Creature* pCreature) : ScriptedAI(pCreature)
     {
-        Colossus = c->FindNearestCreature(DRAKKARI_COLOSSUS, 30.0f, true);
+        pInstance = pCreature->GetInstanceData();
+
+        if (pCreature->GetMap()->IsDungeon())
+            Colossus = pCreature->GetUnit(*pCreature, pInstance->GetData64(DATA_DRAKKARI_COLOSSUS));
     }
 
-    Creature* Colossus;
+    Unit* Colossus;
+
+    ScriptedInstance* pInstance;
 
     uint32 SurgeTimer;
 
@@ -173,13 +178,13 @@ struct SCRIPTS_DLL_DECL boss_drakkari_elementalAI : public ScriptedAI
     void UpdateAI(const uint32 diff)
     {
         //Return since we have no target
-        if(!UpdateVictim())
+        if(!UpdateVictim() || !Colossus)
             return;
 
         if(GoToColossus == false && m_creature->GetHealth()*100 / m_creature->GetMaxHealth() <= 50)
         {
             m_creature->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
-            m_creature->CastSpell(Colossus ,SPELL_MERGE,true);
+            DoCast(Colossus, SPELL_MERGE, true);
 
             GoToColossus = true;
             PreparationDone = true;
@@ -189,7 +194,8 @@ struct SCRIPTS_DLL_DECL boss_drakkari_elementalAI : public ScriptedAI
         {
             m_creature->addUnitState(UNIT_STAT_STUNNED);
             m_creature->SetVisibility(VISIBILITY_OFF);
-            m_creature->CastSpell(Colossus ,SPELL_MERGE,true);
+
+            DoCast(Colossus, SPELL_MERGE, true);
 
             PreparationDone = false;
 
@@ -202,7 +208,7 @@ struct SCRIPTS_DLL_DECL boss_drakkari_elementalAI : public ScriptedAI
             if(m_creature->GetVisibility() == VISIBILITY_ON)
             {
                 Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0);
-                m_creature->CastSpell(pTarget,SPELL_SURGE,false);
+                DoCast(pTarget, SPELL_SURGE, false);
             }
 
             SurgeTimer = 7000;
@@ -223,6 +229,9 @@ struct SCRIPTS_DLL_DECL boss_drakkari_elementalAI : public ScriptedAI
 
     void JustDied(Unit* killer)
     {
+        if (!Colossus)
+            return;
+
         Colossus->Kill(Colossus);
         Colossus->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
     }
@@ -230,12 +239,20 @@ struct SCRIPTS_DLL_DECL boss_drakkari_elementalAI : public ScriptedAI
 
 struct SCRIPTS_DLL_DECL npc_living_mojoAI : public ScriptedAI
 {
-    npc_living_mojoAI(Creature *c) : ScriptedAI(c)
+    npc_living_mojoAI(Creature* pCreature) : ScriptedAI(pCreature)
     {
-        RegularMode = c->GetMap()->IsRegularDifficulty();
+        HeroicMode = pCreature->GetMap()->IsRegularDifficulty();
+        pInstance = pCreature->GetInstanceData();
+
+        if (pCreature->GetMap()->IsDungeon())
+            Colossus = pCreature->GetUnit(*pCreature, pInstance->GetData64(DATA_DRAKKARI_COLOSSUS));
     }
 
-    bool RegularMode;
+    Unit* Colossus;
+
+    ScriptedInstance* pInstance;
+
+    bool HeroicMode;
 
     uint32 MojoWaveTimer;
     uint32 MojoPuddleTimer;
@@ -257,12 +274,12 @@ struct SCRIPTS_DLL_DECL npc_living_mojoAI : public ScriptedAI
     {
         if (m_creature->HasReactState(REACT_PASSIVE))
         {
-            if (Creature* Colossus = m_creature->FindNearestCreature(DRAKKARI_COLOSSUS, 30.0f, true))
+            if (Colossus)
             {
                 Colossus->RemoveAura(SPELL_FREEZE_ANIM);
                 Colossus->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_OOC_NOT_ATTACKABLE);
-                Colossus->SetReactState(REACT_AGGRESSIVE);
-                Colossus->AI()->AttackStart(pDone_by);
+                CAST_CRE(Colossus)->SetReactState(REACT_AGGRESSIVE);
+                CAST_CRE(Colossus)->AI()->AttackStart(pDone_by);
                 EnterEvadeMode();
             }
         }

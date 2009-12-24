@@ -14112,14 +14112,6 @@ void Unit::Kill(Unit *pVictim, bool durabilityLoss)
     // call kill spell proc event (before real die and combat stop to triggering auras removed at death/combat stop)
     if (bRewardIsAllowed && player && player!=pVictim)
     {
-            WorldPacket data(SMSG_PARTYKILLLOG, (8+8)); //send event PARTY_KILL
-            data << uint64(player->GetGUID()); //player with killing blow
-            data << uint64(pVictim->GetGUID()); //victim
-            if (Group *group =  player->GetGroup())
-                group->BroadcastPacket(&data, group->GetMemberGroup(player->GetGUID()));
-            else
-                player->SendDirectMessage(&data);
-
         if (player->RewardPlayerAndGroupAtKill(pVictim))
             player->ProcDamageAndSpell(pVictim, PROC_FLAG_KILL, PROC_FLAG_KILLED, PROC_EX_NONE, 0);
         else
