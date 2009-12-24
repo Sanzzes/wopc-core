@@ -1,2 +1,0 @@
-/usr/bin/ar cr libixiliumframework.a  CMakeFiles/ixiliumframework.dir/Policies/ObjectLifeTime.cpp.o CMakeFiles/ixiliumframework.dir/Utilities/EventProcessor.cpp.o 
-/usr/bin/ranlib libixiliumframework.a 
