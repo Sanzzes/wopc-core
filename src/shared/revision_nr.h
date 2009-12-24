@@ -1,8 +1,8 @@
 #ifndef __REVISION_NR_H__
 #define __REVISION_NR_H__
- #define REVISION_NR "2292"
- #define FILEVER        0,0,2292,0
- #define PRODUCTVER     0,0,2292,0
- #define STRFILEVER     "0, 0, 2292"
- #define STRPRODUCTVER  "0, 0, 2292"
+ #define REVISION_NR "2293"
+ #define FILEVER        0,0,2293,0
+ #define PRODUCTVER     0,0,2293,0
+ #define STRFILEVER     "0, 0, 2293"
+ #define STRPRODUCTVER  "0, 0, 2293"
 #endif // __REVISION_NR_H__
