@@ -1,4 +1,4 @@
-SET(ixiliumsockets_STAT_SRCS
+SET(wopccoresockets_STAT_SRCS
    Base64.cpp
    Exception.cpp
    Ipv4Address.cpp
@@ -19,4 +19,4 @@ SET(ixiliumsockets_STAT_SRCS
    socket_include.cpp
 )
 
-add_library(ixiliumsockets STATIC ${ixiliumsockets_STAT_SRCS})
+add_library(wopccoresockets STATIC ${wopccoresockets_STAT_SRCS})
