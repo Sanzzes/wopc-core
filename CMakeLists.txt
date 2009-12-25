@@ -1,4 +1,4 @@
-PROJECT(IxiliumEmu)
+PROJECT(WoPCCore)
 cmake_minimum_required(VERSION 2.6)
 cmake_policy(SET CMP0005 OLD)
 
@@ -18,7 +18,7 @@ ADD_CUSTOM_TARGET(uninstall "${CMAKE_COMMAND}" -P "${CMAKE_CURRENT_BINARY_DIR}/c
 
 OPTION(DO_MYSQL "With MySQL support" 1)
 OPTION(DO_POSTGRESQL "With PostgreSQL support" 0) # not complete yet, may not link properly.
-OPTION(DO_SCRIPTS "With ixiliumscripts" 1)
+OPTION(DO_SCRIPTS "With wopccorescripts" 1)
 OPTION(DO_CLI "With CLI" 1)
 OPTION(DO_RA "With RA" 0)
 OPTION(DO_DEBUG "Debug mode" 0)
@@ -28,7 +28,7 @@ OPTION(SHORT_SLEEP "Short sleep" 0)
 OPTION(CENTOS "CENTOS" 0)
 OPTION(USE_MULTI_THREAD_MAP "With Multithread maps" 0)
 
-message("* IxiliumEmu Revision: ${REVISION_NR}")
+message("* WoPCCore Revision: ${REVISION_NR}")
 
 IF (PREFIX)
     SET(CMAKE_INSTALL_PREFIX ${PREFIX})
@@ -63,12 +63,12 @@ ENDIF(DO_MYSQL)
 
 if(DO_SCRIPTS)
 message("* With Scripts")
-SET(SCRIPT_LIB ixiliumscript)
+SET(SCRIPT_LIB wopccorescript)
 SET(SCRIPT_INCLUDE src/bindings/scripts/include)
 ADD_DEFINITIONS(-DDO_SCRIPTS)
 else (DO_SCRIPTS)
 message("* Without Scripts")
-SET(SCRIPT_LIB ixiliuminterface)
+SET(SCRIPT_LIB wopccoreinterface)
 SET(SCRIPT_INCLUDE src/bindings/interface)
 endif(DO_SCRIPTS)
 
@@ -94,7 +94,7 @@ endif(DO_RA)
 
 if(DO_DEBUG)
 message("* Debug mode ON")
-add_definitions(-g -DIXILIUM_DEBUG)
+add_definitions(-g -DWOPCCORE_DEBUG)
 endif(DO_DEBUG)
 
 if(DO_WARN)
@@ -132,7 +132,7 @@ if(ACE_FOUND)
 message(STATUS "Found ACE library: ${ACE_LIBRARY}")
 message(STATUS "Include dir is: ${ACE_INCLUDE_DIR}")
 else(ACE_FOUND)
-message(SEND_ERROR "** ACE library not found! IxiliumEmu cannot be compiled!")
+message(SEND_ERROR "** ACE library not found! WoPCCore cannot be compiled!")
 message(SEND_ERROR "** Please build ACE from http://www.cs.wustl.edu/~schmidt/ACE.html")
 #For now remove msg about install from repo, as ubuntu/debian don't have needed ver in repos.
 #message(SEND_ERROR "** your distro may provide a binary for ACE e.g. for ubuntu try apt-get install libace-dev")
