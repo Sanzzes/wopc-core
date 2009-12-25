@@ -179,7 +179,7 @@ struct SCRIPTS_DLL_DECL boss_akilzonAI : public ScriptedAI
             for (uint8 i = 2; i < StormCount; ++i)
                 bp0 *= 2;
 
-            CellPair p(Ixilium::ComputeCellPair(m_creature->GetPositionX(), m_creature->GetPositionY()));
+            CellPair p(WOPCCORE::ComputeCellPair(m_creature->GetPositionX(), m_creature->GetPositionY()));
             Cell cell(p);
             cell.data.Part.reserved = ALL_DISTRICT;
             cell.SetNoCreate();
@@ -187,11 +187,11 @@ struct SCRIPTS_DLL_DECL boss_akilzonAI : public ScriptedAI
             std::list<Unit *> tempUnitMap;
 
             {
-                Ixilium::AnyAoETargetUnitInObjectRangeCheck u_check(m_creature, m_creature, 999);
-                Ixilium::UnitListSearcher<Ixilium::AnyAoETargetUnitInObjectRangeCheck> searcher(m_creature, tempUnitMap, u_check);
+                WOPCCORE::AnyAoETargetUnitInObjectRangeCheck u_check(m_creature, m_creature, 999);
+                WOPCCORE::UnitListSearcher<WOPCCORE::AnyAoETargetUnitInObjectRangeCheck> searcher(m_creature, tempUnitMap, u_check);
 
-                TypeContainerVisitor<Ixilium::UnitListSearcher<Ixilium::AnyAoETargetUnitInObjectRangeCheck>, WorldTypeMapContainer > world_unit_searcher(searcher);
-                TypeContainerVisitor<Ixilium::UnitListSearcher<Ixilium::AnyAoETargetUnitInObjectRangeCheck>, GridTypeMapContainer >  grid_unit_searcher(searcher);
+                TypeContainerVisitor<WOPCCORE::UnitListSearcher<WOPCCORE::AnyAoETargetUnitInObjectRangeCheck>, WorldTypeMapContainer > world_unit_searcher(searcher);
+                TypeContainerVisitor<WOPCCORE::UnitListSearcher<WOPCCORE::AnyAoETargetUnitInObjectRangeCheck>, GridTypeMapContainer >  grid_unit_searcher(searcher);
 
                 CellLock<GridReadGuard> cell_lock(cell, p);
                 cell_lock->Visit(cell_lock, world_unit_searcher, *(m_creature->GetMap()));
