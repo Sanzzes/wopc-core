@@ -932,17 +932,17 @@ void hyjalAI::JustDied(Unit* killer)
 }
 void hyjalAI::HideNearPos(float x, float y)
 {
-    CellPair pair(Ixilium::ComputeCellPair(x, y));
+    CellPair pair(WOPCCORE::ComputeCellPair(x, y));
     Cell cell(pair);
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();
 
     // First get all creatures.
     std::list<Creature*> creatures;
-    Ixilium::AllFriendlyCreaturesInGrid creature_check(m_creature);
-    Ixilium::CreatureListSearcher<Ixilium::AllFriendlyCreaturesInGrid> creature_searcher(m_creature, creatures, creature_check);
+    WOPCCORE::AllFriendlyCreaturesInGrid creature_check(m_creature);
+    WOPCCORE::CreatureListSearcher<WOPCCORE::AllFriendlyCreaturesInGrid> creature_searcher(m_creature, creatures, creature_check);
     TypeContainerVisitor
-        <Ixilium::CreatureListSearcher<Ixilium::AllFriendlyCreaturesInGrid>,
+        <WOPCCORE::CreatureListSearcher<WOPCCORE::AllFriendlyCreaturesInGrid>,
         GridTypeMapContainer> creature_visitor(creature_searcher);
 
     CellLock<GridReadGuard> cell_lock(cell, pair);
@@ -960,14 +960,14 @@ void hyjalAI::HideNearPos(float x, float y)
 }
 void hyjalAI::RespawnNearPos(float x, float y)
 {
-    CellPair p(Ixilium::ComputeCellPair(x, y));
+    CellPair p(WOPCCORE::ComputeCellPair(x, y));
     Cell cell(p);
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();
 
-    Ixilium::RespawnDo u_do;
-    Ixilium::WorldObjectWorker<Ixilium::RespawnDo> worker(m_creature, u_do);
-    TypeContainerVisitor<Ixilium::WorldObjectWorker<Ixilium::RespawnDo>, GridTypeMapContainer > obj_worker(worker);
+    WOPCCORE::RespawnDo u_do;
+    WOPCCORE::WorldObjectWorker<WOPCCORE::RespawnDo> worker(m_creature, u_do);
+    TypeContainerVisitor<WOPCCORE::WorldObjectWorker<WOPCCORE::RespawnDo>, GridTypeMapContainer > obj_worker(worker);
     CellLock<GridReadGuard> cell_lock(cell, p);
     cell_lock->Visit(cell_lock, obj_worker, *m_creature->GetMap());
 }
@@ -992,17 +992,17 @@ void hyjalAI::WaypointReached(uint32 i)
         }
         //do some talking
         //all alive guards walk near here
-        CellPair pair(Ixilium::ComputeCellPair(m_creature->GetPositionX(), m_creature->GetPositionY()));
+        CellPair pair(WOPCCORE::ComputeCellPair(m_creature->GetPositionX(), m_creature->GetPositionY()));
         Cell cell(pair);
         cell.data.Part.reserved = ALL_DISTRICT;
         cell.SetNoCreate();
 
         // First get all creatures.
         std::list<Creature*> creatures;
-        Ixilium::AllFriendlyCreaturesInGrid creature_check(m_creature);
-        Ixilium::CreatureListSearcher<Ixilium::AllFriendlyCreaturesInGrid> creature_searcher(m_creature, creatures, creature_check);
+        WOPCCORE::AllFriendlyCreaturesInGrid creature_check(m_creature);
+        WOPCCORE::CreatureListSearcher<WOPCCORE::AllFriendlyCreaturesInGrid> creature_searcher(m_creature, creatures, creature_check);
         TypeContainerVisitor
-            <Ixilium::CreatureListSearcher<Ixilium::AllFriendlyCreaturesInGrid>,
+            <WOPCCORE::CreatureListSearcher<WOPCCORE::AllFriendlyCreaturesInGrid>,
             GridTypeMapContainer> creature_visitor(creature_searcher);
 
         CellLock<GridReadGuard> cell_lock(cell, pair);
@@ -1035,16 +1035,16 @@ void hyjalAI::DoOverrun(uint32 faction, const uint32 diff)
     {
         if (TeleportTimer <= diff)
         {
-            CellPair pair(Ixilium::ComputeCellPair(m_creature->GetPositionX(), m_creature->GetPositionY()));
+            CellPair pair(WOPCCORE::ComputeCellPair(m_creature->GetPositionX(), m_creature->GetPositionY()));
             Cell cell(pair);
             cell.data.Part.reserved = ALL_DISTRICT;
             cell.SetNoCreate();
 
             std::list<Creature*> creatures;
-            Ixilium::AllFriendlyCreaturesInGrid creature_check(m_creature);
-            Ixilium::CreatureListSearcher<Ixilium::AllFriendlyCreaturesInGrid> creature_searcher(m_creature, creatures, creature_check);
+            WOPCCORE::AllFriendlyCreaturesInGrid creature_check(m_creature);
+            WOPCCORE::CreatureListSearcher<WOPCCORE::AllFriendlyCreaturesInGrid> creature_searcher(m_creature, creatures, creature_check);
             TypeContainerVisitor
-                <Ixilium::CreatureListSearcher<Ixilium::AllFriendlyCreaturesInGrid>,
+                <WOPCCORE::CreatureListSearcher<WOPCCORE::AllFriendlyCreaturesInGrid>,
                 GridTypeMapContainer> creature_visitor(creature_searcher);
 
             CellLock<GridReadGuard> cell_lock(cell, pair);
