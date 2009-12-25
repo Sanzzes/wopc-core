@@ -1915,8 +1915,8 @@ struct SCRIPTS_DLL_DECL npc_ebon_gargoyleAI : CasterAI
         despawnTimer = 0;
         // Find victim of Summon Gargoyle spell
         std::list<Unit*> targets;
-        Ixilium::AnyUnfriendlyUnitInObjectRangeCheck u_check(m_creature, m_creature, 30);
-        Ixilium::UnitListSearcher<Ixilium::AnyUnfriendlyUnitInObjectRangeCheck> searcher(m_creature, targets, u_check);
+        WOPCCORE::AnyUnfriendlyUnitInObjectRangeCheck u_check(m_creature, m_creature, 30);
+        WOPCCORE::UnitListSearcher<WOPCCORE::AnyUnfriendlyUnitInObjectRangeCheck> searcher(m_creature, targets, u_check);
         m_creature->VisitNearbyObject(30, searcher);
         for (std::list<Unit*>::iterator iter = targets.begin(); iter != targets.end(); ++iter)
             if((*iter)->GetAura(49206,owner->GetGUID()))
