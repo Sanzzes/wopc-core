@@ -3098,7 +3098,7 @@ DiminishingGroup GetDiminishingReturnsGroupForSpell(SpellEntry const* spellproto
                 return DIMINISHING_NONE;
             break;
         case SPELLFAMILY_MAGE:
-        {78
+        {
             // Frostbite
             if (spellproto->SpellFamilyFlags[1] & 0x80000000)
                 return DIMINISHING_TRIGGER_ROOT;
