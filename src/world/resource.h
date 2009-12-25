@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
-// Used by IxiliumEmu.rc
+// Used by WoPCCore.rc
 //
 
 // Next default values for new objects
