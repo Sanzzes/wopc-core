@@ -68,7 +68,7 @@ void usage(const char *prog)
         ,prog);
 }
 
-/// Launch the Ixilium server
+/// Launch the WOPCCORE server
 extern int main(int argc, char **argv)
 {
     ///- Command line parsing to get the configuration file name
@@ -165,7 +165,7 @@ extern int main(int argc, char **argv)
     // at sMaster return function exist with codes
     // 0 - normal shutdown
     // 1 - shutdown at error
-    // 2 - restart command used, this code can be used by restarter for restart Ixiliumd
+    // 2 - restart command used, this code can be used by restarter for restart WoPCCored
 }
 
 /// @}

@@ -80,14 +80,14 @@ void RASocket::OnAccept()
     ///- If there is already an active admin, drop the connection
     if (iUsers)
     {
-        Sendf(sObjectMgr.GetWoPCCoreStringForDBCLocale(LANG_RA_BUSY));
+        Sendf(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_RA_BUSY));
         SetCloseAndDelete();
         return;
     }
 
     ///- Else print Motd
     Sendf("%s\r\n",sWorld.GetMotd());
-    Sendf("\r\n%s",sObjectMgr.GetWoPCCoreStringForDBCLocale(LANG_RA_USER));
+    Sendf("\r\n%s",sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_RA_USER));
 }
 
 /// Read data from the network
@@ -107,7 +107,7 @@ void RASocket::OnRead()
     ///- If there is already an active admin (other than you), drop the connection
     if (stage!=OK && iUsers)
     {
-        Sendf(sObjectMgr.GetWoPCCoreStringForDBCLocale(LANG_RA_BUSY));
+        Sendf(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_RA_BUSY));
         SetCloseAndDelete();
         return;
     }
@@ -161,7 +161,7 @@ void RASocket::OnRead()
                     Sendf("-No such user.\r\n");
                     sLog.outRemote("User %s does not exist.\n",szLogin.c_str());
                     if(bSecure)SetCloseAndDelete();
-                    Sendf("\r\n%s",sObjectMgr.GetWoPCCoreStringForDBCLocale(LANG_RA_USER));
+                    Sendf("\r\n%s",sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_RA_USER));
                 }
                 else
                 {
@@ -173,12 +173,12 @@ void RASocket::OnRead()
                         Sendf("-Not enough privileges.\r\n");
                         sLog.outRemote("User %s has no privilege.\n",szLogin.c_str());
                         if (bSecure)SetCloseAndDelete();
-                        Sendf("\r\n%s",sObjectMgr.GetWoPCCoreStringForDBCLocale(LANG_RA_USER));
+                        Sendf("\r\n%s",sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_RA_USER));
                     }
                     else
                     {
                         stage=LG;
-                        Sendf(sObjectMgr.GetWoPCCoreStringForDBCLocale(LANG_RA_PASS));
+                        Sendf(sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_RA_PASS));
                     }
                     delete result;
                 }
@@ -219,7 +219,7 @@ void RASocket::OnRead()
                     Sendf("-Wrong pass.\r\n");
                     sLog.outRemote("User %s has failed to log in.\n",szLogin.c_str());
                     if(bSecure)SetCloseAndDelete();
-                    Sendf("\r\n%s",sObjectMgr.GetWoPCCoreStringForDBCLocale(LANG_RA_PASS));
+                    Sendf("\r\n%s",sObjectMgr.GetWOPCCOREStringForDBCLocale(LANG_RA_PASS));
                 }
                 break;
             }
