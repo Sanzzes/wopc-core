@@ -38,11 +38,11 @@ world
 game
 shared
 zlib
-WoPCCoreframework
-WoPCCoresockets
-WoPCCoredatabase
-WoPCCoreauth
-WoPCCoreconfig
+wopccoreframework
+wopccoresockets
+wopccoredatabase
+wopccoreauth
+wopccoreconfig
 vmaps
 g3dlite
 ${READLINE_LIBRARY}
