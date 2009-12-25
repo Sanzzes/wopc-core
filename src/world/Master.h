@@ -18,7 +18,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-/// \addtogroup Ixiliumd
+/// \addtogroup WOPCCOREd
 /// @{
 /// \file
 
@@ -47,6 +47,6 @@ class Master
         void clearOnlineAccounts();
 };
 
-#define sMaster Ixilium::Singleton<Master>::Instance()
+#define sMaster WOPCCORE::Singleton<Master>::Instance()
 #endif
 /// @}
