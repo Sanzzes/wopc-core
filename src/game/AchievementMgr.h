@@ -325,6 +325,6 @@ class AchievementGlobalMgr
         AchievementRewardLocales m_achievementRewardLocales;
 };
 
-#define achievementmgr Trinity::Singleton<AchievementGlobalMgr>::Instance()
+#define achievementmgr WOPCCORE::Singleton<AchievementGlobalMgr>::Instance()
 
 #endif
