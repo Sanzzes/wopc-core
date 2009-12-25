@@ -528,27 +528,6 @@ SpellSpecific GetSpellSpecific(uint32 spellId)
         }
         case SPELLFAMILY_MAGE:
         {
-
-              // Blizzard & Chilled (and some other stacked with blizzard spells
-               if ((spellInfo_1->SpellFamilyFlags & UI64LIT(0x80)) && (spellInfo_2->SpellFamilyFlags & UI64LIT(0x100000)) ||
-                   (spellInfo_2->SpellFamilyFlags & UI64LIT(0x80)) && (spellInfo_1->SpellFamilyFlags & UI64LIT(0x100000)))
-                    return false;
-
-              // Blink & Improved Blink
-               if (spellInfo_1->SpellFamilyFlags & UI64LIT(0x0000000000010000)) && (spellInfo_2->SpellVisual[0] == 72 && spellInfo_2->SpellIconID == 1499) ||
-                   (spellInfo_2->SpellFamilyFlags & UI64LIT(0x0000000000010000)) && (spellInfo_1->SpellVisual[0] == 72 && spellInfo_1->SpellIconID == 1499))
-                    return false;
-
-             // Living Bomb & Ignite (Dots)
-              if ((spellInfo_1->SpellFamilyFlags & UI64LIT(0x2000000000000)) && (spellInfo_2->SpellFamilyFlags & UI64LIT(0x8000000)) ||
-                  (spellInfo_2->SpellFamilyFlags & UI64LIT(0x2000000000000)) && (spellInfo_1->SpellFamilyFlags & UI64LIT(0x8000000)))
-                   return false;
-
-            // Fireball & Pyroblast (Dots)
-             if( (spellInfo_1->SpellFamilyFlags & UI64LIT(0x1)) && (spellInfo_2->SpellFamilyFlags & UI64LIT(0x400000)) ||
-                 (spellInfo_2->SpellFamilyFlags & UI64LIT(0x1)) && (spellInfo_1->SpellFamilyFlags & UI64LIT(0x400000)))
-                  return false;
-
             // family flags 18(Molten), 25(Frost/Ice), 28(Mage)
             if (spellInfo->SpellFamilyFlags[0] & 0x12040000)
                 return SPELL_MAGE_ARMOR;
@@ -1638,7 +1617,6 @@ void SpellMgr::LoadSpellThreats()
 
 bool SpellMgr::IsRankSpellDueToSpell(SpellEntry const *spellInfo_1,uint32 spellId_2) const
 {
-    SpellEntry const *spellInfo_1 = sSpellStore.LookupEntry(spellId_1);
     SpellEntry const *spellInfo_2 = sSpellStore.LookupEntry(spellId_2);
     if (!spellInfo_1 || !spellInfo_2) return false;
     if (spellInfo_1->Id == spellId_2) return false;
