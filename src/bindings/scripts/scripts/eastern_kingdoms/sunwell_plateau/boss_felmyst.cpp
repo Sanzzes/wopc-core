@@ -1,4 +1,4 @@
-/* Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+/* Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
 * the Free Software Foundation; either version 2 of the License, or
@@ -520,15 +520,15 @@ struct SCRIPTS_DLL_DECL boss_felmystAI : public ScriptedAI
         m_creature->GetPosition(x, y, z);
 
         {
-            CellPair pair(Ixilium::ComputeCellPair(x, y));
+            CellPair pair(WOPCCORE::ComputeCellPair(x, y));
             Cell cell(pair);
             cell.data.Part.reserved = ALL_DISTRICT;
             cell.SetNoCreate();
 
-            Ixilium::AllCreaturesOfEntryInRange check(m_creature, entry, 100);
-            Ixilium::CreatureListSearcher<Ixilium::AllCreaturesOfEntryInRange> searcher(m_creature, templist, check);
+            WOPCCORE::AllCreaturesOfEntryInRange check(m_creature, entry, 100);
+            WOPCCORE::CreatureListSearcher<WOPCCORE::AllCreaturesOfEntryInRange> searcher(m_creature, templist, check);
 
-            TypeContainerVisitor<Ixilium::CreatureListSearcher<Ixilium::AllCreaturesOfEntryInRange>, GridTypeMapContainer> cSearcher(searcher);
+            TypeContainerVisitor<WOPCCORE::CreatureListSearcher<WOPCCORE::AllCreaturesOfEntryInRange>, GridTypeMapContainer> cSearcher(searcher);
 
             CellLock<GridReadGuard> cell_lock(cell, pair);
             cell_lock->Visit(cell_lock, cSearcher, *(m_creature->GetMap()));

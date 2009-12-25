@@ -333,14 +333,14 @@ struct SCRIPTS_DLL_DECL boss_kalecgos_kjAI : public ScriptedAI
 
     void FindOrbs()
     {
-        CellPair pair(Ixilium::ComputeCellPair(m_creature->GetPositionX(), m_creature->GetPositionY()));
+        CellPair pair(WOPCCORE::ComputeCellPair(m_creature->GetPositionX(), m_creature->GetPositionY()));
         Cell cell(pair);
         cell.data.Part.reserved = ALL_DISTRICT;
         cell.SetNoCreate();
         std::list<GameObject*> orbList;
         AllOrbsInGrid check;
-        Ixilium::GameObjectListSearcher<AllOrbsInGrid> searcher(me, orbList, check);
-        TypeContainerVisitor<Ixilium::GameObjectListSearcher<AllOrbsInGrid>, GridTypeMapContainer> visitor(searcher);
+        WOPCCORE::GameObjectListSearcher<AllOrbsInGrid> searcher(me, orbList, check);
+        TypeContainerVisitor<WOPCCORE::GameObjectListSearcher<AllOrbsInGrid>, GridTypeMapContainer> visitor(searcher);
         CellLock<GridReadGuard> cell_lock(cell, pair);
         cell_lock->Visit(cell_lock, visitor, *(m_creature->GetMap()));
         if (orbList.empty())
