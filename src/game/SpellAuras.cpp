@@ -984,6 +984,15 @@ void AuraEffect::CleanupTriggeredSpells()
                     else if (m_spellProto->SpellFamilyFlags[1] & 0x00000001 && m_spellProto->SpellIconID == 32)
                         //+80.67% from +spell bonus
                         DoneActualBenefit = caster->SpellBaseDamageBonus(GetSpellSchoolMask(m_spellProto)) * 0.8067f;
+            	    // Living Bomb
+            	    if (m_spellProto->SpellIconID == 3000 && (m_spellProto->SpellFamilyFlags & UI64LIT(0x2000000000000)))
+            {
+                	// Zero duration is equal to AURA_REMOVE_BY_DEFAULT. We can't use it directly, as it is set even
+                	// when removing aura from one target due to casting Living Bomb at other.
+                	if (caster && !apply && (m_duration == 0 || m_removeMode == AURA_REMOVE_BY_DISPEL))
+                    	caster->CastSpell(m_target,m_modifier.m_amount,true);
+                return;
+            }
                     break;
                 case SPELLFAMILY_WARLOCK:
                     // Shadow Ward

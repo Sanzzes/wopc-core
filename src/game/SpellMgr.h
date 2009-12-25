@@ -172,6 +172,7 @@ enum SpellSpecific
     SPELL_PRIEST_DIVINE_SPIRIT = 27,
     SPELL_HAND              = 28,
     SPELL_PHASE             = 29,
+    SPELL_MAGE_BOMB         = 30,
 };
 
 #define SPELL_LINKED_MAX_SPELLS  200000

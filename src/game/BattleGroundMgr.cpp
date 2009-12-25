@@ -679,8 +679,8 @@ bool BattleGroundQueue::CheckNormalMatch(BattleGround* bg_template, BGQueueIdBas
                 if (!m_SelectionPools[j].AddGroup(*(itr_team[j]), m_SelectionPools[(j + 1) % BG_TEAMS_COUNT].GetPlayerCount()))
                     break;
         }
-        // do not allow to start bg with more than 2 players more on 1 faction
-        if (abs((int32)(m_SelectionPools[BG_TEAM_HORDE].GetPlayerCount() - m_SelectionPools[BG_TEAM_ALLIANCE].GetPlayerCount())) > 2)
+        // do not allow to start bg until the maximum number of players on each side
+        if ( m_SelectionPools[BG_TEAM_HORDE].GetPlayerCount() != maxPlayers || m_SelectionPools[BG_TEAM_ALLIANCE].GetPlayerCount() != maxPlayers )
             return false;
     }
     //allow 1v0 if debug bg
