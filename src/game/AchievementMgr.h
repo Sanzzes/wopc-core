@@ -60,9 +60,10 @@ enum AchievementCriteriaRequirementType
     ACHIEVEMENT_CRITERIA_REQUIRE_S_DRUNK             = 15,  // drunken_state  0             (enum DrunkenState) of player
     ACHIEVEMENT_CRITERIA_REQUIRE_HOLIDAY             = 16,  // holiday_id     0             event in holiday time
     ACHIEVEMENT_CRITERIA_REQUIRE_BG_LOSS_TEAM_SCORE  = 17,  // min_score      max_score     player's team win bg and opposition team have team score in range
+    ACHIEVEMENT_CRITERIA_DATA_INSTANCE_SCRIPT        = 18,  // 0              0             maker instance script call for check curent criteria requirements fit
 };
 
-#define MAX_ACHIEVEMENT_CRITERIA_REQUIREMENT_TYPE      18   // maximum value in AchievementCriteriaRequirementType enum
+#define MAX_ACHIEVEMENT_CRITERIA_REQUIREMENT_TYPE      19   // maximum value in AchievementCriteriaRequirementType enum
 
 class Player;
 class Unit;

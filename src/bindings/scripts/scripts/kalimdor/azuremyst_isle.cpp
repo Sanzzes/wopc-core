@@ -484,8 +484,8 @@ struct SCRIPTS_DLL_DECL npc_geezleAI : public ScriptedAI
     {
         float radius = 50.0f;
         std::list<Player*> players;
-        Ixilium::AnyPlayerInObjectRangeCheck checker(m_creature, radius);
-        Ixilium::PlayerListSearcher<Ixilium::AnyPlayerInObjectRangeCheck> searcher(m_creature, players, checker);
+        WOPCCORE::AnyPlayerInObjectRangeCheck checker(m_creature, radius);
+        WOPCCORE::PlayerListSearcher<WOPCCORE::AnyPlayerInObjectRangeCheck> searcher(m_creature, players, checker);
         m_creature->VisitNearbyWorldObject(radius, searcher);
 
         for (std::list<Player*>::iterator itr = players.begin(); itr != players.end(); ++itr)
