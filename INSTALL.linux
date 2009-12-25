@@ -33,7 +33,7 @@ Make a directory to build in, you can call it anything you want like build or bi
 the directory and cmake and make. E.G. you created a dir named build ad want to have your final
  compiled product installed in /home/ixiemu/server1, an example sequence of commands can be : 
 
-    cmake -DPREFIX=/opt/WoPCCore/builds  -DSSLLIB=/opt/WoPCCore/.sys/lib/libssl.so
+    cmake -DPREFIX=/opt/WoPCCore/builds  -DSSLLIB=/opt/WoPCCore/.sysssl/lib/libssl.so
     make
     make install
     
