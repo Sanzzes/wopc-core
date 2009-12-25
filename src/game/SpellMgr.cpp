@@ -540,7 +540,7 @@ SpellSpecific GetSpellSpecific(uint32 spellId)
                 return SPELL_MAGE_POLYMORPH;
 	     
 	     if (spellInfo->SpellFamilyFlags & UI64LIT(0x2000000000000))
-                return SPELL_MAGE_BOMB
+                return SPELL_MAGE_BOMB;
 
             break;
         }
