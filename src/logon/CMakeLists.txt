@@ -31,11 +31,11 @@ SET_TARGET_PROPERTIES(logon PROPERTIES LINK_FLAGS "${logon_LINK_FLAGS}")
 target_link_libraries(
 logon
 shared
-WoPCCoreframework
-WoPCCoresockets
-WoPCCoredatabase
-WoPCCoreauth
-WoPCCoreconfig
+wopccoreframework
+wopccoresockets
+wopccoredatabase
+wopccoreauth
+wopccoreconfig
 zlib
 gomp
 ${SSLLIB}
