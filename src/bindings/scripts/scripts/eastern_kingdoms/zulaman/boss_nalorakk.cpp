@@ -151,15 +151,15 @@ struct SCRIPTS_DLL_DECL boss_nalorakkAI : public ScriptedAI
         m_creature->GetPosition(x, y, z);
 
         {
-            CellPair pair(Ixilium::ComputeCellPair(x, y));
+            CellPair pair(WOPCCORE::ComputeCellPair(x, y));
             Cell cell(pair);
             cell.data.Part.reserved = ALL_DISTRICT;
             cell.SetNoCreate();
 
-            Ixilium::AllFriendlyCreaturesInGrid check(m_creature);
-            Ixilium::CreatureListSearcher<Ixilium::AllFriendlyCreaturesInGrid> searcher(m_creature, templist, check);
+            WOPCCORE::AllFriendlyCreaturesInGrid check(m_creature);
+            WOPCCORE::CreatureListSearcher<WOPCCORE::AllFriendlyCreaturesInGrid> searcher(m_creature, templist, check);
 
-            TypeContainerVisitor<Ixilium::CreatureListSearcher<Ixilium::AllFriendlyCreaturesInGrid>, GridTypeMapContainer> cSearcher(searcher);
+            TypeContainerVisitor<WOPCCORE::CreatureListSearcher<WOPCCORE::AllFriendlyCreaturesInGrid>, GridTypeMapContainer> cSearcher(searcher);
 
             CellLock<GridReadGuard> cell_lock(cell, pair);
             cell_lock->Visit(cell_lock, cSearcher, *(m_creature->GetMap()));

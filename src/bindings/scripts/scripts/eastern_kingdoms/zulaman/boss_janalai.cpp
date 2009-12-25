@@ -229,15 +229,15 @@ struct SCRIPTS_DLL_DECL boss_janalaiAI : public ScriptedAI
         m_creature->GetPosition(x, y, z);
 
         {
-            CellPair pair(Ixilium::ComputeCellPair(x, y));
+            CellPair pair(WOPCCORE::ComputeCellPair(x, y));
             Cell cell(pair);
             cell.data.Part.reserved = ALL_DISTRICT;
             cell.SetNoCreate();
 
-            Ixilium::AllCreaturesOfEntryInRange check(m_creature, MOB_EGG, 100);
-            Ixilium::CreatureListSearcher<Ixilium::AllCreaturesOfEntryInRange> searcher(m_creature, templist, check);
+            WOPCCORE::AllCreaturesOfEntryInRange check(m_creature, MOB_EGG, 100);
+            WOPCCORE::CreatureListSearcher<WOPCCORE::AllCreaturesOfEntryInRange> searcher(m_creature, templist, check);
 
-            TypeContainerVisitor<Ixilium::CreatureListSearcher<Ixilium::AllCreaturesOfEntryInRange>, GridTypeMapContainer> cSearcher(searcher);
+            TypeContainerVisitor<WOPCCORE::CreatureListSearcher<WOPCCORE::AllCreaturesOfEntryInRange>, GridTypeMapContainer> cSearcher(searcher);
 
             CellLock<GridReadGuard> cell_lock(cell, pair);
             cell_lock->Visit(cell_lock, cSearcher, *(m_creature->GetMap()));
@@ -264,15 +264,15 @@ struct SCRIPTS_DLL_DECL boss_janalaiAI : public ScriptedAI
         m_creature->GetPosition(x, y, z);
 
         {
-            CellPair pair(Ixilium::ComputeCellPair(x, y));
+            CellPair pair(WOPCCORE::ComputeCellPair(x, y));
             Cell cell(pair);
             cell.data.Part.reserved = ALL_DISTRICT;
             cell.SetNoCreate();
 
-            Ixilium::AllCreaturesOfEntryInRange check(m_creature, MOB_FIRE_BOMB, 100);
-            Ixilium::CreatureListSearcher<Ixilium::AllCreaturesOfEntryInRange> searcher(m_creature, templist, check);
+            WOPCCORE::AllCreaturesOfEntryInRange check(m_creature, MOB_FIRE_BOMB, 100);
+            WOPCCORE::CreatureListSearcher<WOPCCORE::AllCreaturesOfEntryInRange> searcher(m_creature, templist, check);
 
-            TypeContainerVisitor<Ixilium::CreatureListSearcher<Ixilium::AllCreaturesOfEntryInRange>, GridTypeMapContainer> cSearcher(searcher);
+            TypeContainerVisitor<WOPCCORE::CreatureListSearcher<WOPCCORE::AllCreaturesOfEntryInRange>, GridTypeMapContainer> cSearcher(searcher);
 
             CellLock<GridReadGuard> cell_lock(cell, pair);
             cell_lock->Visit(cell_lock, cSearcher, *(m_creature->GetMap()));
@@ -496,15 +496,15 @@ struct SCRIPTS_DLL_DECL mob_amanishi_hatcherAI : public ScriptedAI
         m_creature->GetPosition(x, y, z);
 
         {
-            CellPair pair(Ixilium::ComputeCellPair(x, y));
+            CellPair pair(WOPCCORE::ComputeCellPair(x, y));
             Cell cell(pair);
             cell.data.Part.reserved = ALL_DISTRICT;
             cell.SetNoCreate();
 
-            Ixilium::AllCreaturesOfEntryInRange check(m_creature, 23817, 50);
-            Ixilium::CreatureListSearcher<Ixilium::AllCreaturesOfEntryInRange> searcher(m_creature, templist, check);
+            WOPCCORE::AllCreaturesOfEntryInRange check(m_creature, 23817, 50);
+            WOPCCORE::CreatureListSearcher<WOPCCORE::AllCreaturesOfEntryInRange> searcher(m_creature, templist, check);
 
-            TypeContainerVisitor<Ixilium::CreatureListSearcher<Ixilium::AllCreaturesOfEntryInRange>, GridTypeMapContainer> cSearcher(searcher);
+            TypeContainerVisitor<WOPCCORE::CreatureListSearcher<WOPCCORE::AllCreaturesOfEntryInRange>, GridTypeMapContainer> cSearcher(searcher);
 
             CellLock<GridReadGuard> cell_lock(cell, pair);
             cell_lock->Visit(cell_lock, cSearcher, *(m_creature->GetMap()));
