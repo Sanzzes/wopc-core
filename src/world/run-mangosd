@@ -8,7 +8,7 @@ do
 	echo `date` >> crash.log &
 	./world | tail -n 20 >> crash.log
 	echo " " >> crash.log &
-	pid=`ps ax | awk '($5 ~ /ixiemu/) { print $1 }'`
+	pid=`ps ax | awk '($5 ~ /wopccore/) { print $1 }'`
 	wait $pid
         echo `date` ", WoPCCore daemon crashed and restarted." >> serverlog
 done

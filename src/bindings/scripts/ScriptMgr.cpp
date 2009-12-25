@@ -13,9 +13,9 @@
 
 #define _FULLVERSION "Scripts"
 
-#ifndef _IXILIUM_SCRIPT_CONFIG
-# define _IXILIUM_SCRIPT_CONFIG  "world.conf"
-#endif _IXILIUM_SCRIPT_CONFIG
+#ifndef _WOPCCORE_SCRIPT_CONFIG
+# define _WOPCCORE_SCRIPT_CONFIG  "world.conf"
+#endif _WOPCCORE_SCRIPT_CONFIG
 
 int num_sc_scripts;
 Script *m_scripts[MAX_SCRIPTS];
@@ -61,7 +61,7 @@ struct TSpellSummary {
     uint8 Effects;                                          // set of enum SelectEffect
 }extern *SpellSummary;
 
-IXILIUM_DLL_EXPORT
+WOPCCORE_DLL_EXPORT
 void ScriptsFree()
 {
     // Free Spell Summary
@@ -74,10 +74,10 @@ void ScriptsFree()
     num_sc_scripts = 0;
 }
 
-IXILIUM_DLL_EXPORT
+WOPCCORE_DLL_EXPORT
 void ScriptsInit(char const* cfg_file = "world.conf")
 {
-    //Ixilium Script startup
+    //WOPCCORE Script startup
     outstring_log( " @@@ @@@  @@@ @@@ @@@      @@@ @@@  @@@ @@@@@@@@@@ ");
     outstring_log( " @@! @@!  !@@ @@! @@!      @@! @@!  @@@ @@! @@! @@!");
     outstring_log( " !!@  !@@!@!  !!@ @!!      !!@ @!@  !@! @!! !!@ @!@");
@@ -248,7 +248,7 @@ void Script::RegisterSelf()
 //********************************
 //*** Functions to be Exported ***
 
-IXILIUM_DLL_EXPORT
+WOPCCORE_DLL_EXPORT
 void OnLogin(Player *pPlayer)
 {
     Script *tmpscript = m_scripts[GetScriptId("scripted_on_events")];
@@ -256,7 +256,7 @@ void OnLogin(Player *pPlayer)
     tmpscript->pOnLogin(pPlayer);
 }
 
-IXILIUM_DLL_EXPORT
+WOPCCORE_DLL_EXPORT
 void OnLogout(Player *pPlayer)
 {
     Script *tmpscript = m_scripts[GetScriptId("scripted_on_events")];
@@ -264,7 +264,7 @@ void OnLogout(Player *pPlayer)
     tmpscript->pOnLogout(pPlayer);
 }
 
-IXILIUM_DLL_EXPORT
+WOPCCORE_DLL_EXPORT
 void OnPVPKill(Player *killer, Player *killed)
 {
     Script *tmpscript = m_scripts[GetScriptId("scripted_on_events")];
@@ -272,7 +272,7 @@ void OnPVPKill(Player *killer, Player *killed)
     tmpscript->pOnPVPKill(killer, killed);
 }
 
-IXILIUM_DLL_EXPORT
+WOPCCORE_DLL_EXPORT
 bool OnSpellCast (Unit *pUnitTarget, Item *pItemTarget, GameObject *pGoTarget, uint32 i, SpellEntry const *spell)
 {
     Script *tmpscript = m_scripts[GetScriptId("scripted_on_events")];
@@ -280,7 +280,7 @@ bool OnSpellCast (Unit *pUnitTarget, Item *pItemTarget, GameObject *pGoTarget, u
     return tmpscript->pOnSpellCast(pUnitTarget,pItemTarget,pGoTarget,i,spell);
 }
 
-IXILIUM_DLL_EXPORT
+WOPCCORE_DLL_EXPORT
 uint32 OnGetXP(Player *pPlayer, uint32 amount)
 {
     Script *tmpscript = m_scripts[GetScriptId("scripted_on_events")];
@@ -288,7 +288,7 @@ uint32 OnGetXP(Player *pPlayer, uint32 amount)
     return tmpscript->pOnGetXP(pPlayer,amount);
 }
 
-IXILIUM_DLL_EXPORT
+WOPCCORE_DLL_EXPORT
 uint32 OnGetMoney(Player *pPlayer, int32 amount)
 {
     Script *tmpscript = m_scripts[GetScriptId("scripted_on_events")];
@@ -296,7 +296,7 @@ uint32 OnGetMoney(Player *pPlayer, int32 amount)
     return tmpscript->pOnGetMoney(pPlayer,amount);
 }
 
-IXILIUM_DLL_EXPORT
+WOPCCORE_DLL_EXPORT
 bool OnPlayerChat(Player *pPlayer, const char *text)
 {
     Script *tmpscript = m_scripts[GetScriptId("scripted_on_events")];
@@ -304,7 +304,7 @@ bool OnPlayerChat(Player *pPlayer, const char *text)
     return tmpscript->pOnPlayerChat(pPlayer,text);
 }
 
-IXILIUM_DLL_EXPORT
+WOPCCORE_DLL_EXPORT
 void OnServerStartup()
 {
     Script *tmpscript = m_scripts[GetScriptId("scripted_on_events")];
@@ -312,7 +312,7 @@ void OnServerStartup()
     tmpscript->pOnServerStartup();
 }
 
-IXILIUM_DLL_EXPORT
+WOPCCORE_DLL_EXPORT
 void OnServerShutdown()
 {
     Script *tmpscript = m_scripts[GetScriptId("scripted_on_events")];
@@ -320,7 +320,7 @@ void OnServerShutdown()
     tmpscript->pOnServerShutdown();
 }
 
-IXILIUM_DLL_EXPORT
+WOPCCORE_DLL_EXPORT
 void OnAreaChange(Player *pPlayer, AreaTableEntry const *pArea)
 {
     Script *tmpscript = m_scripts[GetScriptId("scripted_on_events")];
@@ -328,7 +328,7 @@ void OnAreaChange(Player *pPlayer, AreaTableEntry const *pArea)
     tmpscript->pOnAreaChange(pPlayer, pArea);
 }
 
-IXILIUM_DLL_EXPORT
+WOPCCORE_DLL_EXPORT
 bool OnItemClick (Player *pPlayer, Item *pItem)
 {
     Script *tmpscript = m_scripts[GetScriptId("scripted_on_events")];
@@ -336,7 +336,7 @@ bool OnItemClick (Player *pPlayer, Item *pItem)
     return tmpscript->pOnItemClick(pPlayer,pItem);
 }
 
-IXILIUM_DLL_EXPORT
+WOPCCORE_DLL_EXPORT
 bool OnItemOpen (Player *pPlayer, Item *pItem)
 {
     Script *tmpscript = m_scripts[GetScriptId("scripted_on_events")];
@@ -344,7 +344,7 @@ bool OnItemOpen (Player *pPlayer, Item *pItem)
     return tmpscript->pOnItemOpen(pPlayer,pItem);
 }
 
-IXILIUM_DLL_EXPORT
+WOPCCORE_DLL_EXPORT
 bool OnGoClick (Player *pPlayer, GameObject *pGameObject)
 {
     Script *tmpscript = m_scripts[GetScriptId("scripted_on_events")];
@@ -352,7 +352,7 @@ bool OnGoClick (Player *pPlayer, GameObject *pGameObject)
     return tmpscript->pOnGoClick(pPlayer,pGameObject);
 }
 
-IXILIUM_DLL_EXPORT
+WOPCCORE_DLL_EXPORT
 void OnCreatureKill (Player *pPlayer, Creature *pCreature)
 {
     Script *tmpscript = m_scripts[GetScriptId("scripted_on_events")];
@@ -360,13 +360,13 @@ void OnCreatureKill (Player *pPlayer, Creature *pCreature)
     tmpscript->pOnCreatureKill(pPlayer,pCreature);
 }
 
-IXILIUM_DLL_EXPORT
+WOPCCORE_DLL_EXPORT
 char const* ScriptsVersion()
 {
     return "Default scripting library";
 }
 
-IXILIUM_DLL_EXPORT
+WOPCCORE_DLL_EXPORT
 bool GossipHello (Player * pPlayer, Creature* pCreature)
 {
     Script *tmpscript = m_scripts[pCreature->GetScriptId()];
@@ -376,7 +376,7 @@ bool GossipHello (Player * pPlayer, Creature* pCreature)
     return tmpscript->pGossipHello(pPlayer, pCreature);
 }
 
-IXILIUM_DLL_EXPORT
+WOPCCORE_DLL_EXPORT
 bool GossipSelect(Player* pPlayer, Creature* pCreature, uint32 uiSender, uint32 uiAction)
 {
     debug_log("ISCR: Gossip selection, sender: %d, action: %d", uiSender, uiAction);
@@ -388,7 +388,7 @@ bool GossipSelect(Player* pPlayer, Creature* pCreature, uint32 uiSender, uint32 
     return tmpscript->pGossipSelect(pPlayer, pCreature, uiSender, uiAction);
 }
 
-IXILIUM_DLL_EXPORT
+WOPCCORE_DLL_EXPORT
 bool GossipSelectWithCode(Player* pPlayer, Creature* pCreature, uint32 uiSender, uint32 uiAction, const char* sCode)
 {
     debug_log("ISCR: Gossip selection with code, sender: %d, action: %d", uiSender, uiAction);
@@ -400,7 +400,7 @@ bool GossipSelectWithCode(Player* pPlayer, Creature* pCreature, uint32 uiSender,
     return tmpscript->pGossipSelectWithCode(pPlayer, pCreature, uiSender, uiAction, sCode);
 }
 
-IXILIUM_DLL_EXPORT
+WOPCCORE_DLL_EXPORT
 bool GOSelect(Player* pPlayer, GameObject* pGO, uint32 uiSender, uint32 uiAction)
 {
     if (!pGO)
@@ -414,7 +414,7 @@ bool GOSelect(Player* pPlayer, GameObject* pGO, uint32 uiSender, uint32 uiAction
     return tmpscript->pGOSelect(pPlayer, pGO, uiSender, uiAction);
 }
 
-IXILIUM_DLL_EXPORT
+WOPCCORE_DLL_EXPORT
 bool GOSelectWithCode(Player* pPlayer, GameObject* pGO, uint32 uiSender, uint32 uiAction, const char* sCode)
 {
     if (!pGO)
@@ -428,7 +428,7 @@ bool GOSelectWithCode(Player* pPlayer, GameObject* pGO, uint32 uiSender, uint32 
     return tmpscript->pGOSelectWithCode(pPlayer, pGO, uiSender ,uiAction, sCode);
 }
 
-IXILIUM_DLL_EXPORT
+WOPCCORE_DLL_EXPORT
 bool QuestAccept(Player* pPlayer, Creature* pCreature, Quest const* pQuest)
 {
     Script *tmpscript = m_scripts[pCreature->GetScriptId()];
@@ -438,7 +438,7 @@ bool QuestAccept(Player* pPlayer, Creature* pCreature, Quest const* pQuest)
     return tmpscript->pQuestAccept(pPlayer, pCreature, pQuest);
 }
 
-IXILIUM_DLL_EXPORT
+WOPCCORE_DLL_EXPORT
 bool QuestSelect(Player* pPlayer, Creature* pCreature, Quest const* pQuest)
 {
     Script *tmpscript = m_scripts[pCreature->GetScriptId()];
@@ -448,7 +448,7 @@ bool QuestSelect(Player* pPlayer, Creature* pCreature, Quest const* pQuest)
     return tmpscript->pQuestSelect(pPlayer, pCreature, pQuest);
 }
 
-IXILIUM_DLL_EXPORT
+WOPCCORE_DLL_EXPORT
 bool QuestComplete(Player* pPlayer, Creature* pCreature, Quest const* pQuest)
 {
     Script *tmpscript = m_scripts[pCreature->GetScriptId()];
@@ -458,7 +458,7 @@ bool QuestComplete(Player* pPlayer, Creature* pCreature, Quest const* pQuest)
     return tmpscript->pQuestComplete(pPlayer, pCreature, pQuest);
 }
 
-IXILIUM_DLL_EXPORT
+WOPCCORE_DLL_EXPORT
 bool ChooseReward(Player* pPlayer, Creature* pCreature, Quest const* pQuest, uint32 opt)
 {
     Script *tmpscript = m_scripts[pCreature->GetScriptId()];
@@ -468,7 +468,7 @@ bool ChooseReward(Player* pPlayer, Creature* pCreature, Quest const* pQuest, uin
     return tmpscript->pChooseReward(pPlayer, pCreature, pQuest, opt);
 }
 
-IXILIUM_DLL_EXPORT
+WOPCCORE_DLL_EXPORT
 uint32 NPCDialogStatus(Player* pPlayer, Creature* pCreature)
 {
     Script *tmpscript = m_scripts[pCreature->GetScriptId()];
@@ -478,7 +478,7 @@ uint32 NPCDialogStatus(Player* pPlayer, Creature* pCreature)
     return tmpscript->pNPCDialogStatus(pPlayer, pCreature);
 }
 
-IXILIUM_DLL_EXPORT
+WOPCCORE_DLL_EXPORT
 uint32 GODialogStatus(Player* pPlayer, GameObject* pGO)
 {
     Script *tmpscript = m_scripts[pGO->GetGOInfo()->ScriptId];
@@ -488,7 +488,7 @@ uint32 GODialogStatus(Player* pPlayer, GameObject* pGO)
     return tmpscript->pGODialogStatus(pPlayer, pGO);
 }
 
-IXILIUM_DLL_EXPORT
+WOPCCORE_DLL_EXPORT
 bool ItemHello(Player* pPlayer, Item* pItem, Quest const* pQuest)
 {
     Script *tmpscript = m_scripts[pItem->GetProto()->ScriptId];
@@ -498,7 +498,7 @@ bool ItemHello(Player* pPlayer, Item* pItem, Quest const* pQuest)
     return tmpscript->pItemHello(pPlayer, pItem, pQuest);
 }
 
-IXILIUM_DLL_EXPORT
+WOPCCORE_DLL_EXPORT
 bool ItemQuestAccept(Player* pPlayer, Item* pItem, Quest const* pQuest)
 {
     Script *tmpscript = m_scripts[pItem->GetProto()->ScriptId];
@@ -508,7 +508,7 @@ bool ItemQuestAccept(Player* pPlayer, Item* pItem, Quest const* pQuest)
     return tmpscript->pItemQuestAccept(pPlayer, pItem, pQuest);
 }
 
-IXILIUM_DLL_EXPORT
+WOPCCORE_DLL_EXPORT
 bool GOHello(Player* pPlayer, GameObject* pGO)
 {
     Script *tmpscript = m_scripts[pGO->GetGOInfo()->ScriptId];
@@ -518,7 +518,7 @@ bool GOHello(Player* pPlayer, GameObject* pGO)
     return tmpscript->pGOHello(pPlayer, pGO);
 }
 
-IXILIUM_DLL_EXPORT
+WOPCCORE_DLL_EXPORT
 bool GOQuestAccept(Player* pPlayer, GameObject* pGO, Quest const* pQuest)
 {
     Script *tmpscript = m_scripts[pGO->GetGOInfo()->ScriptId];
@@ -528,7 +528,7 @@ bool GOQuestAccept(Player* pPlayer, GameObject* pGO, Quest const* pQuest)
     return tmpscript->pGOQuestAccept(pPlayer, pGO, pQuest);
 }
 
-IXILIUM_DLL_EXPORT
+WOPCCORE_DLL_EXPORT
 bool GOChooseReward(Player* pPlayer, GameObject* pGO, Quest const* pQuest, uint32 opt)
 {
     Script *tmpscript = m_scripts[pGO->GetGOInfo()->ScriptId];
@@ -538,7 +538,7 @@ bool GOChooseReward(Player* pPlayer, GameObject* pGO, Quest const* pQuest, uint3
     return tmpscript->pGOChooseReward(pPlayer, pGO, pQuest, opt);
 }
 
-IXILIUM_DLL_EXPORT
+WOPCCORE_DLL_EXPORT
 bool AreaTrigger(Player* pPlayer, AreaTriggerEntry * atEntry)
 {
     Script *tmpscript = m_scripts[GetAreaTriggerScriptId(atEntry->id)];
@@ -547,7 +547,7 @@ bool AreaTrigger(Player* pPlayer, AreaTriggerEntry * atEntry)
     return tmpscript->pAreaTrigger(pPlayer, atEntry);
 }
 
-IXILIUM_DLL_EXPORT
+WOPCCORE_DLL_EXPORT
 CreatureAI* GetAI(Creature* pCreature)
 {
     Script *tmpscript = m_scripts[pCreature->GetScriptId()];
@@ -556,7 +556,7 @@ CreatureAI* GetAI(Creature* pCreature)
     return tmpscript->GetAI(pCreature);
 }
 
-IXILIUM_DLL_EXPORT
+WOPCCORE_DLL_EXPORT
 bool ItemUse(Player* pPlayer, Item* pItem, SpellCastTargets const& targets)
 {
     Script *tmpscript = m_scripts[pItem->GetProto()->ScriptId];
@@ -565,7 +565,7 @@ bool ItemUse(Player* pPlayer, Item* pItem, SpellCastTargets const& targets)
     return tmpscript->pItemUse(pPlayer, pItem, targets);
 }
 
-IXILIUM_DLL_EXPORT
+WOPCCORE_DLL_EXPORT
 bool ItemExpire(Player* pPlayer, ItemPrototype const * pItemProto)
 {
     Script *tmpscript = m_scripts[pItemProto->ScriptId];
@@ -574,7 +574,7 @@ bool ItemExpire(Player* pPlayer, ItemPrototype const * pItemProto)
     return tmpscript->pItemExpire(pPlayer, pItemProto);
 }
 
-IXILIUM_DLL_EXPORT
+WOPCCORE_DLL_EXPORT
 bool EffectDummyCreature(Unit *caster, uint32 spellId, uint32 effIndex, Creature *crTarget)
 {
     Script *tmpscript = m_scripts[crTarget->GetScriptId()];
@@ -584,7 +584,7 @@ bool EffectDummyCreature(Unit *caster, uint32 spellId, uint32 effIndex, Creature
     return tmpscript->pEffectDummyCreature(caster, spellId, effIndex, crTarget);
 }
 
-IXILIUM_DLL_EXPORT
+WOPCCORE_DLL_EXPORT
 bool EffectDummyGameObj(Unit *caster, uint32 spellId, uint32 effIndex, GameObject *gameObjTarget)
 {
     Script *tmpscript = m_scripts[gameObjTarget->GetGOInfo()->ScriptId];
@@ -594,7 +594,7 @@ bool EffectDummyGameObj(Unit *caster, uint32 spellId, uint32 effIndex, GameObjec
     return tmpscript->pEffectDummyGameObj(caster, spellId, effIndex, gameObjTarget);
 }
 
-IXILIUM_DLL_EXPORT
+WOPCCORE_DLL_EXPORT
 bool EffectDummyItem(Unit *caster, uint32 spellId, uint32 effIndex, Item *itemTarget)
 {
     Script *tmpscript = m_scripts[itemTarget->GetProto()->ScriptId];
@@ -604,7 +604,7 @@ bool EffectDummyItem(Unit *caster, uint32 spellId, uint32 effIndex, Item *itemTa
     return tmpscript->pEffectDummyItem(caster, spellId, effIndex, itemTarget);
 }
 
-IXILIUM_DLL_EXPORT
+WOPCCORE_DLL_EXPORT
 InstanceData* CreateInstanceData(Map *map)
 {
     if (!map->IsDungeon()) return NULL;

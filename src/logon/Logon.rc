@@ -72,7 +72,7 @@ BEGIN
             VALUE "FileDescription", "Logon"
             VALUE "FileVersion", STRFILEVER
             VALUE "InternalName", "Logon"
-            VALUE "LegalCopyright", " IxiliumEmu, Copyright (C) 2009"
+            VALUE "LegalCopyright", " wopccore, Copyright (C) 2009"
             VALUE "OriginalFilename", "Logon.exe"
             VALUE "ProductName", "Logon"
             VALUE "ProductVersion", STRPRODUCTVER

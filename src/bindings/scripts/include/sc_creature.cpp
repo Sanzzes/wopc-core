@@ -1,4 +1,4 @@
-/* Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+/* Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * Thanks to the original authors: ScriptDev2 <https://scriptdev2.svn.sourceforge.net/>
  *
@@ -462,8 +462,8 @@ void ScriptedAI::DoTeleportAll(float fX, float fY, float fZ, float fO)
 Unit* ScriptedAI::DoSelectLowestHpFriendly(float fRange, uint32 uiMinHPDiff)
 {
     Unit* pUnit = NULL;
-    Ixilium::MostHPMissingInRange u_check(m_creature, fRange, uiMinHPDiff);
-    Ixilium::UnitLastSearcher<Ixilium::MostHPMissingInRange> searcher(m_creature, pUnit, u_check);
+    WOPCCORE::MostHPMissingInRange u_check(m_creature, fRange, uiMinHPDiff);
+    WOPCCORE::UnitLastSearcher<WOPCCORE::MostHPMissingInRange> searcher(m_creature, pUnit, u_check);
     m_creature->VisitNearbyObject(fRange, searcher);
 
     return pUnit;
@@ -472,8 +472,8 @@ Unit* ScriptedAI::DoSelectLowestHpFriendly(float fRange, uint32 uiMinHPDiff)
 std::list<Creature*> ScriptedAI::DoFindFriendlyCC(float fRange)
 {
     std::list<Creature*> pList;
-    Ixilium::FriendlyCCedInRange u_check(m_creature, fRange);
-    Ixilium::CreatureListSearcher<Ixilium::FriendlyCCedInRange> searcher(m_creature, pList, u_check);
+    WOPCCORE::FriendlyCCedInRange u_check(m_creature, fRange);
+    WOPCCORE::CreatureListSearcher<WOPCCORE::FriendlyCCedInRange> searcher(m_creature, pList, u_check);
     m_creature->VisitNearbyObject(fRange, searcher);
     return pList;
 }
@@ -481,8 +481,8 @@ std::list<Creature*> ScriptedAI::DoFindFriendlyCC(float fRange)
 std::list<Creature*> ScriptedAI::DoFindFriendlyMissingBuff(float fRange, uint32 uiSpellid)
 {
     std::list<Creature*> pList;
-    Ixilium::FriendlyMissingBuffInRange u_check(m_creature, fRange, uiSpellid);
-    Ixilium::CreatureListSearcher<Ixilium::FriendlyMissingBuffInRange> searcher(m_creature, pList, u_check);
+    WOPCCORE::FriendlyMissingBuffInRange u_check(m_creature, fRange, uiSpellid);
+    WOPCCORE::CreatureListSearcher<WOPCCORE::FriendlyMissingBuffInRange> searcher(m_creature, pList, u_check);
     m_creature->VisitNearbyObject(fRange, searcher);
     return pList;
 }
@@ -491,14 +491,14 @@ Player* ScriptedAI::GetPlayerAtMinimumRange(float fMinimumRange)
 {
     Player* pPlayer = NULL;
 
-    CellPair pair(Ixilium::ComputeCellPair(m_creature->GetPositionX(), m_creature->GetPositionY()));
+    CellPair pair(WOPCCORE::ComputeCellPair(m_creature->GetPositionX(), m_creature->GetPositionY()));
     Cell cell(pair);
     cell.data.Part.reserved = ALL_DISTRICT;
     cell.SetNoCreate();
 
-    Ixilium::PlayerAtMinimumRangeAway check(m_creature, fMinimumRange);
-    Ixilium::PlayerSearcher<Ixilium::PlayerAtMinimumRangeAway> searcher(m_creature, pPlayer, check);
-    TypeContainerVisitor<Ixilium::PlayerSearcher<Ixilium::PlayerAtMinimumRangeAway>, GridTypeMapContainer> visitor(searcher);
+    WOPCCORE::PlayerAtMinimumRangeAway check(m_creature, fMinimumRange);
+    WOPCCORE::PlayerSearcher<WOPCCORE::PlayerAtMinimumRangeAway> searcher(m_creature, pPlayer, check);
+    TypeContainerVisitor<WOPCCORE::PlayerSearcher<WOPCCORE::PlayerAtMinimumRangeAway>, GridTypeMapContainer> visitor(searcher);
 
     CellLock<GridReadGuard> cell_lock(cell, pair);
     cell_lock->Visit(cell_lock, visitor, *(m_creature->GetMap()));
@@ -540,7 +540,7 @@ enum eNPCs
 };
 
 // Hacklike storage used for misc creatures that are expected to evade of outside of a certain area.
-// It is assumed the information is found elswehere and can be handled by ixiliumemu. So far no luck finding such information/way to extract it.
+// It is assumed the information is found elswehere and can be handled by WOPCCOREemu. So far no luck finding such information/way to extract it.
 bool ScriptedAI::EnterEvadeIfOutOfCombatArea(const uint32 uiDiff)
 {
     if (m_uiEvadeCheckCooldown <= uiDiff)

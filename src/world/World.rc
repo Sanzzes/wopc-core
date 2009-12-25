@@ -72,7 +72,7 @@ BEGIN
             VALUE "FileDescription", "World"
             VALUE "FileVersion", STRFILEVER
             VALUE "InternalName", "World"
-            VALUE "LegalCopyright", " IxiliumEmu, Copyright (C) 2009"
+            VALUE "LegalCopyright", " wopccore, Copyright (C) 2009"
             VALUE "OriginalFilename", "World.exe"
             VALUE "ProductName", "World"
             VALUE "ProductVersion", STRPRODUCTVER

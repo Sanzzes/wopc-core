@@ -27,7 +27,7 @@ struct ItemPrototype;
 
 #define MAX_SCRIPTS         5000                            //72 bytes each (approx 351kb)
 #define VISIBLE_RANGE       (166.0f)                        //MAX visible range (size of grid)
-#define DEFAULT_TEXT        "<Ixilium Script Text Entry Missing!>"
+#define DEFAULT_TEXT        "<WOPCCORE Script Text Entry Missing!>"
 
 struct Script
 {
@@ -101,11 +101,11 @@ void DoScriptText(int32 textEntry, WorldObject* pSource, Unit* pTarget = NULL);
 #endif
 
 #ifdef WIN32
-  #define IXILIUM_DLL_EXPORT extern "C" __declspec(dllexport)
+  #define WOPCCORE_DLL_EXPORT extern "C" __declspec(dllexport)
 #elif defined( __GNUC__ )
-#define IXILIUM_DLL_EXPORT extern "C"
+#define WOPCCORE_DLL_EXPORT extern "C"
 #else
-#define IXILIUM_DLL_EXPORT extern "C" export
+#define WOPCCORE_DLL_EXPORT extern "C" export
 #endif
 
 #endif

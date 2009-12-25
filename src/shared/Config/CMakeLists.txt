@@ -1,7 +1,7 @@
 
 ########### next target ###############
 
-SET(ixiliumconfig_STAT_SRCS
+SET(wopccoreconfig_STAT_SRCS
    dotconfpp/dotconfpp.cpp
    dotconfpp/dotconfpp.h
    dotconfpp/mempool.cpp
@@ -11,5 +11,5 @@ SET(ixiliumconfig_STAT_SRCS
    ConfigEnv.h
 )
 
-add_library(ixiliumconfig STATIC ${ixiliumconfig_STAT_SRCS})
+add_library(wopccoreconfig STATIC ${wopccoreconfig_STAT_SRCS})
 

@@ -1,7 +1,7 @@
 
 ########### next target ###############
 
-SET(riboninterface_LIB_SRCS
+SET(wopccoreinterface_LIB_SRCS
    ScriptMgr.cpp
    ScriptMgr.h
    config.h
@@ -12,9 +12,9 @@ SET(riboninterface_LIB_SRCS
    Scripts/on_events.cpp
 )
 
-add_library(riboninterface SHARED ${riboninterface_LIB_SRCS})
+add_library(wopccoreinterface SHARED ${riboninterface_LIB_SRCS})
 
-target_link_libraries(riboninterface)
+target_link_libraries(wopccoreinterface)
 
-set_target_properties(riboninterface PROPERTIES VERSION 4.2.0 SOVERSION 4)
-install(TARGETS riboninterface DESTINATION lib)
+set_target_properties(wopccoreinterface PROPERTIES VERSION 4.2.0 SOVERSION 4)
+install(TARGETS wopccoreinterface DESTINATION lib)

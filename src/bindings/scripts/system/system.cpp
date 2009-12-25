@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+ * Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * Thanks to the original authors: MaNGOS <http://getmangos.com/>
  *
@@ -58,7 +58,7 @@ void SystemMgr::LoadVersion()
 void SystemMgr::LoadScriptTexts()
 {
     outstring_log("ISCR: Loading Script Texts...");
-    LoadIxiliumStrings(IScriptDB,"script_texts",TEXT_SOURCE_RANGE,1+(TEXT_SOURCE_RANGE*2));
+    LoadWOPCCOREStrings(IScriptDB,"script_texts",TEXT_SOURCE_RANGE,1+(TEXT_SOURCE_RANGE*2));
 
     QueryResult* pResult = IScriptDB.PQuery("SELECT entry, sound, type, language, emote FROM script_texts");
 
@@ -124,7 +124,7 @@ void SystemMgr::LoadScriptTexts()
 void SystemMgr::LoadScriptTextsCustom()
 {
     outstring_log("ISCR: Loading Custom Texts...");
-    LoadIxiliumStrings(IScriptDB,"custom_texts",TEXT_SOURCE_RANGE*2,1+(TEXT_SOURCE_RANGE*3));
+    LoadWOPCCOREStrings(IScriptDB,"custom_texts",TEXT_SOURCE_RANGE*2,1+(TEXT_SOURCE_RANGE*3));
 
     QueryResult* pResult = IScriptDB.PQuery("SELECT entry, sound, type, language, emote FROM custom_texts");
 

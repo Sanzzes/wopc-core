@@ -1,7 +1,7 @@
 
 ########### next target ###############
 
-SET(ixiliumauth_STAT_SRCS
+SET(wopccoreauth_STAT_SRCS
    AuthCrypt.cpp
    AuthCrypt.h
    BigNumber.cpp
@@ -16,4 +16,4 @@ SET(ixiliumauth_STAT_SRCS
    SARC4.h
 )
 
-add_library(ixiliumauth STATIC ${ixiliumauth_STAT_SRCS})
+add_library(wopccoreauth STATIC ${wopccoreauth_STAT_SRCS})

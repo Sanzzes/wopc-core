@@ -1,7 +1,7 @@
 
 ########### next target ###############
 
-SET(ixiliumscript_LIB_SRCS
+SET(wopccorescript_LIB_SRCS
    ScriptMgr.cpp
    ScriptMgr.h
    base/escort_ai.cpp
@@ -554,16 +554,16 @@ SET(ixiliumscript_LIB_SRCS
    system/system.h
 )
 
-add_library(ixiliumscript SHARED ${ixiliumscript_LIB_SRCS})
+add_library(wopccorescript SHARED ${wopccorescript_LIB_SRCS})
 
-add_definitions(-D_IXILIUM_SCRIPT_CONFIG='"${CONF_DIR}/world.conf"')
+add_definitions(-D_wopccore_SCRIPT_CONFIG='"${CONF_DIR}/world.conf"')
 
 IF (CMAKE_SYSTEM_NAME MATCHES "Darwin")
     SET_TARGET_PROPERTIES(ribonscript PROPERTIES LINK_FLAGS "-flat_namespace -undefined suppress")
 ENDIF (CMAKE_SYSTEM_NAME MATCHES "Darwin")
 
-target_link_libraries(ixiliumscript)
+target_link_libraries(wopccorescript)
 
-set_target_properties(ixiliumscript PROPERTIES VERSION 4.2.0 SOVERSION 4)
-install(TARGETS ixiliumscript DESTINATION lib)
+set_target_properties(wopccorescript PROPERTIES VERSION 4.2.0 SOVERSION 4)
+install(TARGETS wopccorescript DESTINATION lib)
 

@@ -1,4 +1,4 @@
-SET(ixiliumdatabase_STAT_SRCS
+SET(wopccoredatabase_STAT_SRCS
    DBCFileLoader.cpp
    DBCFileLoader.h
    DBCStore.h
@@ -27,4 +27,4 @@ SET(ixiliumdatabase_STAT_SRCS
    SqlOperations.h
 )
 
-add_library(ixiliumdatabase STATIC ${ixiliumdatabase_STAT_SRCS})
+add_library(wopccoredatabase STATIC ${wopccoredatabase_STAT_SRCS})

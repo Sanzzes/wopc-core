@@ -1,4 +1,4 @@
-/* Copyright (C) 2009 IxiliumEmu <http://www.ixi-soft.com/>
+/* Copyright (C) 2009 WOPCCOREEmu <http://www.ixi-soft.com/>
  *
  * Thanks to the original authors: ScriptDev2 <https://scriptdev2.svn.sourceforge.net/>
  *
