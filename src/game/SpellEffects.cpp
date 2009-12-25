@@ -1763,7 +1763,7 @@ void Spell::EffectDummy(uint32 i)
             break;
         case SPELLFAMILY_ROGUE:
             // Hunger for Blood
-            if (m_spellInfo->SpellFamilyFlags[1] & SPELLFAMILYFLAG1_ROGUE_HUNGERFORBLOOD))
+            if (m_spellInfo->SpellFamilyFlags[1] & SPELLFAMILYFLAG1_ROGUE_HUNGERFORBLOOD)
             {
                 m_caster->CastSpell(m_caster, 63848, true);
                 break;

@@ -952,7 +952,7 @@ void AuraEffect::CleanupTriggeredSpells()
     m_target->RemoveAurasDueToSpell(tSpellId, GetCasterGUID());
 }
 
-+void AuraEffect::HandleSchoolAbsorb(bool apply, bool Real, bool changeAmount)
+void AuraEffect::HandleSchoolAbsorb(bool apply, bool Real, bool changeAmount)
 {
     if(!Real)
         return;
